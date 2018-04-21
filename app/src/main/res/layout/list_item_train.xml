@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorAccent"
+        android:gravity="center_vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/tvTrainNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:text="2007"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvTrainClass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Distinctive"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="100dp">
+
+            <TextView
+                android:id="@+id/tvDepartureStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Aswan"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvDestinationStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDepartureStation"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:text="Cairo"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvDepartureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/tvDepartureStation"
+                android:text="07:00 PM"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvDestinationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDepartureTime"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/tvDepartureStation"
+                android:text="10:30 PM"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/btnReminder"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/stopwatch"
+                android:contentDescription="Reminder"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <ImageView
+                android:id="@+id/ivRouteIcon"
+                android:layout_width="10dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:contentDescription="Route"
+                android:src="@drawable/routeicon"
+                android:layout_alignTop="@+id/tvDepartureStation"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="100dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/btnTrack"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:src="@drawable/trackbutton" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

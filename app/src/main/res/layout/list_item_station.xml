@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+    <TextView
+        android:id="@+id/tvStation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:text="Aswan"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/btnReminder"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/stopwatch"
+        android:contentDescription="Reminder"
+        android:layout_alignTop="@+id/tvStation"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp" />
+
+    <TextView
+        android:id="@+id/tvArrivalTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvStation"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/text_arrival"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvArrivalTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_toEndOf="@+id/tvArrivalTimeLabel"
+        android:layout_alignTop="@+id/tvArrivalTimeLabel"
+        android:text="12:30 AM"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvDepartureTimeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvArrivalTimeLabel"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/text_departure"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvDepartureTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tvDepartureTimeLabel"
+        android:layout_alignTop="@+id/tvDepartureTimeLabel"
+        android:layout_alignStart="@+id/tvArrivalTime"
+        android:text="1:00 AM"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/ivRouteIcon"
+        android:layout_width="10dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="Route"
+        android:src="@drawable/routeicon"
+        android:layout_alignTop="@+id/tvStation"/>
+
+</RelativeLayout>

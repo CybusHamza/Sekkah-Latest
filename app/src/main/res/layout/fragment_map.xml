@@ -1,0 +1,171 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.radioactivegames.sekkah.ui.main.track.map.MapFragment"
+    android:background="@color/colorDefaultBackground">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_gravity="top|center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/tvDepartureStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Aswan"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/tvDestinationStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Cairo"
+                android:textSize="14sp"
+                android:layout_below="@+id/tvDepartureStation"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:id="@+id/tvDepartureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="07:00 PM"
+                android:textSize="14sp"
+                android:layout_toRightOf="@+id/tvDepartureStation"/>
+
+            <TextView
+                android:id="@+id/tvDestinationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="10:30 PM"
+                android:textSize="14sp"
+                android:layout_below="@+id/tvDepartureTime"
+                android:layout_toRightOf="@+id/tvDepartureStation"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/tvLateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="(7:00 AM)"
+                android:textSize="14sp"
+                android:layout_below="@+id/tvDepartureTime"
+                android:layout_toRightOf="@+id/tvDestinationTime"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/holo_red_light"/>
+
+            <ImageView
+                android:id="@+id/ivRouteIcon"
+                android:layout_width="10dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="13dp"
+                android:layout_marginTop="5dp"
+                android:contentDescription="Route"
+                android:src="@drawable/routeicon"
+                android:layout_alignTop="@+id/tvDepartureStation"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:layout_gravity="top|center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="100dp">
+
+            <TextView
+                android:id="@+id/tvTrainNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="2007"
+                android:textSize="14sp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tvTrainClass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="VIP"
+                android:textSize="14sp"
+                android:layout_toRightOf="@+id/tvTrainNumber"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/tvNextStationLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/text_next_station"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/tvTrainNumber"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvNextStation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Luxor"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/tvTrainClass"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/tvNextStationLabel" />
+
+            <TextView
+                android:id="@+id/tvLateTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="@string/text_late_time"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/tvNextStationLabel"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/tvLateTimeWorded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="1.5 hours"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/tvNextStation"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@+id/tvLateTimeLabel" />
+
+
+        </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btnReport"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="70dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/reportbutton" />
+
+</FrameLayout>

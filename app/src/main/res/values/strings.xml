@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Sekkah</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash">SplashActivity</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="text_login">Login</string>
+    <string name="text_register">Register</string>
+    <string name="text_forgotpassword">Forgot Password?</string>
+    <string name="text_or">Or</string>
+    <string name="text_firstname">First Name</string>
+    <string name="text_lastname">Last Name</string>
+    <string name="text_confirmpassword">Confirm Password</string>
+    <string name="text_whereareyou">Where are you?</string>
+    <string name="text_atstation">At Station</string>
+    <string name="text_ontrain">On Train</string>
+    <string name="text_justtracking">Just Tracking</string>
+    <string name="text_departure">Departure</string>
+    <string name="text_destination">Destination</string>
+    <string name="text_trains">Trains</string>
+    <string name="text_username">User Name</string>
+    <string name="text_dateofbirth">Date of Birth</string>
+    <string name="text_logout">Logout</string>
+
+    <string name="open_drawer">Open</string>
+    <string name="close_drawer">Close</string>
+
+    <!-- Main Navigation Drawer menu labels -->
+    <string name="nav_main_points">Points</string>
+    <string name="nav_main_settings">Settings</string>
+    <string name="nav_main_promotion_code">Promotion Code</string>
+    <string name="nav_main_reminder">Reminder</string>
+    <string name="nav_main_contact_us">About Us</string>
+
+    <string name="facebook_app_id" translatable="false">239298566605435</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb239298566605435</string>
+
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" translatable="false">nch4gMZFjeMdVBXKR4Kb1dC4E</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" translatable="false">U93JNxf8VleCRkHiIq7nHsXloLxEmyiNa9yxJMY8HsWJMlW2u5</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="text_share">Share</string>
+    <string name="text_station">Station</string>
+    <string name="text_train_number">Train Number</string>
+    <string name="text_arrival_time">Arrival Time</string>
+    <string name="text_report">Report</string>
+    <string name="text_subject">Subject</string>
+    <string name="text_message">Message</string>
+    <string name="text_submit">Submit</string>
+    <string name="text_next_station">Next Station</string>
+    <string name="text_late_time">Late Time</string>
+    <string name="text_arrival">Arrival</string>
+</resources>

@@ -1,0 +1,24 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="in.radioactivegames.sekkah.ui.main.track.TrackFragment"
+    android:background="@color/colorDefaultBackground">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tlTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            app:tabTextColor="@android:color/white"
+            app:tabSelectedTextColor="@color/colorAccent" />
+
+    </android.support.v4.view.ViewPager>
+
+</FrameLayout>

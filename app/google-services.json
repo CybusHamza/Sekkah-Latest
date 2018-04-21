@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "772017368765",
+    "project_id": "sekkah-188418"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772017368765:android:ec53e2f1259db750",
+        "android_client_info": {
+          "package_name": "in.radioactivegames.sekkah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772017368765-a10q1lr3r5pb5r4i8v10f5gu62l2cq4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.radioactivegames.sekkah",
+            "certificate_hash": "b8f59a6891199b6865acb12d3fc38cb7db1455a0"
+          }
+        },
+        {
+          "client_id": "772017368765-n5372d60e9c29oeqcjtvq5fee5ncq6dc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuTsxxxIkGw5xBp_5BaO24skY2Y0f4Mpw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
