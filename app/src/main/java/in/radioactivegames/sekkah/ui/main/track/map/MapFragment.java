@@ -33,6 +33,8 @@ import in.radioactivegames.sekkah.ui.main.track.TrackFragment;
 import in.radioactivegames.sekkah.ui.main.track.TrackPresenter;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsFragment;
 
+import static in.radioactivegames.sekkah.ui.main.report.ReportFragment.isFirst;
+
 public class MapFragment extends BaseFragment implements MapContract.View, OnMapReadyCallback, TrackFragment.OnFragmentInteractionListener
 {
     private View mFragment;
@@ -45,7 +47,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     @BindView(R.id.btnReport) ImageView mBtnReport;
 
     private static final String TAG = MapFragment.class.getSimpleName();
-
+    public static LatLng latLng=new LatLng(0,0);
     public static MapFragment newInstance()
     {
         return new MapFragment();
@@ -103,6 +105,11 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     {
         try
         {
+            latLng =location;
+            if(isFirst){
+               isFirst = false;
+            }
+
             getActivity().runOnUiThread(new Runnable()
             {
                 @Override
@@ -133,6 +140,9 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     {
         super.onResume();
         mMapView.onResume();
+        if(isFirst){
+            setTrainLocation(latLng);
+        }
     }
 
     @Override

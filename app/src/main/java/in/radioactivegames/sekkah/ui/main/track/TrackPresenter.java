@@ -58,7 +58,6 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
     @Override
     public void scheduleTracking() {
         String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
-        mDataManager.scheduleTracking(accessToken);
     }
 
     @Override

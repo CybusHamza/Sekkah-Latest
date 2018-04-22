@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import in.radioactivegames.sekkah.R;
+import in.radioactivegames.sekkah.data.network.WebSocketHelper;
 import in.radioactivegames.sekkah.ui.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity

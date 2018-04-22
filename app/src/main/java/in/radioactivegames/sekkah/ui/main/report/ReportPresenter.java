@@ -74,7 +74,7 @@ public class ReportPresenter extends BasePresenter<ReportContract.View> implemen
             @Override
             public void onLocationReceive(LatLng location)
             {
-
+                getMvpView().setTrainLocation(location);
             }
         });
     }

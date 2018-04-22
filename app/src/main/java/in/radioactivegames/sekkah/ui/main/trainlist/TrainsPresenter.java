@@ -13,7 +13,11 @@ import javax.inject.Inject;
 import in.radioactivegames.sekkah.base.BasePresenter;
 import in.radioactivegames.sekkah.data.model.Station;
 import in.radioactivegames.sekkah.data.model.Train;
+import in.radioactivegames.sekkah.data.model.TrainPOJO;
 import in.radioactivegames.sekkah.data.other.MockData;
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 /**
  * Created by AntiSaby on 12/19/2017.
@@ -23,41 +27,51 @@ import in.radioactivegames.sekkah.data.other.MockData;
 public class TrainsPresenter extends BasePresenter<TrainsContract.View> implements TrainsContract.Presenter
 {
     private List<Train> trains;
+    private List<TrainPOJO> trainsPojo;
     private static final String TAG = TrainsPresenter.class.getSimpleName();
 
     @Inject
     public TrainsPresenter()
     {
         trains = new ArrayList<>();
+        trainsPojo = new ArrayList<>();
     }
 
-    @Override
-    public void getTrainData()
-    {
-        try
-        {
-            for (int i = 0; i < MockData.trains.length(); i++)
-            {
-                JSONObject jsonTrain = MockData.trains.getJSONObject(i);
-                Train train = new Train();
-                train.id = jsonTrain.getInt("id");
-                train.trainNumber = jsonTrain.getInt("trainNumber");
-                train.classEn = jsonTrain.getString("classEn");
-                train.classAr = jsonTrain.getString("classAr");
-                train.departureTime = jsonTrain.getString("departureTime");
-                train.departureStation = jsonTrain.getString("departureStation");
-                train.destinationStation = jsonTrain.getString("destinationStation");
-                train.destinationTime = jsonTrain.getString("destinationTime");
-                trains.add(train);
+
+    public void   getTrainData(Realm realm) {
+
+        String data ="";
+        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class);
+        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        try{
+
+            for (TrainPOJO user : result1) {
+
+                TrainPOJO trainPOJO = new TrainPOJO();
+
+                trainPOJO.setId(user.getId());
+                trainPOJO.setNameen(user.getNameen());
+                trainPOJO.setNamear(user.getNamear());
+                trainPOJO.setLat(user.getLat());
+                trainPOJO.setLng(user.getLng());
+                trainPOJO.setUpdatedAt(user.getUpdatedAt());
+                trainPOJO.setDelay(user.getDelay());
+                trainPOJO.setDepStation(user.getDepStation());
+                trainPOJO.setGetDepStationtime(user.getGetDepStationtime());
+                trainPOJO.setFinalStation(user.getFinalStation());
+                trainPOJO.setFinalStationDepStationtime(user.getFinalStationDepStationtime());
+
+                trainsPojo.add(trainPOJO);
+
+
             }
-        }
-        catch(JSONException ex)
-        {
+        }catch (Exception e){
             Log.e(TAG, "JSONException");
         }
-        finally
-        {
-            getMvpView().setTrainData(trains);
+        finally {
+            getMvpView().setTrainPojoData(trainsPojo);
         }
+
     }
 }

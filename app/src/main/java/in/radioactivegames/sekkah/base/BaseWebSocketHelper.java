@@ -2,6 +2,7 @@ package in.radioactivegames.sekkah.base;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 
 /**
@@ -16,6 +17,6 @@ public interface BaseWebSocketHelper
     void startTrackUser(String trainId, String userAccessToken);
     void trainLocationReport(String stationId, String ts,String userAccessToken, final TrainLocationCallback callback);
     void updateUser(LatLng location);
-    void startScheduleTracking(String userAccessToken);
+    void startScheduleTracking(String userAccessToken, final JSONCallback jsonCallback);
     void stopTrackUser();
 }

@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -24,9 +26,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
+import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.model.Train;
+import in.radioactivegames.sekkah.data.model.TrainPOJO;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.main.track.TrackFragment;
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 
 public class TrainsFragment extends BaseFragment implements TrainsContract.View
 {
@@ -67,19 +74,20 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        mPresenter.getTrainData();
+        //mPresenter.getTrainData();
+        Realm realm = Realm.getDefaultInstance();
+        mPresenter.getTrainData(realm);
         return mFragment;
     }
 
+
     @Override
-    public void setTrainData(List<Train> data)
-    {
+    public void setTrainPojoData(List<TrainPOJO> data) {
         mAdapter = new TrainAdapter(data);
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private void startTracking()
-    {
+    private void startTracking() {
         getFragmentManager().beginTransaction()
                 .add(R.id.frameMain, TrackFragment.newInstance(), "TrackFragment")
                 .addToBackStack("TrackFragment")
@@ -88,7 +96,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View
 
     public class TrainAdapter extends RecyclerView.Adapter<TrainAdapter.ViewHolder>
     {
-        private List<Train> mDataset;
+        private List<TrainPOJO> mDataset;
 
         public class ViewHolder extends RecyclerView.ViewHolder
         {
@@ -109,7 +117,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View
             }
         }
 
-        public TrainAdapter(List<Train> myDataset)
+        public TrainAdapter(List<TrainPOJO> myDataset)
         {
             mDataset = myDataset;
         }
@@ -125,12 +133,12 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View
         @Override
         public void onBindViewHolder(ViewHolder holder, int position)
         {
-            holder.mTvTrainNumber.setText(mDataset.get(position).trainNumber + "");
-            holder.mTvTrainClass.setText(mDataset.get(position).classEn);
-            holder.mTvDepartureStation.setText(mDataset.get(position).departureStation);
-            holder.mTvDepartureTime.setText(mDataset.get(position).departureTime);
-            holder.mTvDestinationStation.setText(mDataset.get(position).destinationStation);
-            holder.mTvDestinationTime.setText(mDataset.get(position).destinationTime);
+            holder.mTvTrainNumber.setText(mDataset.get(position).getId() );
+            holder.mTvTrainClass.setText(mDataset.get(position).getNameen());
+            holder.mTvDepartureStation.setText(mDataset.get(position).getDepStation());
+            holder.mTvDepartureTime.setText(mDataset.get(position).getGetDepStationtime());
+            holder.mTvDestinationStation.setText(mDataset.get(position).getFinalStation());
+            holder.mTvDestinationTime.setText(mDataset.get(position).getFinalStationDepStationtime());
             holder.mBtnTrack.setOnClickListener(new View.OnClickListener()
             {
                 @Override

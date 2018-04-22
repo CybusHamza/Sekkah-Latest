@@ -74,10 +74,6 @@ public class DataManager implements BaseDataManager
         mWebSocketHelper.stopTrackTrain(trainId);
     }
 
-    @Override
-    public void scheduleTracking(String userAccessToken) {
-        mWebSocketHelper.startScheduleTracking(userAccessToken);
-    }
 
     @Override
     public void startTrackUser(String trainId, String userAccessToken)

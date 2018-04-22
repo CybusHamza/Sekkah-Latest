@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +30,9 @@ import butterknife.OnClick;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
+import in.radioactivegames.sekkah.ui.main.MainActivity;
+
+import static in.radioactivegames.sekkah.ui.main.track.map.MapFragment.latLng;
 
 public class ReportFragment extends BaseFragment implements ReportContract.View
 {
@@ -42,10 +47,9 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
     TextView tvMins;
     List<String> data;
     String ts;
+    public static boolean isFirst = false;
+    public  ReportFragment () {
 
-    public static ReportFragment newInstance()
-    {
-        return new ReportFragment();
     }
 
     @Override
@@ -83,6 +87,14 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
         this.data=data;
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, data);
         spnStation.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public void setTrainLocation(LatLng location) {
+        latLng=location;
+        isFirst =true;
+
+        ((MainActivity)getActivity()).onBackPressed();
     }
 
 

@@ -20,6 +20,7 @@ import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.radioactivegames.sekkah.LocationService;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseActivity;
 import in.radioactivegames.sekkah.di.component.ActivityComponent;
@@ -78,6 +79,7 @@ public class MainActivity extends BaseActivity implements MapFragment.OnFragment
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -223,7 +225,7 @@ public class MainActivity extends BaseActivity implements MapFragment.OnFragment
     public void openReportFragment()
     {
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.frameMain, ReportFragment.newInstance(), "ReportFragment")
+                .add(R.id.frameMain, new ReportFragment(), "ReportFragment")
                 .addToBackStack("ReportFragment")
                 .commit();
     }

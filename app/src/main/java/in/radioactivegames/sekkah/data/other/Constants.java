@@ -10,4 +10,5 @@ public class Constants
     public static final int LOCATION_TRAIN = 0;
     public static final int LOCATION_STATION = 1;
     public static final int LOCATION_JUST_TRACKING = 2;
+    public static final String KEY_UPDATE="update";
 }

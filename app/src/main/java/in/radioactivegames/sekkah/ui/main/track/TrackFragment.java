@@ -43,6 +43,8 @@ import in.radioactivegames.sekkah.ui.adapter.ViewPagerAdapter;
 import in.radioactivegames.sekkah.ui.main.track.map.MapFragment;
 import in.radioactivegames.sekkah.ui.main.track.station.StationFragment;
 
+import static in.radioactivegames.sekkah.data.other.Constants.KEY_UPDATE;
+
 public class TrackFragment extends BaseFragment implements TrackContract.View {
     private View mFragment;
     private ViewPagerAdapter viewPagerAdapter;
@@ -108,8 +110,6 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
 
         setupViewPager();
         mPresenter.trackTrain();
-        //mPresenter.trainLocationReport();
-       // mPresenter.scheduleTracking();
         mPresenter.startTrackUser();
         mRequestingLocationUpdates = true;
     }

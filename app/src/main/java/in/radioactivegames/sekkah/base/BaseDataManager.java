@@ -22,8 +22,6 @@ public interface BaseDataManager
     void trackTrain(String trainId, String userAccessToken, TrainLocationCallback callback);
     void trainLocationReport(String stationId, String ts,String userAccessToken, final TrainLocationCallback callback);
     void stopTrackTrain(String trainId);
-    void scheduleTracking( String userAccessToken);
-
     void startTrackUser(String trainId, String userAccessToken);
     void updateUser(LatLng location);
     void stopTrackUser();

@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BaseWebSocketHelper;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 
 /**
@@ -25,8 +26,8 @@ import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 public class WebSocketHelper implements BaseWebSocketHelper
 {
 
-    private Socket mSocketTrackTrain, mSocketTrackUser;
-    private Emitter.Listener mListenerTrackTrain;
+    private Socket mSocketTrackTrain, mSocketTrackUser, mSocketScheduleTracking;
+    private Emitter.Listener mListenerTrackTrain,mListnerSchdule;
 
     private static final String URL_TRACK_TRAIN = "http://sekka-ws-proto.herokuapp.com/traintracking?token=";
     private static final String URL_TRACK_USER = "http://sekka-ws-proto.herokuapp.com/usertracking?token=";
@@ -36,7 +37,7 @@ public class WebSocketHelper implements BaseWebSocketHelper
     private static final String EVENT_TRAIN_LOCATION_UPDATE = "train-location-update";
     private static final String EVENT_UNTRACK_TRAIN = "untrack-train";
 
-    private static final String EVENT_SCHEDULE_UPDATE = "schedule-update ";
+    private static final String EVENT_SCHEDULE_UPDATE = "schedule-update";
     private static final String EVENT_GET_CURRENT_SCHEDULE = "get-current-schedule";
 
     private static final String EVENT_TRACK_USER = "track-user";
@@ -255,12 +256,12 @@ public class WebSocketHelper implements BaseWebSocketHelper
     }
 
     @Override
-    public void startScheduleTracking(String userAccessToken) {
+    public void startScheduleTracking(String userAccessToken, final JSONCallback jsonCallback) {
 
         Log.d(TAG, "Stariting Scheduling");
         try
         {
-            mSocketTrackTrain = IO.socket(URL_SHECDULE_TRACKKING + userAccessToken);
+            mSocketScheduleTracking = IO.socket(URL_SHECDULE_TRACKKING + userAccessToken);
         }
         catch(URISyntaxException e)
         {
@@ -269,7 +270,7 @@ public class WebSocketHelper implements BaseWebSocketHelper
         }
 
 
-        mListenerTrackTrain = new Emitter.Listener()
+        mListnerSchdule = new Emitter.Listener()
         {
             @Override
             public void call(Object... args)
@@ -281,21 +282,25 @@ public class WebSocketHelper implements BaseWebSocketHelper
                 {
                     JSONObject jsonObject = new JSONObject(args[0].toString());
                     Log.d(TAG, jsonObject.toString());
+                    jsonCallback.onSuccess(jsonObject);
                    /* LatLng latLng = new LatLng(jsonObject.getDouble("lat"),
                             jsonObject.getDouble("lng"));
                     callback.onLocationReceive(latLng);*/
                 }
                 catch(JSONException e)
                 {
+                    jsonCallback.onFail( e.toString());
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
                 }
             }
+
         };
 
-        mSocketTrackTrain.on(EVENT_SCHEDULE_UPDATE, mListenerTrackTrain);
-        mSocketTrackTrain.connect();
-        mSocketTrackTrain.emit(EVENT_GET_CURRENT_SCHEDULE);
+        mSocketScheduleTracking.on(EVENT_SCHEDULE_UPDATE, mListnerSchdule);
+        mSocketScheduleTracking.connect();
+        mSocketScheduleTracking.emit(EVENT_GET_CURRENT_SCHEDULE);
+
 
     }
 

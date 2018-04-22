@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:text="Aswan"
                 android:textSize="12sp" />
 
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDepartureStation"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="Cairo"
                 android:textSize="12sp" />
 
@@ -99,7 +99,6 @@
                 android:layout_width="10dp"
                 android:layout_height="50dp"
                 android:layout_marginLeft="13dp"
-                android:layout_marginTop="5dp"
                 android:contentDescription="Route"
                 android:src="@drawable/routeicon"
                 android:layout_alignTop="@+id/tvDepartureStation"/>

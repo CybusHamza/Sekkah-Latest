@@ -1,5 +1,7 @@
 package in.radioactivegames.sekkah.ui.main.report;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
@@ -15,6 +17,7 @@ public class ReportContract
     public interface View extends BaseMvpView
     {
         void setStationsData(List<String> data);
+        void setTrainLocation(LatLng location);
     }
 
     public interface Presenter extends BaseMvpPresenter<ReportContract.View>
