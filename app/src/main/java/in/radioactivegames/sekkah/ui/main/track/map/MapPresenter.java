@@ -30,7 +30,7 @@ public class MapPresenter extends BasePresenter<MapContract.View> implements Map
         ArrayList<LatLng> latLngArrayList = new ArrayList<>();
         try {
 
-            latLngArrayList = RealmDB.getinstance().getTrainStations(realm,stationId);
+            latLngArrayList = RealmDB.getinstance().getTrainStationsLatLng(realm,stationId);
 
         }finally {
 

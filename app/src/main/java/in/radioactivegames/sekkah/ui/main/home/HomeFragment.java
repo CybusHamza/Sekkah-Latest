@@ -31,6 +31,7 @@ import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.model.TrainPOJO;
 import in.radioactivegames.sekkah.data.network.WebSocketHelper;
+import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsFragment;
 import io.realm.Realm;
@@ -106,7 +107,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     public void setStationsData(List<String> data) {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data);
         spnDeparture.setAdapter(arrayAdapter);
-        spnDestination.setAdapter(arrayAdapter);
+        ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data);
+        spnDestination.setAdapter(arrayAdapter1);
+
+        int spinnerPosition = arrayAdapter.getPosition(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
+        spnDeparture.setSelection(spinnerPosition);
+
+        int spinner2Position = arrayAdapter.getPosition(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
+        spnDestination.setSelection(spinner2Position);
     }
 
     @OnClick(R.id.btnTrains)
@@ -116,6 +124,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
         bundle.putString(KEY_FROM, spnDeparture.getSelectedItem().toString());
         bundle.putString(KEY_TO, spnDestination.getSelectedItem().toString());
+
+        SharedPrefsUtils.setStringPreference(getContext(),KEY_FROM,spnDeparture.getSelectedItem().toString());
+
+        SharedPrefsUtils.setStringPreference(getContext(),KEY_TO,spnDestination.getSelectedItem().toString());
 
         TrainsFragment trainsFragment = TrainsFragment.newInstance();
         trainsFragment.setArguments(bundle);

@@ -59,6 +59,7 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
                 trainPOJO.setId(user.getId());
                 trainPOJO.setNameen(user.getNameen());
                 trainPOJO.setNamear(user.getNamear());
+                trainPOJO.setNameen(user.getNumber());
                 trainPOJO.setDepStation(user.getDepStation());
                 trainPOJO.setGetDepStationtime(user.getGetDepStationtime());
                 trainPOJO.setFinalStation(user.getFinalStation());

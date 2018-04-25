@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
+import in.radioactivegames.sekkah.data.model.Station;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.model.TrainPOJO;
 import io.realm.Realm;
@@ -71,6 +72,16 @@ public class RealmDB {
         return latlng;
     }
 
+    public RealmResults<StationPOJO> getStations(String stationId, Realm realm) {
+
+        LatLng latlng;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("id", stationId)
+                .findAll();
+
+        return result;
+    }
+
     public RealmResults<StationPOJO> getAllStation(Realm realm) {
 
         RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
@@ -99,7 +110,7 @@ public class RealmDB {
         return result1;
     }
 
-    public ArrayList<LatLng> getTrainStations(Realm realm, String trainId){
+    public ArrayList<LatLng> getTrainStationsLatLng(Realm realm, String trainId){
 
         ArrayList<LatLng> latLngArrayList =new ArrayList<>();
 
@@ -121,6 +132,40 @@ public class RealmDB {
            }
 
         return latLngArrayList;
+    }
+
+
+    public ArrayList<StationPOJO> getTrainStations(Realm realm, String trainId){
+
+        ArrayList<StationPOJO> StationList =new ArrayList<>();
+
+        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
+                .equalTo("id", trainId);
+
+        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        TrainPOJO trainPOJO = result1.get(0);
+
+        RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
+
+        for(int i = 0 ; i < stringRealmList.size() ; i++) {
+
+            RealmResults<StationPOJO> Station = getStations(stringRealmList.get(i), realm);
+
+            for (StationPOJO user : Station) {
+                StationPOJO stationPOJO = new StationPOJO();
+                stationPOJO.setNameen(user.getNameen());
+                stationPOJO.setNamear(user.getNamear());
+                stationPOJO.setDistance(user.getDistance());
+                stationPOJO.setLat(user.getLat());
+                stationPOJO.setLng(user.getLng());
+                stationPOJO.setTs(user.getTs());
+
+            }
+
+        }
+
+        return StationList;
     }
 
 }
