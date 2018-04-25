@@ -1,9 +1,12 @@
 package in.radioactivegames.sekkah.ui.main.home;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
 import in.radioactivegames.sekkah.base.BaseMvpView;
+import io.realm.Realm;
 
 /**
  * Created by AntiSaby on 11/29/2017.
@@ -20,5 +23,8 @@ public class HomeContract
     public interface Presenter extends BaseMvpPresenter<HomeContract.View>
     {
         void getStationsData();
+        void parsonJson(JSONObject jsonObject);
+
+
     }
 }

@@ -19,6 +19,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -32,8 +34,10 @@ import in.radioactivegames.sekkah.ui.main.track.TrackContract;
 import in.radioactivegames.sekkah.ui.main.track.TrackFragment;
 import in.radioactivegames.sekkah.ui.main.track.TrackPresenter;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsFragment;
+import io.realm.Realm;
 
-import static in.radioactivegames.sekkah.ui.main.report.ReportFragment.isFirst;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
+
 
 public class MapFragment extends BaseFragment implements MapContract.View, OnMapReadyCallback, TrackFragment.OnFragmentInteractionListener
 {
@@ -47,7 +51,6 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     @BindView(R.id.btnReport) ImageView mBtnReport;
 
     private static final String TAG = MapFragment.class.getSimpleName();
-    public static LatLng latLng=new LatLng(0,0);
     public static MapFragment newInstance()
     {
         return new MapFragment();
@@ -71,6 +74,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
         mMapView.getMapAsync(this);
 
         mPresenter.onAttach(this);
+
         return mFragment;
     }
 
@@ -79,6 +83,17 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     {
         mMap = googleMap;
         mMapView.onResume();
+
+        Bundle bundle = getArguments();
+        String stationId = "";
+        if(bundle != null){
+            if(bundle.containsKey(KEY_STATIONID)){
+                stationId = bundle.getString(KEY_STATIONID);
+            }
+        }
+
+        mPresenter.getTrainStaiton(stationId,Realm.getDefaultInstance());
+
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -100,23 +115,19 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
         mListener.openReportFragment();
     }
 
+
+
     @Override
     public void setTrainLocation(final LatLng location)
     {
         try
         {
-            latLng =location;
-            if(isFirst){
-               isFirst = false;
-            }
-
             getActivity().runOnUiThread(new Runnable()
             {
                 @Override
                 public void run()
                 {
-                    if (mTrainMarker != null)
-                        mTrainMarker.remove();
+
                     mTrainMarker = mMap.addMarker(new MarkerOptions()
                             .position(location));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
@@ -126,8 +137,6 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
         }
         catch(NullPointerException e)
         {
-            if (mTrainMarker != null)
-                mTrainMarker.remove();
             mTrainMarker = mMap.addMarker(new MarkerOptions()
                     .position(location));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
@@ -140,9 +149,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     {
         super.onResume();
         mMapView.onResume();
-        if(isFirst){
-            setTrainLocation(latLng);
-        }
+
     }
 
     @Override
@@ -185,6 +192,14 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void setTrainStaiton(ArrayList<LatLng> latLngs) {
+
+        for (int i = 0 ; i < latLngs.size();i++){
+            setTrainLocation(latLngs.get(i));
+        }
     }
 
     public interface OnFragmentInteractionListener

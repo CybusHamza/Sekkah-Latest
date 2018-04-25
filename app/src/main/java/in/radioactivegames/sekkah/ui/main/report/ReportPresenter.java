@@ -50,10 +50,10 @@ public class ReportPresenter extends BasePresenter<ReportContract.View> implemen
             {
                 JSONObject jsonStation = MockData.stations.getJSONObject(i);
                 Station station = new Station();
-                station.id = jsonStation.getInt("id");
-                station. name = jsonStation.getString("name");
+                //station.id = jsonStation.getInt("id");
+              /*  station. name = jsonStation.getString("name");
                 stations.add(station);
-                stationNames.add(station.name);
+                stationNames.add(station.name);*/
             }
         }
         catch(JSONException ex)

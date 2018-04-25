@@ -118,9 +118,9 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
         @Override
         public void onBindViewHolder(StationFragment.StationAdapter.ViewHolder holder, int position)
         {
-            holder.mTvStation.setText(mDataset.get(position).name);
+           /* holder.mTvStation.setText(mDataset.get(position).name);
             holder.mTvArrivalTime.setText(mDataset.get(position).arrivalTime);
-            holder.mTvDepartureTime.setText(mDataset.get(position).departureTime);
+            holder.mTvDepartureTime.setText(mDataset.get(position).departureTime);*/
         }
 
         @Override

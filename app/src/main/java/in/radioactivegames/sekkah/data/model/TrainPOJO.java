@@ -3,9 +3,13 @@ package in.radioactivegames.sekkah.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class TrainPOJO extends RealmObject{
+public class TrainPOJO extends RealmObject implements Serializable {
 
 
     private String id;
@@ -14,13 +18,7 @@ public class TrainPOJO extends RealmObject{
 
     private String namear;
 
-    private Double lat;
-
-    private Double lng;
-
-    private String updatedAt;
-
-    private String delay;
+    private String number;
 
     private String depStation;
 
@@ -29,6 +27,11 @@ public class TrainPOJO extends RealmObject{
     private String finalStation;
 
     private String finalStationDepStationtime;
+
+    private RealmList<String> stationPOJOS;
+
+    private RealmList<String> tsList;
+
 
 
     public String getId() {
@@ -55,36 +58,12 @@ public class TrainPOJO extends RealmObject{
         this.namear = namear;
     }
 
-    public Double getLat() {
-        return lat;
+    public String getNumber() {
+        return number;
     }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
-    }
-
-    public Double getLng() {
-        return lng;
-    }
-
-    public void setLng(Double lng) {
-        this.lng = lng;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getDelay() {
-        return delay;
-    }
-
-    public void setDelay(String delay) {
-        this.delay = delay;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getDepStation() {
@@ -119,20 +98,35 @@ public class TrainPOJO extends RealmObject{
         this.finalStationDepStationtime = finalStationDepStationtime;
     }
 
+    public RealmList<String> getStationPOJOS() {
+        return stationPOJOS;
+    }
+
+    public void setStationPOJOS(RealmList<String> stationPOJOS) {
+        this.stationPOJOS = stationPOJOS;
+    }
+
+    public RealmList<String> getTsList() {
+        return tsList;
+    }
+
+    public void setTsList(RealmList<String> tsList) {
+        this.tsList = tsList;
+    }
+
     @Override
     public String toString() {
         return "TrainPOJO{" +
                 "id='" + id + '\'' +
                 ", nameen='" + nameen + '\'' +
                 ", namear='" + namear + '\'' +
-                ", lat=" + lat +
-                ", lng=" + lng +
-                ", updatedAt='" + updatedAt + '\'' +
-                ", delay='" + delay + '\'' +
+                ", number='" + number + '\'' +
                 ", depStation='" + depStation + '\'' +
                 ", getDepStationtime='" + getDepStationtime + '\'' +
                 ", finalStation='" + finalStation + '\'' +
                 ", finalStationDepStationtime='" + finalStationDepStationtime + '\'' +
+                ", stationPOJOS=" + stationPOJOS +
+                ", tsList=" + tsList +
                 '}';
     }
 }

@@ -41,11 +41,11 @@ public class StationPresenter extends BasePresenter<StationContract.View> implem
             for (int i = 0; i < MockData.nestedStations.length(); i++)
             {
                 JSONObject jsonStation = MockData.nestedStations.getJSONObject(i);
-                Station station = new Station();
+                Station station = new Station();/*
                 station.id = jsonStation.getInt("id");
                 station.name = jsonStation.getString("name");
                 station.arrivalTime = jsonStation.getString("arrivalTime");
-                station.departureTime = jsonStation.getString("departureTime");
+                station.departureTime = jsonStation.getString("departureTime");*/
                 stations.add(station);
             }
         }

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -31,9 +32,13 @@ import in.radioactivegames.sekkah.data.model.Train;
 import in.radioactivegames.sekkah.data.model.TrainPOJO;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.main.track.TrackFragment;
+import in.radioactivegames.sekkah.utility.Constants;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+
+import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
 
 public class TrainsFragment extends BaseFragment implements TrainsContract.View
 {
@@ -75,21 +80,50 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         //mPresenter.getTrainData();
-        Realm realm = Realm.getDefaultInstance();
-        mPresenter.getTrainData(realm);
+
+        Bundle bundle = getArguments();
+        getTrainData(bundle);
+
         return mFragment;
+    }
+
+    public void getTrainData(Bundle bundle){
+
+        String from,to;
+
+        from = bundle.getString(KEY_FROM);
+        to = bundle.getString(KEY_TO);
+
+        Realm realm = Realm.getDefaultInstance();
+        mPresenter.getTrainData(from,to,realm);
+
     }
 
 
     @Override
     public void setTrainPojoData(List<TrainPOJO> data) {
-        mAdapter = new TrainAdapter(data);
-        mRecyclerView.setAdapter(mAdapter);
+
+        if(data.size()>0){
+            mAdapter = new TrainAdapter(data);
+            mRecyclerView.setAdapter(mAdapter);
+        }else {
+            Toast.makeText(getActivity(), "No Data Found !", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private void startTracking() {
+
+
+    private void startTracking(String stationId) {
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString(Constants.KEY_STATIONID,stationId);
+
+        TrackFragment trackFragment = TrackFragment.newInstance();
+        trackFragment.setArguments(bundle);
+
         getFragmentManager().beginTransaction()
-                .add(R.id.frameMain, TrackFragment.newInstance(), "TrackFragment")
+                .add(R.id.frameMain, trackFragment, "TrackFragment")
                 .addToBackStack("TrackFragment")
                 .commit();
     }
@@ -131,9 +165,9 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position)
+        public void onBindViewHolder(ViewHolder holder, final int position)
         {
-            holder.mTvTrainNumber.setText(mDataset.get(position).getId() );
+            holder.mTvTrainNumber.setText(mDataset.get(position).getNumber());
             holder.mTvTrainClass.setText(mDataset.get(position).getNameen());
             holder.mTvDepartureStation.setText(mDataset.get(position).getDepStation());
             holder.mTvDepartureTime.setText(mDataset.get(position).getGetDepStationtime());
@@ -144,7 +178,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View
                 @Override
                 public void onClick(View v)
                 {
-                    startTracking();
+                    startTracking(mDataset.get(position).getId());
                 }
             });
         }
