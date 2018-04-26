@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
 import in.radioactivegames.sekkah.data.model.Station;
+import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.model.Train;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.adapter.ViewPagerAdapter;
@@ -29,6 +31,9 @@ import in.radioactivegames.sekkah.ui.main.track.TrackFragment;
 import in.radioactivegames.sekkah.ui.main.track.TrackPresenter;
 import in.radioactivegames.sekkah.ui.main.track.map.MapFragment;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsFragment;
+import io.realm.Realm;
+
+import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,21 +76,29 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mPresenter.getStationData();
+
+        Bundle bundle = getArguments();
+        String stationId = "";
+        if(bundle != null){
+            if(bundle.containsKey(KEY_STATIONID)){
+                stationId = bundle.getString(KEY_STATIONID);
+            }
+        }
+
+        mPresenter.getStationData( Realm.getDefaultInstance(),stationId);
         //mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         return mFragment;
     }
 
     @Override
-    public void setStationData(List<Station> data)
-    {
-        mAdapter = new StationFragment.StationAdapter(data);
+    public void setStationData(ArrayList<StationPOJO> stationData) {
+        mAdapter = new StationFragment.StationAdapter(stationData);
         mRecyclerView.setAdapter(mAdapter);
     }
 
     public class StationAdapter extends RecyclerView.Adapter<StationFragment.StationAdapter.ViewHolder>
     {
-        private List<Station> mDataset;
+        private ArrayList<StationPOJO> mDataset;
 
         public class ViewHolder extends RecyclerView.ViewHolder
         {
@@ -102,7 +115,7 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
             }
         }
 
-        public StationAdapter(List<Station> myDataset)
+        public StationAdapter(ArrayList<StationPOJO> myDataset)
         {
             mDataset = myDataset;
         }
@@ -118,9 +131,9 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
         @Override
         public void onBindViewHolder(StationFragment.StationAdapter.ViewHolder holder, int position)
         {
-           /* holder.mTvStation.setText(mDataset.get(position).name);
-            holder.mTvArrivalTime.setText(mDataset.get(position).arrivalTime);
-            holder.mTvDepartureTime.setText(mDataset.get(position).departureTime);*/
+            holder.mTvStation.setText(mDataset.get(position).getNameen());
+            holder.mTvArrivalTime.setText(mDataset.get(position).getTs());
+            holder.mTvDepartureTime.setText(mDataset.get(position).getTs());
         }
 
         @Override

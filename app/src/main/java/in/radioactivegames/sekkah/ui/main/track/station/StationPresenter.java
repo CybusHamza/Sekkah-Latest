@@ -11,11 +11,14 @@ import java.util.List;
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BasePresenter;
+import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.model.Station;
+import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.model.Train;
 import in.radioactivegames.sekkah.data.other.MockData;
 import in.radioactivegames.sekkah.ui.main.track.map.MapContract;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsPresenter;
+import io.realm.Realm;
 
 /**
  * Created by AntiSaby on 12/26/2017.
@@ -33,29 +36,15 @@ public class StationPresenter extends BasePresenter<StationContract.View> implem
         stations = new ArrayList<>();
     }
 
+
     @Override
-    public void getStationData()
-    {
-        try
-        {
-            for (int i = 0; i < MockData.nestedStations.length(); i++)
-            {
-                JSONObject jsonStation = MockData.nestedStations.getJSONObject(i);
-                Station station = new Station();/*
-                station.id = jsonStation.getInt("id");
-                station.name = jsonStation.getString("name");
-                station.arrivalTime = jsonStation.getString("arrivalTime");
-                station.departureTime = jsonStation.getString("departureTime");*/
-                stations.add(station);
-            }
-        }
-        catch(JSONException ex)
-        {
-            Log.e(TAG, "JSONException");
-        }
-        finally
-        {
-            getMvpView().setStationData(stations);
-        }
+    public void getStationData(Realm realm, String trainId) {
+
+
+            ArrayList<StationPOJO> stationPOJOS = RealmDB.getinstance().getTrainStations(realm,trainId);
+
+
+            getMvpView().setStationData(stationPOJOS);
+
     }
 }

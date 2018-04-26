@@ -129,6 +129,7 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
         MapFragment mapFragment = MapFragment.newInstance();
         mapFragment.setArguments(bundle);
         StationFragment stationFragment = StationFragment.newInstance();
+        stationFragment.setArguments(bundle);
         mMapFragmentListener = mapFragment;
         viewPagerAdapter.addFragment(mapFragment, "Map");
         viewPagerAdapter.addFragment(stationFragment, "Station");

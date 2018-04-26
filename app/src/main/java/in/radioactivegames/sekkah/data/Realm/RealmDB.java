@@ -161,6 +161,7 @@ public class RealmDB {
                 stationPOJO.setLng(user.getLng());
                 stationPOJO.setTs(user.getTs());
 
+                StationList.add(stationPOJO);
             }
 
         }

@@ -94,7 +94,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         @Override
         public void onSuccess(final JSONObject jsonObject) {
             mPresenter.parsonJson(jsonObject);
-
         }
 
         @Override
@@ -113,7 +112,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         int spinnerPosition = arrayAdapter.getPosition(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
         spnDeparture.setSelection(spinnerPosition);
 
-        int spinner2Position = arrayAdapter.getPosition(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
+        int spinner2Position = arrayAdapter1.getPosition(SharedPrefsUtils.getStringPreference(getContext(),KEY_TO));
         spnDestination.setSelection(spinner2Position);
     }
 
