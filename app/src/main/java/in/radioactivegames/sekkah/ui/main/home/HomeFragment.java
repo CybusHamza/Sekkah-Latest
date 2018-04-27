@@ -78,7 +78,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.getStationsData();
+        mPresenter.getStationsData(getActivity());
     }
 
     @Override

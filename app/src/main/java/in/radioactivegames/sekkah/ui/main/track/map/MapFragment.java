@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
+import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.main.report.ReportFragment;
 import in.radioactivegames.sekkah.ui.main.track.TrackContract;
@@ -36,7 +38,9 @@ import in.radioactivegames.sekkah.ui.main.track.TrackPresenter;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsFragment;
 import io.realm.Realm;
 
+import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
 
 
 public class MapFragment extends BaseFragment implements MapContract.View, OnMapReadyCallback, TrackFragment.OnFragmentInteractionListener
@@ -44,6 +48,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     private View mFragment;
     private GoogleMap mMap;
     private MapView mMapView;
+    TextView tvDepartureStation,tvDestinationStation;
     private Marker mTrainMarker;
     private OnFragmentInteractionListener mListener;
 
@@ -74,6 +79,14 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
         mMapView.getMapAsync(this);
 
         mPresenter.onAttach(this);
+
+        tvDepartureStation = mFragment.findViewById(R.id.tvDepartureStation);
+        tvDestinationStation = mFragment.findViewById(R.id.tvDestinationStation);
+
+
+        tvDepartureStation.setText(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
+
+        tvDestinationStation.setText(SharedPrefsUtils.getStringPreference(getContext(),KEY_TO));
 
         return mFragment;
     }

@@ -131,8 +131,8 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
         StationFragment stationFragment = StationFragment.newInstance();
         stationFragment.setArguments(bundle);
         mMapFragmentListener = mapFragment;
-        viewPagerAdapter.addFragment(mapFragment, "Map");
-        viewPagerAdapter.addFragment(stationFragment, "Station");
+        viewPagerAdapter.addFragment(mapFragment, getString(R.string.map));
+        viewPagerAdapter.addFragment(stationFragment, getString(R.string.station));
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

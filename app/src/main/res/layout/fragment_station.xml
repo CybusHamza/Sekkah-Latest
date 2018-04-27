@@ -75,6 +75,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="13dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:contentDescription="Route"
                 android:src="@drawable/routeicon"
                 android:layout_alignTop="@+id/tvDepartureStation"/>

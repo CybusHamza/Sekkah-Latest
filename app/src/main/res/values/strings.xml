@@ -51,4 +51,6 @@
     <string name="text_next_station">Next Station</string>
     <string name="text_late_time">Late Time</string>
     <string name="text_arrival">Arrival</string>
+    <string name="map">MAP</string>
+    <string name="station">STATION</string>
 </resources>

@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:text="2007"
+            android:layout_marginRight="20dp"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
@@ -40,14 +41,17 @@
 
         <RelativeLayout
             android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_weight="1.75"
+            android:layout_marginRight="20dp"
             android:layout_height="100dp">
+
 
             <TextView
                 android:id="@+id/tvDepartureStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="20dp"
                 android:text="Aswan"
                 android:textSize="12sp" />
@@ -58,41 +62,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDepartureStation"
                 android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
                 android:text="Cairo"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tvDepartureTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@+id/tvDepartureStation"
-                android:text="07:00 PM"
-                android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/tvDestinationTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvDepartureTime"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/tvDepartureStation"
-                android:text="10:30 PM"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:id="@+id/btnReminder"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/stopwatch"
-                android:contentDescription="Reminder"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"/>
 
             <ImageView
                 android:id="@+id/ivRouteIcon"
@@ -104,6 +79,46 @@
                 android:layout_alignTop="@+id/tvDepartureStation"/>
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvDepartureTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_centerHorizontal="true"
+                android:text="07:00 PM"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvDestinationTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_alignBaseline="@+id/tvDestinationStation"
+                android:layout_alignBottom="@+id/tvDestinationStation"
+                android:layout_alignStart="@+id/tvDepartureTime"
+                android:text="10:30 PM"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/btnReminder"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/stopwatch"
+            android:contentDescription="Reminder"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"/>
 
         <LinearLayout
             android:layout_width="0dp"

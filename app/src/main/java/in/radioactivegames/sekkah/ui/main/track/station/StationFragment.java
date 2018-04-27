@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,8 @@ import in.radioactivegames.sekkah.base.BaseFragment;
 import in.radioactivegames.sekkah.data.model.Station;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.model.Train;
+import in.radioactivegames.sekkah.data.model.TrainPOJO;
+import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.adapter.ViewPagerAdapter;
 import in.radioactivegames.sekkah.ui.main.track.TrackContract;
@@ -33,7 +36,9 @@ import in.radioactivegames.sekkah.ui.main.track.map.MapFragment;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsFragment;
 import io.realm.Realm;
 
+import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +48,7 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
     private View mFragment;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    TextView tvDepartureStation,tvDestinationStation;
 
     @BindView(R.id.rvStations) RecyclerView mRecyclerView;
 
@@ -86,6 +92,15 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
         }
 
         mPresenter.getStationData( Realm.getDefaultInstance(),stationId);
+
+        tvDepartureStation = mFragment.findViewById(R.id.tvDepartureStation);
+        tvDestinationStation = mFragment.findViewById(R.id.tvDestinationStation);
+
+
+        tvDepartureStation.setText(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
+
+        tvDestinationStation.setText(SharedPrefsUtils.getStringPreference(getContext(),KEY_TO));
+
         //mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         return mFragment;
     }
@@ -131,9 +146,18 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
         @Override
         public void onBindViewHolder(StationFragment.StationAdapter.ViewHolder holder, int position)
         {
-            holder.mTvStation.setText(mDataset.get(position).getNameen());
-            holder.mTvArrivalTime.setText(mDataset.get(position).getTs());
-            holder.mTvDepartureTime.setText(mDataset.get(position).getTs());
+
+            Locale current = getResources().getConfiguration().locale;
+            String lan = current.getLanguage();
+            final StationPOJO stationPOJO = mDataset.get(position);
+            if (lan.equals("ar")) {
+                holder.mTvStation.setText(stationPOJO.getNamear());
+            } else {
+                holder.mTvStation.setText(stationPOJO.getNameen());
+            }
+
+            holder.mTvArrivalTime.setText(stationPOJO.getTs());
+            holder.mTvDepartureTime.setText(stationPOJO.getTs());
         }
 
         @Override

@@ -55,6 +55,23 @@ public class RealmDB {
         return stationname;
     }
 
+    public String getStationAr(String stationId,Realm realm) {
+
+        String stationname;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("id", stationId)
+                .findAll();
+
+        if(result.size() >0){
+            stationname=  result.get(0).getNamear();
+        }
+        else {
+            stationname =  "" ;
+        }
+
+        return stationname;
+    }
+
     public LatLng getStationLatLng(String stationId, Realm realm) {
 
         LatLng latlng;
@@ -101,6 +118,16 @@ public class RealmDB {
         return result1;
     }
 
+    public RealmResults<TrainPOJO> getTrainsAr(String fromStation,String toStaion,Realm realm){
+
+        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
+                .equalTo("depStationAr", fromStation)
+                .equalTo("finalStationAr", toStaion);
+
+        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        return result1;
+    }
     public RealmResults<TrainPOJO> getTrains(Realm realm){
 
         RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class);

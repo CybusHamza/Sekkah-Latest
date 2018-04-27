@@ -22,11 +22,15 @@ public class TrainPOJO extends RealmObject implements Serializable {
 
     private String depStation;
 
+    private String depStationAr;
+
     private String getDepStationtime;
 
     private String finalStation;
 
     private String finalStationDepStationtime;
+
+    private String finalStationAr;
 
     private RealmList<String> stationPOJOS;
 
@@ -114,6 +118,22 @@ public class TrainPOJO extends RealmObject implements Serializable {
         this.tsList = tsList;
     }
 
+    public String getFinalStationAr() {
+        return finalStationAr;
+    }
+
+    public void setFinalStationAr(String finalStationAr) {
+        this.finalStationAr = finalStationAr;
+    }
+
+    public String getDepStationAr() {
+        return depStationAr;
+    }
+
+    public void setDepStationAr(String depStationAr) {
+        this.depStationAr = depStationAr;
+    }
+
     @Override
     public String toString() {
         return "TrainPOJO{" +
@@ -122,9 +142,11 @@ public class TrainPOJO extends RealmObject implements Serializable {
                 ", namear='" + namear + '\'' +
                 ", number='" + number + '\'' +
                 ", depStation='" + depStation + '\'' +
+                ", depStationAr='" + depStationAr + '\'' +
                 ", getDepStationtime='" + getDepStationtime + '\'' +
                 ", finalStation='" + finalStation + '\'' +
                 ", finalStationDepStationtime='" + finalStationDepStationtime + '\'' +
+                ", finalStationAr='" + finalStationAr + '\'' +
                 ", stationPOJOS=" + stationPOJOS +
                 ", tsList=" + tsList +
                 '}';

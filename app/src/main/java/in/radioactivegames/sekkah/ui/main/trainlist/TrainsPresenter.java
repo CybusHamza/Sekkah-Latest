@@ -1,5 +1,6 @@
 package in.radioactivegames.sekkah.ui.main.trainlist;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -7,6 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -44,11 +46,20 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
 
 
     @Override
-    public void getTrainData(String fromStation, String toStaion, Realm realm) {
+    public void getTrainData(String fromStation, String toStaion, Realm realm, Context context) {
 
         String data ="";
 
-        RealmResults<TrainPOJO> result1 = realmDB.getTrains(fromStation,toStaion,realm);
+        RealmResults<TrainPOJO> result1;
+
+
+        Locale current = context.getResources().getConfiguration().locale;
+
+        if (current.getLanguage().equals("ar")) {
+            result1= realmDB.getTrainsAr(fromStation,toStaion,realm);
+        }else {
+            result1= realmDB.getTrains(fromStation,toStaion,realm);
+        }
 
         try{
 
@@ -59,7 +70,9 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
                 trainPOJO.setId(user.getId());
                 trainPOJO.setNameen(user.getNameen());
                 trainPOJO.setNamear(user.getNamear());
-                trainPOJO.setNameen(user.getNumber());
+                trainPOJO.setNumber(user.getNumber());
+                trainPOJO.setFinalStationAr(user.getFinalStationAr());
+                trainPOJO.setDepStationAr(user.getDepStationAr());
                 trainPOJO.setDepStation(user.getDepStation());
                 trainPOJO.setGetDepStationtime(user.getGetDepStationtime());
                 trainPOJO.setFinalStation(user.getFinalStation());

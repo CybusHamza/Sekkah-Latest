@@ -1,5 +1,6 @@
 package in.radioactivegames.sekkah.ui.main.home;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -8,6 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -41,13 +43,20 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
     }
 
     @Override
-    public void getStationsData() {
+    public void getStationsData(Context context) {
         Realm  realm = Realm.getDefaultInstance();
         RealmResults<StationPOJO> stationPOJOS = RealmDB.getinstance().getAllStation(realm);
 
         try{
             for (StationPOJO user : stationPOJOS) {
-                stationNames.add(user.getNameen());
+                Locale current = context.getResources().getConfiguration().locale;
+
+                if (current.getLanguage().equals("ar")) {
+                    stationNames.add(user.getNamear());
+                }else {
+                    stationNames.add(user.getNameen());
+                }
+
             }
         }catch (Exception e){
             Log.e(TAG, "JSONException");
@@ -115,13 +124,14 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                             JSONObject jsonObject1 = array.getJSONObject(0);
                             String stationId = jsonObject1.getString("stationId");
                             trainPOJO.setDepStation(RealmDB.getinstance().getStation(stationId, realm));
+                            trainPOJO.setDepStationAr(RealmDB.getinstance().getStationAr(stationId, realm));
 
                             trainPOJO.setGetDepStationtime(jsonObject1.optString("ts"));
 
                             JSONObject jsonObject2 = array.getJSONObject(array.length() - 1);
                             String stationIds = jsonObject2.getString("stationId");
                             trainPOJO.setFinalStation(RealmDB.getinstance().getStation(stationIds, realm));
-
+                            trainPOJO.setFinalStationAr(RealmDB.getinstance().getStationAr(stationIds, realm));
                             trainPOJO.setFinalStationDepStationtime(jsonObject2.optString("ts"));
 
                             RealmList<String> stationRealmList = new RealmList<>();
