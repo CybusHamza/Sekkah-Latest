@@ -23,6 +23,6 @@ public class TrainsContract
     }
 
     public interface Presenter extends BaseMvpPresenter<TrainsContract.View> {
-        public void getTrainData(Realm realm);
+        public void getTrainData(String fromStation,String toStaion,Realm realm);
     }
 }

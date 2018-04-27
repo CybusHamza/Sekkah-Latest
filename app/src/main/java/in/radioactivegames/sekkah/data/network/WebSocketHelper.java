@@ -15,19 +15,20 @@ import java.net.URISyntaxException;
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BaseWebSocketHelper;
+import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
+import io.realm.Realm;
 
 /**
  * Created by AntiSaby on 1/16/2018.
  * www.radioactivegames.in
  */
 
-public class WebSocketHelper implements BaseWebSocketHelper
-{
+public class WebSocketHelper implements BaseWebSocketHelper {
 
     private Socket mSocketTrackTrain, mSocketTrackUser, mSocketScheduleTracking;
-    private Emitter.Listener mListenerTrackTrain,mListnerSchdule;
+    private Emitter.Listener mListenerTrackTrain, mListnerSchdule;
 
     private static final String URL_TRACK_TRAIN = "http://sekka-ws-proto.herokuapp.com/traintracking?token=";
     private static final String URL_TRACK_USER = "http://sekka-ws-proto.herokuapp.com/usertracking?token=";
@@ -55,55 +56,42 @@ public class WebSocketHelper implements BaseWebSocketHelper
     private static final String TAG = WebSocketHelper.class.getSimpleName();
 
     @Inject
-    public WebSocketHelper()
-    {
+    public WebSocketHelper() {
 
     }
 
     @Override
-    public void trackTrain(String trainId, String userAccessToken, final TrainLocationCallback callback)
-    {
+    public void trackTrain(String trainId, String userAccessToken, final TrainLocationCallback callback) {
         Log.d(TAG, "Starting Socket!");
         stopTrackTrain(trainId);
-        try
-        {
+        try {
             mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + userAccessToken);
-        }
-        catch(URISyntaxException e)
-        {
+        } catch (URISyntaxException e) {
             Log.d(TAG, "Error URIException Track Train");
             e.printStackTrace();
         }
 
         JSONObject data = null;
-        try
-        {
+        try {
             data = new JSONObject();
             data.put(KEY_TRAIN_ID, trainId);
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             Log.d(TAG, "JSON Exception");
             e.printStackTrace();
         }
 
-        mListenerTrackTrain = new Emitter.Listener()
-        {
+        mListenerTrackTrain = new Emitter.Listener() {
             @Override
-            public void call(Object... args)
-            {
-                if(args[0] == null)
+            public void call(Object... args) {
+                if (args[0] == null)
                     return;
                 //Log.d(TAG, args[0].toString());
-                try
-                {
+                try {
                     JSONObject jsonObject = new JSONObject(args[0].toString());
                     LatLng latLng = new LatLng(jsonObject.getDouble("lat"),
                             jsonObject.getDouble("lng"));
                     callback.onLocationReceive(latLng);
-                }
-                catch(JSONException e)
-                {
+                } catch (JSONException e) {
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
                 }
@@ -116,19 +104,14 @@ public class WebSocketHelper implements BaseWebSocketHelper
     }
 
     @Override
-    public void stopTrackTrain(String trainId)
-    {
+    public void stopTrackTrain(String trainId) {
         Log.d(TAG, "Stopping Socket!");
-        if(mSocketTrackTrain != null)
-        {
+        if (mSocketTrackTrain != null) {
             JSONObject data = null;
-            try
-            {
+            try {
                 data = new JSONObject();
                 data.put(KEY_TRAIN_ID, trainId);
-            }
-            catch(JSONException e)
-            {
+            } catch (JSONException e) {
                 Log.d(TAG, "JSON Exception");
                 e.printStackTrace();
             }
@@ -142,28 +125,21 @@ public class WebSocketHelper implements BaseWebSocketHelper
     }
 
     @Override
-    public void startTrackUser(String trainId, String userAccessToken)
-    {
+    public void startTrackUser(String trainId, String userAccessToken) {
         Log.d(TAG, "Starting User Socket!");
         stopTrackUser();
-        try
-        {
+        try {
             mSocketTrackUser = IO.socket(URL_TRACK_USER + userAccessToken);
-        }
-        catch(URISyntaxException e)
-        {
+        } catch (URISyntaxException e) {
             Log.d(TAG, "Error URIException Track User");
             e.printStackTrace();
         }
 
         JSONObject data = null;
-        try
-        {
+        try {
             data = new JSONObject();
             data.put(KEY_TRAIN_ID, trainId);
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             Log.d(TAG, "JSON Exception");
             e.printStackTrace();
         }
@@ -177,46 +153,35 @@ public class WebSocketHelper implements BaseWebSocketHelper
 
         Log.d(TAG, "Train Location Report!");
 
-        try
-        {
+        try {
             mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + userAccessToken);
-        }
-        catch(URISyntaxException e)
-        {
+        } catch (URISyntaxException e) {
             Log.d(TAG, "Error URIException Track Train");
             e.printStackTrace();
         }
 
         JSONObject data = null;
-        try
-        {
+        try {
             data = new JSONObject();
             data.put(KEY_STATION_ID, stationId);
             data.put(KEY_TS, ts);
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             Log.d(TAG, "JSON Exception");
             e.printStackTrace();
         }
 
-        mListenerTrackTrain = new Emitter.Listener()
-        {
+        mListenerTrackTrain = new Emitter.Listener() {
             @Override
-            public void call(Object... args)
-            {
-                if(args[0] == null)
+            public void call(Object... args) {
+                if (args[0] == null)
                     return;
                 //Log.d(TAG, args[0].toString());
-                try
-                {
+                try {
                     JSONObject jsonObject = new JSONObject(args[0].toString());
                     LatLng latLng = new LatLng(jsonObject.getDouble("lat"),
                             jsonObject.getDouble("lng"));
                     callback.onLocationReceive(latLng);
-                }
-                catch(JSONException e)
-                {
+                } catch (JSONException e) {
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
                 }
@@ -230,23 +195,18 @@ public class WebSocketHelper implements BaseWebSocketHelper
 
 
     @Override
-    public void updateUser(LatLng location)
-    {
-        if(mSocketTrackUser == null)
-        {
+    public void updateUser(LatLng location) {
+        if (mSocketTrackUser == null) {
             Log.e(TAG, "SOCKET UPDATE USER NULL");
             return;
         }
 
         JSONObject data = null;
-        try
-        {
+        try {
             data = new JSONObject();
             data.put(KEY_LAT, location.latitude);
             data.put(KEY_LNG, location.longitude);
-        }
-        catch (JSONException e)
-        {
+        } catch (JSONException e) {
             Log.d(TAG, "JSON Exception");
             e.printStackTrace();
         }
@@ -259,37 +219,31 @@ public class WebSocketHelper implements BaseWebSocketHelper
     public void startScheduleTracking(String userAccessToken, final JSONCallback jsonCallback) {
 
         Log.d(TAG, "Stariting Scheduling");
-        try
-        {
+        try {
             mSocketScheduleTracking = IO.socket(URL_SHECDULE_TRACKKING + userAccessToken);
-        }
-        catch(URISyntaxException e)
-        {
+        } catch (URISyntaxException e) {
             Log.d(TAG, "Error URIException Track Train");
             e.printStackTrace();
         }
 
 
-        mListnerSchdule = new Emitter.Listener()
-        {
+        mListnerSchdule = new Emitter.Listener() {
             @Override
-            public void call(Object... args)
-            {
-                if(args[0] == null)
+            public void call(Object... args) {
+                if (args[0] == null)
                     return;
-                //Log.d(TAG, args[0].toString());
-                try
-                {
+
+                try {
+                    Realm realm = Realm.getDefaultInstance();
+                    RealmDB realmDB = RealmDB.getinstance();
+                    realmDB.clearAll(realm);
+
                     JSONObject jsonObject = new JSONObject(args[0].toString());
                     Log.d(TAG, jsonObject.toString());
                     jsonCallback.onSuccess(jsonObject);
-                   /* LatLng latLng = new LatLng(jsonObject.getDouble("lat"),
-                            jsonObject.getDouble("lng"));
-                    callback.onLocationReceive(latLng);*/
-                }
-                catch(JSONException e)
-                {
-                    jsonCallback.onFail( e.toString());
+
+                } catch (JSONException e) {
+                    jsonCallback.onFail(e.toString());
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
                 }
@@ -305,13 +259,10 @@ public class WebSocketHelper implements BaseWebSocketHelper
     }
 
 
-
     @Override
-    public void stopTrackUser()
-    {
+    public void stopTrackUser() {
         Log.d(TAG, "Stopping User Socket!");
-        if(mSocketTrackUser != null)
-        {
+        if (mSocketTrackUser != null) {
             mSocketTrackUser.emit(EVENT_UNTRACK_TRAIN);
             mSocketTrackUser.disconnect();
             mSocketTrackUser = null;

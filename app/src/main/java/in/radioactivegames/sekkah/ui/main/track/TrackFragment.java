@@ -44,6 +44,7 @@ import in.radioactivegames.sekkah.ui.main.track.map.MapFragment;
 import in.radioactivegames.sekkah.ui.main.track.station.StationFragment;
 
 import static in.radioactivegames.sekkah.data.other.Constants.KEY_UPDATE;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
 
 public class TrackFragment extends BaseFragment implements TrackContract.View {
     private View mFragment;
@@ -89,6 +90,7 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mSettingsClient = LocationServices.getSettingsClient(getActivity());
 
+
         createLocationCallback();
         createLocationRequest();
         buildLocationSettingsRequest();
@@ -120,9 +122,14 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
     }
 
     private void setupViewPager() {
+
+        Bundle bundle = getArguments();
+
         viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         MapFragment mapFragment = MapFragment.newInstance();
+        mapFragment.setArguments(bundle);
         StationFragment stationFragment = StationFragment.newInstance();
+        stationFragment.setArguments(bundle);
         mMapFragmentListener = mapFragment;
         viewPagerAdapter.addFragment(mapFragment, "Map");
         viewPagerAdapter.addFragment(stationFragment, "Station");

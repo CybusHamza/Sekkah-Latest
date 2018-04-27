@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BasePresenter;
+import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.model.Station;
 import in.radioactivegames.sekkah.data.model.Train;
 import in.radioactivegames.sekkah.data.model.TrainPOJO;
@@ -29,20 +30,25 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
     private List<Train> trains;
     private List<TrainPOJO> trainsPojo;
     private static final String TAG = TrainsPresenter.class.getSimpleName();
+    RealmDB realmDB ;
 
     @Inject
     public TrainsPresenter()
     {
         trains = new ArrayList<>();
         trainsPojo = new ArrayList<>();
+        realmDB =  RealmDB.getinstance();
     }
 
 
-    public void   getTrainData(Realm realm) {
+
+
+    @Override
+    public void getTrainData(String fromStation, String toStaion, Realm realm) {
 
         String data ="";
-        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class);
-        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        RealmResults<TrainPOJO> result1 = realmDB.getTrains(fromStation,toStaion,realm);
 
         try{
 
@@ -53,17 +59,13 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
                 trainPOJO.setId(user.getId());
                 trainPOJO.setNameen(user.getNameen());
                 trainPOJO.setNamear(user.getNamear());
-                trainPOJO.setLat(user.getLat());
-                trainPOJO.setLng(user.getLng());
-                trainPOJO.setUpdatedAt(user.getUpdatedAt());
-                trainPOJO.setDelay(user.getDelay());
+                trainPOJO.setNameen(user.getNumber());
                 trainPOJO.setDepStation(user.getDepStation());
                 trainPOJO.setGetDepStationtime(user.getGetDepStationtime());
                 trainPOJO.setFinalStation(user.getFinalStation());
                 trainPOJO.setFinalStationDepStationtime(user.getFinalStationDepStationtime());
 
                 trainsPojo.add(trainPOJO);
-
 
             }
         }catch (Exception e){

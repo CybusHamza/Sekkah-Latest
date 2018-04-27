@@ -3,11 +3,13 @@ package in.radioactivegames.sekkah.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-public class StationPOJO extends RealmObject {
-
+public class StationPOJO extends RealmObject  {
 
     private String id;
 
@@ -80,5 +82,18 @@ public class StationPOJO extends RealmObject {
 
     public void setTs(String ts) {
         this.ts = ts;
+    }
+
+    @Override
+    public String toString() {
+        return "StationPOJO{" +
+                "id='" + id + '\'' +
+                ", namear='" + namear + '\'' +
+                ", nameen='" + nameen + '\'' +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                ", distance=" + distance +
+                ", ts='" + ts + '\'' +
+                '}';
     }
 }
