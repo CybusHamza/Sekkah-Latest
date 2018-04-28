@@ -16,11 +16,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -29,6 +33,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
+import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.main.report.ReportFragment;
@@ -107,6 +112,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
 
         mPresenter.getTrainStaiton(stationId,Realm.getDefaultInstance());
 
+
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
@@ -131,8 +137,10 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
 
 
     @Override
-    public void setTrainLocation(final LatLng location)
+    public void setTrainLocation(final LatLng location, final LatLng nextlocation , String ts , final String stationName)
     {
+
+        final String title = stationName+" : "+ts;
         try
         {
             getActivity().runOnUiThread(new Runnable()
@@ -142,7 +150,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
                 {
 
                     mTrainMarker = mMap.addMarker(new MarkerOptions()
-                            .position(location));
+                            .position(location).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
                     Log.d(TAG, "Location: " + location.toString());
                 }
@@ -151,10 +159,22 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
         catch(NullPointerException e)
         {
             mTrainMarker = mMap.addMarker(new MarkerOptions()
-                    .position(location));
+                    .position(location).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
             Log.d(TAG, "Location: " + location.toString());
         }
+
+        ArrayList<LatLng> points = new ArrayList<LatLng>();
+        PolylineOptions polyLineOptions = new PolylineOptions();
+        points.add(location);
+        points.add(nextlocation);
+        polyLineOptions.width(7 * 1);
+        polyLineOptions.geodesic(true);
+        polyLineOptions.color(getContext().getResources().getColor(R.color.colorAccen2));
+        polyLineOptions.addAll(points);
+        Polyline polyline = mMap.addPolyline(polyLineOptions);
+        polyline.setGeodesic(true);
+
     }
 
     @Override
@@ -208,10 +228,35 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     }
 
     @Override
-    public void setTrainStaiton(ArrayList<LatLng> latLngs) {
+    public void setTrainStaiton(ArrayList<StationPOJO> stationPOJOS) {
 
-        for (int i = 0 ; i < latLngs.size();i++){
-            setTrainLocation(latLngs.get(i));
+        Locale currents = getResources().getConfiguration().locale;
+        String lan = currents.getLanguage();
+
+
+        for (int i = 0 ; i < stationPOJOS.size();i++){
+
+            LatLng latlng=  new LatLng(stationPOJOS.get(i).getLat(),stationPOJOS.get(i).getLng());
+            LatLng nextLatLng;
+            String name;
+            int current  =i;
+            if(current<stationPOJOS.size()-1){
+                 current++;
+                 nextLatLng=  new LatLng(stationPOJOS.get(current).getLat(),stationPOJOS.get(current).getLng());
+            }
+            else {
+                nextLatLng = new LatLng(stationPOJOS.get(i).getLat(),stationPOJOS.get(i).getLng());
+        }
+
+            if (lan.equals("ar")) {
+                 name = stationPOJOS.get(i).getNamear();
+            } else {
+                 name = stationPOJOS.get(i).getNameen();
+            }
+
+            String ts = stationPOJOS.get(i).getTs();
+
+            setTrainLocation(latlng,nextLatLng,ts,name);
         }
     }
 

@@ -37,6 +37,7 @@ import butterknife.OnFocusChange;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
+import in.radioactivegames.sekkah.ui.loginregister.forgotpassword.ForgotPasswordActivity;
 import in.radioactivegames.sekkah.ui.main.MainActivity;
 
 public class RegisterFragment extends BaseFragment implements RegisterContract.View, Validator.ValidationListener

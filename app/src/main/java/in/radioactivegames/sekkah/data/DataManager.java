@@ -46,6 +46,11 @@ public class DataManager implements BaseDataManager
     }
 
     @Override
+    public void forgotPassword(String email, String password, String confirmPassword, JSONCallback callback) {
+        mApiHelper.forgotPassword(email, password,confirmPassword, callback);
+    }
+
+    @Override
     public void setCurrentUser(User user)
     {
         mSharedPrefsHelper.setCurrentUser(user);
@@ -91,5 +96,12 @@ public class DataManager implements BaseDataManager
     public void stopTrackUser()
     {
         mWebSocketHelper.stopTrackUser();
+    }
+
+    @Override
+    public void getUserData(String auth, JSONCallback callback) {
+
+        mApiHelper.getProfile(auth,callback);
+
     }
 }

@@ -48,6 +48,7 @@ import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.loginregister.LoginRegisterActivity;
+import in.radioactivegames.sekkah.ui.loginregister.forgotpassword.ForgotPasswordActivity;
 import in.radioactivegames.sekkah.ui.main.MainActivity;
 
 public class LoginFragment extends BaseFragment implements LoginContract.View, Validator.ValidationListener
@@ -199,6 +200,17 @@ public class LoginFragment extends BaseFragment implements LoginContract.View, V
         mValidator.validate();
     }
 
+    @OnClick(R.id.tvForgotPassword)
+    public void onClickForgot()
+    {
+        launchFogotPassScreen();
+    }
+
+
+    private void launchFogotPassScreen(){
+
+        startActivity(new Intent(getActivity(), ForgotPasswordActivity.class));
+    }
     @Override
     public void onValidationSucceeded()
     {

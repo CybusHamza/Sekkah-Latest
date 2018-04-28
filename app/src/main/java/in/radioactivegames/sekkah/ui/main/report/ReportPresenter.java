@@ -1,5 +1,6 @@
 package in.radioactivegames.sekkah.ui.main.report;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -10,15 +11,20 @@ import org.json.JSONObject;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BasePresenter;
 import in.radioactivegames.sekkah.data.DataManager;
+import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 import in.radioactivegames.sekkah.data.model.Station;
+import in.radioactivegames.sekkah.data.model.StationPOJO;
 import in.radioactivegames.sekkah.data.other.MockData;
 import in.radioactivegames.sekkah.ui.main.home.HomePresenter;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 /**
  * Created by AntiSaby on 1/2/2018.
@@ -42,27 +48,29 @@ public class ReportPresenter extends BasePresenter<ReportContract.View> implemen
     }
 
     @Override
-    public void getStationsData()
+    public void getStationsData(Context context)
     {
-        try
-        {
-            for (int i = 0; i < MockData.stations.length(); i++)
-            {
-                JSONObject jsonStation = MockData.stations.getJSONObject(i);
-                Station station = new Station();
-                //station.id = jsonStation.getInt("id");
-              /*  station. name = jsonStation.getString("name");
-                stations.add(station);
-                stationNames.add(station.name);*/
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<StationPOJO> stationPOJOS = RealmDB.getinstance().getAllStation(realm);
+
+        try{
+            for (StationPOJO user : stationPOJOS) {
+                Locale current = context.getResources().getConfiguration().locale;
+
+                if (current.getLanguage().equals("ar")) {
+                    stationNames.add(user.getNamear());
+                }else {
+                    stationNames.add(user.getNameen());
+                }
+
             }
-        }
-        catch(JSONException ex)
-        {
+        }catch (Exception e){
             Log.e(TAG, "JSONException");
         }
-        finally
-        {
+        finally {
             getMvpView().setStationsData(stationNames);
+
         }
     }
 

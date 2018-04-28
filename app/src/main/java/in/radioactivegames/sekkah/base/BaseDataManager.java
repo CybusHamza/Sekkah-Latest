@@ -17,6 +17,7 @@ public interface BaseDataManager
 {
     void registerUser(String username, String firstName, String lastName, String email, long dateOfBirth, String password, String confirmPassword, JSONCallback callback);
     void login(String username, String password, JSONCallback callback);
+    void forgotPassword(String email, String password, String confirmPassword, JSONCallback callback);
     void setCurrentUser(User user);
     User getCurrentUser();
     void trackTrain(String trainId, String userAccessToken, TrainLocationCallback callback);
@@ -25,4 +26,5 @@ public interface BaseDataManager
     void startTrackUser(String trainId, String userAccessToken);
     void updateUser(LatLng location);
     void stopTrackUser();
+    void getUserData(String auth,JSONCallback callback);
 }

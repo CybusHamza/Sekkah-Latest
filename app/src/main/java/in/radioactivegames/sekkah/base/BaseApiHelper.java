@@ -9,8 +9,7 @@ import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
  * www.radioactivegames.in
  */
 
-public interface BaseApiHelper
-{
+public interface BaseApiHelper {
     void registerUser(String username,
                       String firstName,
                       String lastName,
@@ -23,4 +22,12 @@ public interface BaseApiHelper
     void loginUser(String username,
                    String password,
                    final JSONCallback callback);
+
+    void forgotPassword(String email,
+                        String password,
+                        String passwordConfirmation,
+                        final JSONCallback callback);
+
+    void getProfile(String auth, final JSONCallback callbac);
+
 }

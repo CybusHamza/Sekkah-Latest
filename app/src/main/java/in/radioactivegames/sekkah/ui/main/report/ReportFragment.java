@@ -71,7 +71,7 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.getStationsData();
+        mPresenter.getStationsData(getActivity());
     }
 
     @Override

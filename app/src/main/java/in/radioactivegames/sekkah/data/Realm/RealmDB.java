@@ -186,7 +186,7 @@ public class RealmDB {
                 stationPOJO.setDistance(user.getDistance());
                 stationPOJO.setLat(user.getLat());
                 stationPOJO.setLng(user.getLng());
-                stationPOJO.setTs(user.getTs());
+                stationPOJO.setTs(trainPOJO.getTsList().get(i));
 
                 StationList.add(stationPOJO);
             }

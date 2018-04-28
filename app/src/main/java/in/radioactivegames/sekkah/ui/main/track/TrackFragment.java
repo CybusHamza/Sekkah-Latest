@@ -139,7 +139,7 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
 
     @Override
     public void setTrainLocation(LatLng location) {
-        mMapFragmentListener.setTrainLocation(location);
+       // mMapFragmentListener.setTrainLocation(location);
     }
 
     private void createLocationRequest() {
@@ -360,6 +360,6 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
 
     public interface OnFragmentInteractionListener
     {
-        void setTrainLocation(LatLng location);
+        void setTrainLocation(LatLng location ,final LatLng nextlocation , String ts ,String stationName);
     }
 }

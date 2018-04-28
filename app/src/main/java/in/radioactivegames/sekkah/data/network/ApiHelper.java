@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import in.radioactivegames.sekkah.base.BaseApiHelper;
 import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.network.api.ProfileApi;
+import in.radioactivegames.sekkah.data.network.request.ForgotPasswordRequest;
 import in.radioactivegames.sekkah.data.network.request.LoginRequest;
 import in.radioactivegames.sekkah.data.network.request.RegisterRequest;
 import in.radioactivegames.sekkah.data.network.response.RegisterResponse;
@@ -146,5 +147,102 @@ public class ApiHelper implements BaseApiHelper
                 callback.onFail("Error contacting the service! Please try again later.");
             }
         });
+    }
+
+    @Override
+    public void forgotPassword(String email, String password, String passwordConfirmation, final JSONCallback callback) {
+
+        ForgotPasswordRequest request = new ForgotPasswordRequest();
+        request.email = email;
+        request.password = password;
+        request.passwordConfirmation = passwordConfirmation;
+
+        Call<JsonElement> call = mProfileApi.restore(request);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    root = new JSONObject(response.body().getAsJsonObject().toString());
+                    success = root.getBoolean("success");
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+
+    }
+
+    @Override
+    public void getProfile(String auth, final JSONCallback callbac) {
+
+        Call<JsonElement> call = mProfileApi.profile(auth);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callbac.onSuccess(root);
+                else
+                    callbac.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callbac.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+
     }
 }

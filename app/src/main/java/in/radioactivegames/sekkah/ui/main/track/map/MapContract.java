@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
 import in.radioactivegames.sekkah.base.BaseMvpView;
+import in.radioactivegames.sekkah.data.model.StationPOJO;
 import io.realm.Realm;
 
 /**
@@ -17,7 +18,7 @@ public class MapContract
 {
     public interface View extends BaseMvpView
     {
-        public void setTrainStaiton(ArrayList<LatLng> latLngs);
+        public void setTrainStaiton( ArrayList<StationPOJO> stationPOJOS);
     }
 
     public interface Presenter extends BaseMvpPresenter<MapContract.View>

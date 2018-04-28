@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BasePresenter;
 import in.radioactivegames.sekkah.data.Realm.RealmDB;
+import in.radioactivegames.sekkah.data.model.StationPOJO;
 import io.realm.Realm;
 
 /**
@@ -27,14 +28,14 @@ public class MapPresenter extends BasePresenter<MapContract.View> implements Map
     @Override
     public void getTrainStaiton(String stationId, Realm realm) {
 
-        ArrayList<LatLng> latLngArrayList = new ArrayList<>();
+        ArrayList<StationPOJO> stationPOJOS = new ArrayList<>();
         try {
 
-            latLngArrayList = RealmDB.getinstance().getTrainStationsLatLng(realm,stationId);
+            stationPOJOS = RealmDB.getinstance().getTrainStations(realm,stationId);
 
         }finally {
 
-            getMvpView().setTrainStaiton(latLngArrayList);
+            getMvpView().setTrainStaiton(stationPOJOS);
         }
 
     }

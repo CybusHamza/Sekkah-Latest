@@ -157,7 +157,6 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
             }
 
             holder.mTvArrivalTime.setText(stationPOJO.getTs());
-            holder.mTvDepartureTime.setText(stationPOJO.getTs());
         }
 
         @Override
