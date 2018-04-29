@@ -19,7 +19,7 @@ public class TrackContract
 
     public interface Presenter extends BaseMvpPresenter<TrackContract.View>
     {
-        void trackTrain();
+        void trackTrain(String tainId);
         void trainLocationReport();
         void scheduleTracking();
         void stopTrackTrain();

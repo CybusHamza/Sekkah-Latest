@@ -55,6 +55,41 @@ public class RealmDB {
         return stationname;
     }
 
+    public String getStationbyName(String stationName,Realm realm) {
+
+        String stationId;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("nameen", stationName)
+                .findAll();
+
+        if(result.size() >0){
+            stationId=  result.get(0).getId();
+        }
+        else {
+            stationId =  "" ;
+        }
+
+        return stationId;
+    }
+
+    public String getStationbyNameAr(String stationName,Realm realm) {
+
+        String stationId;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("namear", stationName)
+                .findAll();
+
+        if(result.size() >0){
+            stationId=  result.get(0).getId();
+        }
+        else {
+            stationId =  "" ;
+        }
+
+        return stationId;
+    }
+
+
     public String getStationAr(String stationId,Realm realm) {
 
         String stationname;
@@ -175,6 +210,8 @@ public class RealmDB {
 
         RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
 
+        int count =0;
+
         for(int i = 0 ; i < stringRealmList.size() ; i++) {
 
             RealmResults<StationPOJO> Station = getStations(stringRealmList.get(i), realm);
@@ -186,14 +223,27 @@ public class RealmDB {
                 stationPOJO.setDistance(user.getDistance());
                 stationPOJO.setLat(user.getLat());
                 stationPOJO.setLng(user.getLng());
-                stationPOJO.setTs(trainPOJO.getTsList().get(i));
-
+                stationPOJO.setTs(trainPOJO.getTsList().get(count));
+                count++;
                 StationList.add(stationPOJO);
             }
 
         }
 
         return StationList;
+    }
+
+    public TrainPOJO getTrainbyId(Realm realm, String trainId){
+        ArrayList<StationPOJO> StationList =new ArrayList<>();
+
+        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
+                .equalTo("id", trainId);
+
+        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        TrainPOJO trainPOJO = result1.get(0);
+
+        return trainPOJO;
     }
 
 }

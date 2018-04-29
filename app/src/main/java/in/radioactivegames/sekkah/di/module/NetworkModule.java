@@ -9,8 +9,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import in.radioactivegames.sekkah.data.network.WebSocketHelper;
-import in.radioactivegames.sekkah.data.network.api.ProfileApi;
+import in.radioactivegames.sekkah.data.network.api.ApiInterface;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -73,9 +72,9 @@ public class NetworkModule
 
     @Provides
     @Singleton
-    public ProfileApi provideProfileApi(Retrofit retrofit)
+    public ApiInterface provideProfileApi(Retrofit retrofit)
     {
-        return retrofit.create(ProfileApi.class);
+        return retrofit.create(ApiInterface.class);
     }
 
 }

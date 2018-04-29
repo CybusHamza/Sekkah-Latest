@@ -76,7 +76,9 @@ public class ReportPresenter extends BasePresenter<ReportContract.View> implemen
 
     @Override
     public void trainLocationReport(String stationId, String ts) {
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+
+        String accessToken = mDataManager.getCurrentUser().mAccessToken;
+
         mDataManager.trainLocationReport(stationId,ts, accessToken, new TrainLocationCallback()
         {
             @Override

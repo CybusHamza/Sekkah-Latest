@@ -104,4 +104,10 @@ public class DataManager implements BaseDataManager
         mApiHelper.getProfile(auth,callback);
 
     }
+
+    @Override
+    public void contactUs(String auth, String subject, String type, String message, JSONCallback callback) {
+
+        mApiHelper.contactUs(auth,subject,type,message,callback);
+    }
 }

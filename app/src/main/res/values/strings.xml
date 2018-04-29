@@ -32,7 +32,7 @@
     <string name="nav_main_settings">Settings</string>
     <string name="nav_main_promotion_code">Promotion Code</string>
     <string name="nav_main_reminder">Reminder</string>
-    <string name="nav_main_contact_us">About Us</string>
+    <string name="nav_main_contact_us">Contact Us</string>
 
     <string name="facebook_app_id" translatable="false">239298566605435</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb239298566605435</string>
@@ -53,4 +53,8 @@
     <string name="text_arrival">Arrival</string>
     <string name="map">MAP</string>
     <string name="station">STATION</string>
+
+    <string name="Complaint">Complaint</string>
+    <string name="Suggestion">Suggestion</string>
+    <string name="Enquiry">Enquiry</string>
 </resources>

@@ -17,6 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -25,7 +26,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
+import in.radioactivegames.sekkah.data.Realm.RealmDB;
+import in.radioactivegames.sekkah.data.model.Station;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
+import io.realm.Realm;
 
 
 public class ReportFragment extends BaseFragment implements ReportContract.View
@@ -88,7 +92,6 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
 
     }
 
-
     @OnClick(R.id.llTime)
     public void chooseTime()
     {
@@ -111,9 +114,19 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
     @OnClick(R.id.btnReport)
     public void getReport()
     {
-        String stationId = data.get(spnStation.getSelectedItemPosition());
+        String stationName = data.get(spnStation.getSelectedItemPosition());
+
+        Locale current = getActivity().getResources().getConfiguration().locale;
+        String stationId;
+        if (current.getLanguage().equals("ar")) {
+            stationId = RealmDB.getinstance().getStationbyNameAr(stationName, Realm.getDefaultInstance());
+        }else {
+             stationId = RealmDB.getinstance().getStationbyName(stationName, Realm.getDefaultInstance());
+        }
+
         ts = tvHour.getText().toString()+":"+tvMins.getText().toString();
-        mPresenter.trainLocationReport("5a6475ec457d1b10b4bb38fa",ts);
+
+        mPresenter.trainLocationReport(stationId,ts);
     }
 
 }

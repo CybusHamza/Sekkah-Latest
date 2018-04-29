@@ -110,11 +110,12 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
     }
 
 
-    private void startTracking(String stationId) {
+    private void startTracking(String trainId) {
 
         Bundle bundle = new Bundle();
 
-        bundle.putString(Constants.KEY_STATIONID, stationId);
+        bundle.putString(Constants.KEY_TRAINID, trainId);
+
 
         TrackFragment trackFragment = TrackFragment.newInstance();
         trackFragment.setArguments(bundle);

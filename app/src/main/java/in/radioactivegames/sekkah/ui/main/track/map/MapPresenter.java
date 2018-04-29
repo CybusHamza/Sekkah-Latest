@@ -26,12 +26,12 @@ public class MapPresenter extends BasePresenter<MapContract.View> implements Map
     }
 
     @Override
-    public void getTrainStaiton(String stationId, Realm realm) {
+    public void getTrainStaiton(String trainId, Realm realm) {
 
         ArrayList<StationPOJO> stationPOJOS = new ArrayList<>();
         try {
 
-            stationPOJOS = RealmDB.getinstance().getTrainStations(realm,stationId);
+            stationPOJOS = RealmDB.getinstance().getTrainStations(realm,trainId);
 
         }finally {
 

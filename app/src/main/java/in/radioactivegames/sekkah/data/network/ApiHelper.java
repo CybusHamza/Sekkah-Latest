@@ -1,39 +1,24 @@
 package in.radioactivegames.sekkah.data.network;
 
-import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BaseApiHelper;
 import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
-import in.radioactivegames.sekkah.data.network.api.ProfileApi;
+import in.radioactivegames.sekkah.data.network.api.ApiInterface;
+import in.radioactivegames.sekkah.data.network.request.ContactUs;
 import in.radioactivegames.sekkah.data.network.request.ForgotPasswordRequest;
 import in.radioactivegames.sekkah.data.network.request.LoginRequest;
 import in.radioactivegames.sekkah.data.network.request.RegisterRequest;
-import in.radioactivegames.sekkah.data.network.response.RegisterResponse;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by AntiSaby on 1/6/2018.
@@ -44,10 +29,10 @@ public class ApiHelper implements BaseApiHelper
 {
     private static final String TAG = ApiHelper.class.getSimpleName();
 
-    private ProfileApi mProfileApi;
+    private ApiInterface mProfileApi;
 
     @Inject
-    public ApiHelper(ProfileApi profileApi)
+    public ApiHelper(ApiInterface profileApi)
     {
         mProfileApi = profileApi;
     }
@@ -241,6 +226,61 @@ public class ApiHelper implements BaseApiHelper
             {
                 Log.e(TAG, t.toString());
                 callbac.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+
+    }
+
+    @Override
+    public void contactUs(String auth, String subject, String type, String message, final JSONCallback callback) {
+        
+        ContactUs request = new ContactUs();
+        request.subject = subject;
+        request.type = type;
+        request.message = message;
+
+
+        Call<JsonElement> call = mProfileApi.contactus(auth,request);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
             }
         });
 

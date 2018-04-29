@@ -27,4 +27,5 @@ public interface BaseDataManager
     void updateUser(LatLng location);
     void stopTrackUser();
     void getUserData(String auth,JSONCallback callback);
+    void contactUs(String auth,String subject, String type, String message,JSONCallback callback);
 }

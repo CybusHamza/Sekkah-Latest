@@ -30,4 +30,11 @@ public interface BaseApiHelper {
 
     void getProfile(String auth, final JSONCallback callbac);
 
+
+    void contactUs(String auth,
+                        String subject,
+                        String type,
+                        String message,
+                        final JSONCallback callback);
+
 }

@@ -39,6 +39,7 @@ import io.realm.Realm;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_TRAINID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,14 +85,14 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         Bundle bundle = getArguments();
-        String stationId = "";
+        String trainId = "";
         if(bundle != null){
-            if(bundle.containsKey(KEY_STATIONID)){
-                stationId = bundle.getString(KEY_STATIONID);
+            if(bundle.containsKey(KEY_TRAINID)){
+                trainId = bundle.getString(KEY_TRAINID);
             }
         }
 
-        mPresenter.getStationData( Realm.getDefaultInstance(),stationId);
+        mPresenter.getStationData( Realm.getDefaultInstance(),trainId);
 
         tvDepartureStation = mFragment.findViewById(R.id.tvDepartureStation);
         tvDestinationStation = mFragment.findViewById(R.id.tvDestinationStation);
@@ -156,7 +157,7 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
                 holder.mTvStation.setText(stationPOJO.getNameen());
             }
 
-            holder.mTvArrivalTime.setText(stationPOJO.getTs());
+            holder.mTvDepartureTime.setText(stationPOJO.getTs());
         }
 
         @Override

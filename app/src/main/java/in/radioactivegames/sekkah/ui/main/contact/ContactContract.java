@@ -2,6 +2,7 @@ package in.radioactivegames.sekkah.ui.main.contact;
 
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
 import in.radioactivegames.sekkah.base.BaseMvpView;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 
 /**
  * Created by AntiSaby on 1/3/2018.
@@ -10,6 +11,8 @@ import in.radioactivegames.sekkah.base.BaseMvpView;
 
 public class ContactContract
 {
+
+
     public interface View extends BaseMvpView
     {
 
@@ -17,6 +20,6 @@ public class ContactContract
 
     public interface Presenter extends BaseMvpPresenter<ContactContract.View>
     {
-
+        public void contactUs( String subject, String type, String message, JSONCallback jsonCallback);
     }
 }

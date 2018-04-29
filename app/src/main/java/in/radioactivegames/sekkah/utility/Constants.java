@@ -7,7 +7,7 @@ public interface Constants {
    String KEY_FROM = "from";
    String KEY_TO = "to";
    String KEY_STATIONID = "stationid";
-   String KEY_TRAINID = "stationid";
+   String KEY_TRAINID = "trainid";
 
 
 }

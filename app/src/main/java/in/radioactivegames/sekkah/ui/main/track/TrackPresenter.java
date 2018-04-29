@@ -21,18 +21,26 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
 
     private DataManager mDataManager;
 
+    String accessToken;
+
+
     @Inject
     public TrackPresenter(DataManager dataManager)
     {
         mDataManager = dataManager;
+        if(mDataManager.getCurrentUser() != null){
+            accessToken = mDataManager.getCurrentUser().mAccessToken;
+        }else {
+            accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+        }
     }
 
     @Override
-    public void trackTrain()
+    public void trackTrain(String trainId)
     {
         //String accessToken = mDataManager.getCurrentUser().mAccessToken;
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
-        mDataManager.trackTrain("5a6475ec457d1b10b4bb3928", accessToken, new TrainLocationCallback()
+       //String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+        mDataManager.trackTrain(trainId, accessToken, new TrainLocationCallback()
         {
             @Override
             public void onLocationReceive(LatLng location)
@@ -44,7 +52,7 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
 
     @Override
     public void trainLocationReport() {
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+       // String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
         mDataManager.trainLocationReport("5a6475ec457d1b10b4bb38fa",new Timestamp(System.currentTimeMillis()).toString(), accessToken, new TrainLocationCallback()
         {
             @Override
@@ -57,7 +65,7 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
 
     @Override
     public void scheduleTracking() {
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+        //String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
     }
 
     @Override
@@ -72,7 +80,7 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
     public void startTrackUser()
     {
         //mDataManager.startTrackUser("5a40dab6734d1d5b99260f85", mDataManager.getCurrentUser().mAccessToken);
-        mDataManager.startTrackUser("5a6475ec457d1b10b4bb3928", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s");
+        mDataManager.startTrackUser("5a6475ec457d1b10b4bb3928", accessToken);
     }
 
     @Override

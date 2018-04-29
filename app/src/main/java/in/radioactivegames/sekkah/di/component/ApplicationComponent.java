@@ -7,7 +7,7 @@ import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import in.radioactivegames.sekkah.data.network.api.ProfileApi;
+import in.radioactivegames.sekkah.data.network.api.ApiInterface;
 import in.radioactivegames.sekkah.di.module.ApplicationModule;
 import in.radioactivegames.sekkah.di.module.DatabaseModule;
 import in.radioactivegames.sekkah.di.module.NetworkModule;
@@ -26,7 +26,7 @@ public interface ApplicationComponent
 {
     TwitterAuthClient twitterAuthClient();
     Retrofit retrofit();
-    ProfileApi profileApi();
+    ApiInterface profileApi();
     OkHttpClient okHttpClient();
     SharedPreferences sharedPreferences();
 }

@@ -140,8 +140,6 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonObject3 = array.getJSONObject(i);
 
-                                Station station = new Station();
-
                                 stationRealmList.add(jsonObject3.getString("stationId"));
                                 tsRealmList.add(jsonObject3.optString("ts"));
 

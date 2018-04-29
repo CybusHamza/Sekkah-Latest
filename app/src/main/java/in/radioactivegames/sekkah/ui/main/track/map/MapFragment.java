@@ -33,7 +33,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
+import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
+import in.radioactivegames.sekkah.data.model.TrainPOJO;
 import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.radioactivegames.sekkah.di.component.FragmentComponent;
 import in.radioactivegames.sekkah.ui.main.report.ReportFragment;
@@ -46,35 +48,42 @@ import io.realm.Realm;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_TRAINID;
 
 
-public class MapFragment extends BaseFragment implements MapContract.View, OnMapReadyCallback, TrackFragment.OnFragmentInteractionListener
-{
+public class MapFragment extends BaseFragment implements MapContract.View, OnMapReadyCallback, TrackFragment.OnFragmentInteractionListener {
     private View mFragment;
     private GoogleMap mMap;
     private MapView mMapView;
-    TextView tvDepartureStation,tvDestinationStation;
+    @BindView(R.id.tvDepartureStation)
+    TextView tvDepartureStation;
+    @BindView(R.id.tvDestinationStation)
+    TextView tvDestinationStation;
+    @BindView(R.id.tvTrainNumber)
+    TextView tvTrainNumber;
+    @BindView(R.id.tvTrainClass)
+    TextView tvTrainClass;
     private Marker mTrainMarker;
     private OnFragmentInteractionListener mListener;
-
-    @Inject MapPresenter mPresenter;
-    @BindView(R.id.btnReport) ImageView mBtnReport;
-
+    String trainId = "";
+    @Inject
+    MapPresenter mPresenter;
+    @BindView(R.id.btnReport)
+    ImageView mBtnReport;
+    String lan;
     private static final String TAG = MapFragment.class.getSimpleName();
-    public static MapFragment newInstance()
-    {
+
+    public static MapFragment newInstance() {
         return new MapFragment();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mFragment = inflater.inflate(R.layout.fragment_map, container, false);
         setUnbinder(ButterKnife.bind(this, mFragment));
 
@@ -85,33 +94,17 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
 
         mPresenter.onAttach(this);
 
-        tvDepartureStation = mFragment.findViewById(R.id.tvDepartureStation);
-        tvDestinationStation = mFragment.findViewById(R.id.tvDestinationStation);
-
-
-        tvDepartureStation.setText(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
-
-        tvDestinationStation.setText(SharedPrefsUtils.getStringPreference(getContext(),KEY_TO));
+        setTrainData();
 
         return mFragment;
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap)
-    {
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMapView.onResume();
 
-        Bundle bundle = getArguments();
-        String stationId = "";
-        if(bundle != null){
-            if(bundle.containsKey(KEY_STATIONID)){
-                stationId = bundle.getString(KEY_STATIONID);
-            }
-        }
-
-        mPresenter.getTrainStaiton(stationId,Realm.getDefaultInstance());
-
+        mPresenter.getTrainStaiton(trainId, Realm.getDefaultInstance());
 
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -119,14 +112,12 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     }
 
     @Override
-    public void onInject(FragmentComponent fragmentComponent)
-    {
+    public void onInject(FragmentComponent fragmentComponent) {
         fragmentComponent.inject(this);
     }
 
     @OnClick(R.id.btnReport)
-    public void report()
-    {
+    public void report() {
         /*getFragmentManager().beginTransaction()
                 .add(R.id.frameMain, ReportFragment.newInstance(), "ReportFragment")
                 .addToBackStack("ReportFragment")
@@ -135,19 +126,43 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     }
 
 
+    public void setTrainData() {
+        tvDepartureStation.setText(SharedPrefsUtils.getStringPreference(getContext(), KEY_FROM));
+        tvDestinationStation.setText(SharedPrefsUtils.getStringPreference(getContext(), KEY_TO));
+
+        Locale currents = getResources().getConfiguration().locale;
+        lan = currents.getLanguage();
+
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            if (bundle.containsKey(KEY_TRAINID)) {
+                trainId = bundle.getString(KEY_TRAINID);
+            }
+        }
+
+        TrainPOJO trainPOJO = RealmDB.getinstance().getTrainbyId(Realm.getDefaultInstance(), trainId);
+
+        tvTrainNumber.setText(trainPOJO.getNumber());
+
+
+        if (lan.equals("ar")) {
+            tvTrainClass.setText(trainPOJO.getNamear());
+        } else {
+            tvTrainClass.setText(trainPOJO.getNameen());
+        }
+
+        tvTrainClass.setText(trainPOJO.getNameen());
+    }
 
     @Override
-    public void setTrainLocation(final LatLng location, final LatLng nextlocation , String ts , final String stationName)
-    {
+    public void setTrainLocation(final LatLng location, final LatLng nextlocation, String ts, final String stationName) {
 
-        final String title = stationName+" : "+ts;
-        try
-        {
-            getActivity().runOnUiThread(new Runnable()
-            {
+        final String title = stationName + " : " + ts;
+        try {
+            getActivity().runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
 
                     mTrainMarker = mMap.addMarker(new MarkerOptions()
                             .position(location).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
@@ -155,9 +170,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
                     Log.d(TAG, "Location: " + location.toString());
                 }
             });
-        }
-        catch(NullPointerException e)
-        {
+        } catch (NullPointerException e) {
             mTrainMarker = mMap.addMarker(new MarkerOptions()
                     .position(location).title(title).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
@@ -178,51 +191,65 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     }
 
     @Override
-    public void onResume()
-    {
+    public void setTrainLocation(final LatLng location) {
+        try {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    mTrainMarker = mMap.addMarker(new MarkerOptions()
+                            .position(location).title("Current Location"));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
+                    Log.d(TAG, "Location: " + location.toString());
+                }
+            });
+        } catch (NullPointerException e) {
+            mTrainMarker = mMap.addMarker(new MarkerOptions()
+                    .position(location).title("Current Location"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
+            Log.d(TAG, "Location: " + location.toString());
+        }
+
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
         mMapView.onResume();
 
     }
 
     @Override
-    public void onPause()
-    {
+    public void onPause() {
         super.onPause();
         mMapView.onPause();
     }
 
     @Override
-    public void onDestroy()
-    {
+    public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
     }
 
     @Override
-    public void onLowMemory()
-    {
+    public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
     }
 
     @Override
-    public void onAttach(Context context)
-    {
+    public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener)
-        {
+        if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
-        } else
-        {
+        } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach()
-    {
+    public void onDetach() {
         super.onDetach();
         mListener = null;
     }
@@ -230,38 +257,31 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     @Override
     public void setTrainStaiton(ArrayList<StationPOJO> stationPOJOS) {
 
-        Locale currents = getResources().getConfiguration().locale;
-        String lan = currents.getLanguage();
+        for (int i = 0; i < stationPOJOS.size(); i++) {
 
-
-        for (int i = 0 ; i < stationPOJOS.size();i++){
-
-            LatLng latlng=  new LatLng(stationPOJOS.get(i).getLat(),stationPOJOS.get(i).getLng());
+            LatLng latlng = new LatLng(stationPOJOS.get(i).getLat(), stationPOJOS.get(i).getLng());
             LatLng nextLatLng;
             String name;
-            int current  =i;
-            if(current<stationPOJOS.size()-1){
-                 current++;
-                 nextLatLng=  new LatLng(stationPOJOS.get(current).getLat(),stationPOJOS.get(current).getLng());
+            int current = i;
+            if (current < stationPOJOS.size() - 1) {
+                current++;
+                nextLatLng = new LatLng(stationPOJOS.get(current).getLat(), stationPOJOS.get(current).getLng());
+            } else {
+                nextLatLng = new LatLng(stationPOJOS.get(i).getLat(), stationPOJOS.get(i).getLng());
             }
-            else {
-                nextLatLng = new LatLng(stationPOJOS.get(i).getLat(),stationPOJOS.get(i).getLng());
-        }
 
             if (lan.equals("ar")) {
-                 name = stationPOJOS.get(i).getNamear();
+                name = stationPOJOS.get(i).getNamear();
             } else {
-                 name = stationPOJOS.get(i).getNameen();
+                name = stationPOJOS.get(i).getNameen();
             }
 
             String ts = stationPOJOS.get(i).getTs();
-
-            setTrainLocation(latlng,nextLatLng,ts,name);
+            setTrainLocation(latlng, nextLatLng, ts, name);
         }
     }
 
-    public interface OnFragmentInteractionListener
-    {
+    public interface OnFragmentInteractionListener {
         public void openReportFragment();
     }
 

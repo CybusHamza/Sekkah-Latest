@@ -45,6 +45,7 @@ import in.radioactivegames.sekkah.ui.main.track.station.StationFragment;
 
 import static in.radioactivegames.sekkah.data.other.Constants.KEY_UPDATE;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
+import static in.radioactivegames.sekkah.utility.Constants.KEY_TRAINID;
 
 public class TrackFragment extends BaseFragment implements TrackContract.View {
     private View mFragment;
@@ -110,8 +111,17 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        Bundle bundle = getArguments();
+
+        String trainId = "";
+        if(bundle != null){
+            if(bundle.containsKey(KEY_TRAINID)){
+                trainId = bundle.getString(KEY_TRAINID);
+            }
+        }
+
         setupViewPager();
-        mPresenter.trackTrain();
+        mPresenter.trackTrain(trainId);
         mPresenter.startTrackUser();
         mRequestingLocationUpdates = true;
     }
@@ -139,7 +149,7 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
 
     @Override
     public void setTrainLocation(LatLng location) {
-       // mMapFragmentListener.setTrainLocation(location);
+        mMapFragmentListener.setTrainLocation(location);
     }
 
     private void createLocationRequest() {
@@ -361,5 +371,7 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
     public interface OnFragmentInteractionListener
     {
         void setTrainLocation(LatLng location ,final LatLng nextlocation , String ts ,String stationName);
+
+        void setTrainLocation(LatLng location);
     }
 }
