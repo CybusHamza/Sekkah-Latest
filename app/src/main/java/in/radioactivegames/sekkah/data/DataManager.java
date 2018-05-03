@@ -70,7 +70,9 @@ public class DataManager implements BaseDataManager
 
     @Override
     public void trainLocationReport(String stationId, String ts, String userAccessToken, TrainLocationCallback callback) {
-        mWebSocketHelper.trainLocationReport(stationId,ts,userAccessToken, callback);
+        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+
+        mWebSocketHelper.trainLocationReport(stationId,ts,accessToken, callback);
     }
 
     @Override

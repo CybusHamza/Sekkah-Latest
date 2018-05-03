@@ -45,6 +45,8 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
     TextView tvMins;
     List<String> data;
     String ts;
+
+    public static LatLng latLngTrain;
     public  ReportFragment () {
 
     }
@@ -89,6 +91,11 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
     @Override
     public void setTrainLocation(LatLng location) {
 
+        latLngTrain = location;
+
+        if(getActivity().getSupportFragmentManager().getBackStackEntryCount() > 1){
+            getActivity().getSupportFragmentManager().popBackStack();
+        }
 
     }
 
@@ -127,6 +134,8 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
         ts = tvHour.getText().toString()+":"+tvMins.getText().toString();
 
         mPresenter.trainLocationReport(stationId,ts);
+
+        //setTrainLocation(new LatLng(0,0));
     }
 
 }

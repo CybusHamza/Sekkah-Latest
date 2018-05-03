@@ -45,6 +45,7 @@ import in.radioactivegames.sekkah.ui.main.track.TrackPresenter;
 import in.radioactivegames.sekkah.ui.main.trainlist.TrainsFragment;
 import io.realm.Realm;
 
+import static in.radioactivegames.sekkah.ui.main.report.ReportFragment.latLngTrain;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_STATIONID;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
@@ -105,6 +106,10 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
         mMapView.onResume();
 
         mPresenter.getTrainStaiton(trainId, Realm.getDefaultInstance());
+
+        if (latLngTrain != null){
+            setTrainLocation(latLngTrain);
+        }
 
         //LatLng sydney = new LatLng(-34, 151);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -216,6 +221,12 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
         super.onResume();
         mMapView.onResume();
 
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
     @Override

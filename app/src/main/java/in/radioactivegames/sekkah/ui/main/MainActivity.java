@@ -39,6 +39,7 @@ import in.radioactivegames.sekkah.ui.main.report.ReportFragment;
 import in.radioactivegames.sekkah.ui.main.track.map.MapFragment;
 import in.radioactivegames.sekkah.utility.CircleTransform;
 
+import static in.radioactivegames.sekkah.ui.main.report.ReportFragment.latLngTrain;
 import static in.radioactivegames.sekkah.utility.Constants.FCM_TOEKN_ID;
 
 public class MainActivity extends BaseActivity implements MainContract.View,MapFragment.OnFragmentInteractionListener
@@ -239,8 +240,10 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
     @Override
     public void onBackPressed()
     {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 1)
+        if(getSupportFragmentManager().getBackStackEntryCount() > 1){git
             getSupportFragmentManager().popBackStack();
+            latLngTrain = null;
+        }
         else {
             finish();
         }
@@ -250,7 +253,7 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
     public void openReportFragment()
     {
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.frameMain, new ReportFragment(), "ReportFragment")
+                .replace(R.id.frameMain, new ReportFragment(), "ReportFragment")
                 .addToBackStack("ReportFragment")
                 .commit();
     }

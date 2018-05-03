@@ -77,9 +77,7 @@ public class ReportPresenter extends BasePresenter<ReportContract.View> implemen
     @Override
     public void trainLocationReport(String stationId, String ts) {
 
-        String accessToken = mDataManager.getCurrentUser().mAccessToken;
-
-        mDataManager.trainLocationReport(stationId,ts, accessToken, new TrainLocationCallback()
+        mDataManager.trainLocationReport(stationId,ts, "", new TrainLocationCallback()
         {
             @Override
             public void onLocationReceive(LatLng location)

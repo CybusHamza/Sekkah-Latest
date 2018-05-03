@@ -9,7 +9,7 @@ public interface Constants {
    String KEY_STATIONID = "stationid";
    String KEY_TRAINID = "trainid";
    String FCM_TOEKN_ID = "fcm_toekn_id";
-   String RELOAD_DATASOURCE = "fcm_toekn_id";
+   String RELOAD_DATASOURCE = "reload_datasource";
 
 
 }
