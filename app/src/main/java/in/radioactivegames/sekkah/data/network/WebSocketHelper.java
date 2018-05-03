@@ -30,9 +30,9 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     private Socket mSocketTrackTrain, mSocketTrackUser, mSocketScheduleTracking;
     private Emitter.Listener mListenerTrackTrain, mListnerSchdule;
 
-    private static final String URL_TRACK_TRAIN = "http://sekka-ws-proto.herokuapp.com/traintracking?token=";
-    private static final String URL_TRACK_USER = "http://sekka-ws-proto.herokuapp.com/usertracking?token=";
-    private static final String URL_SHECDULE_TRACKKING = "http://sekka-ws-proto.herokuapp.com/updates?token=";
+    private static final String URL_TRACK_TRAIN = "http://sekkah-ws-tut-proto.herokuapp.com/traintracking?token=";
+    private static final String URL_TRACK_USER = "http://sekkah-ws-tut-proto.herokuapp.com/usertracking?token=";
+    private static final String URL_SHECDULE_TRACKKING = "http://sekkah-ws-uc-proto.herokuapp.com/updates?token=";
 
     private static final String EVENT_TRACK_TRAIN = "track-train";
     private static final String EVENT_TRAIN_LOCATION_UPDATE = "train-location-update";
@@ -216,7 +216,7 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     }
 
     @Override
-    public void startScheduleTracking(String userAccessToken, final JSONCallback jsonCallback) {
+    public void startScheduleTracking(String userAccessToken) {
 
         Log.d(TAG, "Stariting Scheduling");
         try {
@@ -240,10 +240,8 @@ public class WebSocketHelper implements BaseWebSocketHelper {
 
                     JSONObject jsonObject = new JSONObject(args[0].toString());
                     Log.d(TAG, jsonObject.toString());
-                    jsonCallback.onSuccess(jsonObject);
 
                 } catch (JSONException e) {
-                    jsonCallback.onFail(e.toString());
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
                 }

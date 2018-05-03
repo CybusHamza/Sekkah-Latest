@@ -39,6 +39,7 @@ import io.realm.RealmResults;
 
 import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
+import static in.radioactivegames.sekkah.utility.Constants.RELOAD_DATASOURCE;
 
 public class HomeFragment extends BaseFragment implements HomeContract.View {
     private View mFragment;
@@ -85,22 +86,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     public void onResume() {
         String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
         WebSocketHelper webSocketHelper = new WebSocketHelper();
-       // webSocketHelper.startScheduleTracking(accessToken, jsonCallback);
+        if(SharedPrefsUtils.getBooleanPreference(getActivity(),RELOAD_DATASOURCE,false)){
+            webSocketHelper.startScheduleTracking(accessToken);
+        }
         super.onResume();
 
     }
 
-    JSONCallback jsonCallback = new JSONCallback() {
-        @Override
-        public void onSuccess(final JSONObject jsonObject) {
-            mPresenter.parsonJson(jsonObject);
-        }
 
-        @Override
-        public void onFail(String errorMessage) {
-
-        }
-    };
 
     @Override
     public void setStationsData(List<String> data) {

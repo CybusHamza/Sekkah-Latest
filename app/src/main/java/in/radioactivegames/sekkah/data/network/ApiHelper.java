@@ -15,7 +15,10 @@ import in.radioactivegames.sekkah.data.network.api.ApiInterface;
 import in.radioactivegames.sekkah.data.network.request.ContactUs;
 import in.radioactivegames.sekkah.data.network.request.ForgotPasswordRequest;
 import in.radioactivegames.sekkah.data.network.request.LoginRequest;
+import in.radioactivegames.sekkah.data.network.request.Notifsetting;
+import in.radioactivegames.sekkah.data.network.request.PushToken;
 import in.radioactivegames.sekkah.data.network.request.RegisterRequest;
+import in.radioactivegames.sekkah.data.network.request.Reminder;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -284,5 +287,254 @@ public class ApiHelper implements BaseApiHelper
             }
         });
 
+    }
+
+    @Override
+    public void pntoken(String auth, String pnToken, final JSONCallback callback) {
+
+        PushToken request = new PushToken();
+        request.pnToken = pnToken;
+
+
+
+        Call<JsonElement> call = mProfileApi.pntoken(auth,request);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+
+    }
+
+    @Override
+    public void settings(String auth, final JSONCallback callback) {
+
+        Call<JsonElement> call = mProfileApi.getsettings(auth);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+    }
+
+    @Override
+    public void getReminders(String auth, final JSONCallback callback) {
+
+        Call<JsonElement> call = mProfileApi.getReminders(auth);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+    }
+
+    @Override
+    public void setsettings(String auth, boolean getNotifications, final JSONCallback callback) {
+
+        Notifsetting notifsetting = new Notifsetting();
+        notifsetting.getNotifications = getNotifications;
+
+        Call<JsonElement> call = mProfileApi.setsettings(auth,notifsetting);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+    }
+
+    @Override
+    public void setreminders(String auth, Reminder Reminder, final JSONCallback callback) {
+
+        Call<JsonElement> call = mProfileApi.setReminders(auth,Reminder);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
     }
 }

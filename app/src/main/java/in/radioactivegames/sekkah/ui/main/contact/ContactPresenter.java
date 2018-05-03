@@ -30,11 +30,13 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
     }
 
     @Override
-    public void contactUs( String subject, String type, String message,JSONCallback jsonCallback) {
+    public void contactUs(String subject, String type, String message,JSONCallback jsonCallback) {
 
 
         final User user = mDataManager.getCurrentUser();
 
         mDataManager.contactUs(user.mAccessToken,subject, type, message,jsonCallback);
     }
+
+
 }

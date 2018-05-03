@@ -110,4 +110,12 @@ public class DataManager implements BaseDataManager
 
         mApiHelper.contactUs(auth,subject,type,message,callback);
     }
+
+    @Override
+    public void sendPushToken(String auth, String pntoken, JSONCallback callback) {
+        mApiHelper.pntoken(auth,pntoken,callback);
+
+    }
+
+
 }

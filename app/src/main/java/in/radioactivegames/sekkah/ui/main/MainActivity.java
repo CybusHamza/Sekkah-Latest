@@ -18,6 +18,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.facebook.login.LoginManager;
 import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
+import org.json.JSONObject;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -25,14 +27,19 @@ import butterknife.ButterKnife;
 import in.radioactivegames.sekkah.LocationService;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseActivity;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.model.User;
+import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.radioactivegames.sekkah.di.component.ActivityComponent;
+import in.radioactivegames.sekkah.fcm.RegistrationIntentService;
 import in.radioactivegames.sekkah.ui.loginregister.LoginRegisterActivity;
 import in.radioactivegames.sekkah.ui.main.contact.ContactFragment;
 import in.radioactivegames.sekkah.ui.main.home.HomeFragment;
 import in.radioactivegames.sekkah.ui.main.report.ReportFragment;
 import in.radioactivegames.sekkah.ui.main.track.map.MapFragment;
 import in.radioactivegames.sekkah.utility.CircleTransform;
+
+import static in.radioactivegames.sekkah.utility.Constants.FCM_TOEKN_ID;
 
 public class MainActivity extends BaseActivity implements MainContract.View,MapFragment.OnFragmentInteractionListener
 {
@@ -73,6 +80,10 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
                 .add(R.id.frameMain, HomeFragment.newInstance(), "HomeFragment")
                 .addToBackStack("HomeFragment")
                 .commit();
+
+        Intent intent = new Intent(MainActivity.this,RegistrationIntentService.class);
+        startService(intent);
+
     }
 
     @Override
@@ -248,6 +259,21 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
     public void setUser(User user) {
 
         mTvName.setText(String.format("%s %s", user.firstName, user.lastName));
+
+        String token = SharedPrefsUtils.getStringPreference(MainActivity.this,FCM_TOEKN_ID);
+
+        mainPresenter.sendPushToserver(token, new JSONCallback() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
+
+            }
+        });
+
 
     }
 }

@@ -54,6 +54,14 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         }
 
     }
+
+    @Override
+    public void sendPushToserver(String pushToken ,JSONCallback jsonCallback) {
+
+        final User user = mDataManager.getCurrentUser();
+
+        mDataManager.sendPushToken(user.mAccessToken,pushToken,jsonCallback);
+    }
 }
 
 

@@ -28,4 +28,5 @@ public interface BaseDataManager
     void stopTrackUser();
     void getUserData(String auth,JSONCallback callback);
     void contactUs(String auth,String subject, String type, String message,JSONCallback callback);
+    void sendPushToken(String auth,String pntoken ,JSONCallback callback);
 }

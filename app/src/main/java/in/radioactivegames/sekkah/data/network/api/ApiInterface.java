@@ -7,7 +7,10 @@ import org.json.JSONObject;
 import in.radioactivegames.sekkah.data.network.request.ContactUs;
 import in.radioactivegames.sekkah.data.network.request.ForgotPasswordRequest;
 import in.radioactivegames.sekkah.data.network.request.LoginRequest;
+import in.radioactivegames.sekkah.data.network.request.Notifsetting;
+import in.radioactivegames.sekkah.data.network.request.PushToken;
 import in.radioactivegames.sekkah.data.network.request.RegisterRequest;
+import in.radioactivegames.sekkah.data.network.request.Reminder;
 import in.radioactivegames.sekkah.data.network.response.RegisterResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -44,5 +47,26 @@ public interface ApiInterface
     @Headers("Content-type: application/json")
     @POST("contactus")
     Call<JsonElement> contactus( @Header("Authorization") String Authorization,@Body ContactUs body);
+
+    @Headers("Content-type: application/json")
+    @POST("pntoken")
+    Call<JsonElement> pntoken( @Header("Authorization") String Authorization,@Body PushToken body);
+
+    @Headers("Content-type: application/json")
+    @POST("settings")
+    Call<JsonElement> getsettings( @Header("Authorization") String Authorization);
+
+    @Headers("Content-type: application/json")
+    @POST("settings")
+    Call<JsonElement> setsettings( @Header("Authorization") String Authorization,@Body Notifsetting body);
+
+    @Headers("Content-type: application/json")
+    @POST("reminders")
+    Call<JsonElement> getReminders( @Header("Authorization") String Authorization);
+
+    @Headers("Content-type: application/json")
+    @POST("reminders")
+    Call<JsonElement> setReminders( @Header("Authorization") String Authorization ,@Body Reminder reminder);
+
 
 }

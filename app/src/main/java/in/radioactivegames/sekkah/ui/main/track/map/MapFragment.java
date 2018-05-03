@@ -145,7 +145,6 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
 
         tvTrainNumber.setText(trainPOJO.getNumber());
 
-
         if (lan.equals("ar")) {
             tvTrainClass.setText(trainPOJO.getNamear());
         } else {

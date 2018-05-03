@@ -39,8 +39,8 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
     public void trackTrain(String trainId)
     {
         //String accessToken = mDataManager.getCurrentUser().mAccessToken;
-       //String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
-        mDataManager.trackTrain(trainId, accessToken, new TrainLocationCallback()
+       String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+        mDataManager.trackTrain("5a6475ec457d1b10b4bb38fa", accessToken, new TrainLocationCallback()
         {
             @Override
             public void onLocationReceive(LatLng location)

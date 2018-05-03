@@ -2,6 +2,7 @@ package in.radioactivegames.sekkah.ui.main;
 
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
 import in.radioactivegames.sekkah.base.BaseMvpView;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.model.User;
 
 /**
@@ -19,5 +20,7 @@ public class MainContract
     public interface Presenter extends BaseMvpPresenter<MainContract.View>
     {
         void getUser();
+        public void sendPushToserver( String pushToken ,JSONCallback jsonCallback);
+
     }
 }

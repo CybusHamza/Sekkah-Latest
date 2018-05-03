@@ -3,6 +3,7 @@ package in.radioactivegames.sekkah.base;
 import android.content.Context;
 
 import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
+import in.radioactivegames.sekkah.data.network.request.Reminder;
 
 /**
  * Created by AntiSaby on 1/6/2018.
@@ -32,9 +33,29 @@ public interface BaseApiHelper {
 
 
     void contactUs(String auth,
-                        String subject,
-                        String type,
-                        String message,
-                        final JSONCallback callback);
+                   String subject,
+                   String type,
+                   String message,
+                   final JSONCallback callback);
+
+    void pntoken(String auth,
+                 String pnToken,
+                 final JSONCallback callback);
+
+    void settings(String auth,
+                  final JSONCallback callback);
+
+    void getReminders(String auth,
+                      final JSONCallback callback);
+
+
+    void setsettings(String auth,
+                     boolean getNotifications,
+                     final JSONCallback callback);
+
+    void setreminders(String auth,
+                      Reminder Reminder,
+                      final JSONCallback callback);
+
 
 }

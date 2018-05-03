@@ -21,5 +21,5 @@ public class ContactContract
     public interface Presenter extends BaseMvpPresenter<ContactContract.View>
     {
         public void contactUs( String subject, String type, String message, JSONCallback jsonCallback);
-    }
+         }
 }
