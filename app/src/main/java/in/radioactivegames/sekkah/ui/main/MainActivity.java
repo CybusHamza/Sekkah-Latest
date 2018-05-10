@@ -240,7 +240,7 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
     @Override
     public void onBackPressed()
     {
-        if(getSupportFragmentManager().getBackStackEntryCount() > 1){git
+        if(getSupportFragmentManager().getBackStackEntryCount() > 1){
             getSupportFragmentManager().popBackStack();
             latLngTrain = null;
         }

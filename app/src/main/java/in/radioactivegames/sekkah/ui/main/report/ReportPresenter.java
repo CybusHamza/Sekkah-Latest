@@ -21,6 +21,7 @@ import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 import in.radioactivegames.sekkah.data.model.Station;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
+import in.radioactivegames.sekkah.data.model.User;
 import in.radioactivegames.sekkah.data.other.MockData;
 import in.radioactivegames.sekkah.ui.main.home.HomePresenter;
 import io.realm.Realm;
@@ -77,14 +78,19 @@ public class ReportPresenter extends BasePresenter<ReportContract.View> implemen
     @Override
     public void trainLocationReport(String stationId, String ts) {
 
-        mDataManager.trainLocationReport(stationId,ts, "", new TrainLocationCallback()
-        {
-            @Override
-            public void onLocationReceive(LatLng location)
+        User user = mDataManager.getCurrentUser();
+        if(user != null){
+            mDataManager.trainLocationReport(stationId,ts, user.mAccessToken, new TrainLocationCallback()
             {
-                getMvpView().setTrainLocation(location);
-            }
-        });
+                @Override
+                public void onLocationReceive(LatLng location)
+                {
+                    getMvpView().setTrainLocation(location);
+                }
+            });
+
+        }
+
     }
 
 

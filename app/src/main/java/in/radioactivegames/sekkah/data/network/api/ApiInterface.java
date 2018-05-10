@@ -11,6 +11,7 @@ import in.radioactivegames.sekkah.data.network.request.Notifsetting;
 import in.radioactivegames.sekkah.data.network.request.PushToken;
 import in.radioactivegames.sekkah.data.network.request.RegisterRequest;
 import in.radioactivegames.sekkah.data.network.request.Reminder;
+import in.radioactivegames.sekkah.data.network.request.UserRoute;
 import in.radioactivegames.sekkah.data.network.response.RegisterResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -67,6 +68,10 @@ public interface ApiInterface
     @Headers("Content-type: application/json")
     @POST("reminders")
     Call<JsonElement> setReminders( @Header("Authorization") String Authorization ,@Body Reminder reminder);
+
+    @Headers("Content-type: application/json")
+    @POST("userroute")
+    Call<JsonElement> userRoute( @Header("Authorization") String Authorization ,@Body UserRoute UserRoute);
 
 
 }

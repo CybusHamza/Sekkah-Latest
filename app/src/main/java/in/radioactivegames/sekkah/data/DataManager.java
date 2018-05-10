@@ -70,9 +70,10 @@ public class DataManager implements BaseDataManager
 
     @Override
     public void trainLocationReport(String stationId, String ts, String userAccessToken, TrainLocationCallback callback) {
-        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
 
-        mWebSocketHelper.trainLocationReport(stationId,ts,accessToken, callback);
+        //String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+
+        mWebSocketHelper.trainLocationReport(stationId,ts,userAccessToken, callback);
     }
 
     @Override
@@ -85,19 +86,19 @@ public class DataManager implements BaseDataManager
     @Override
     public void startTrackUser(String trainId, String userAccessToken)
     {
-        mWebSocketHelper.startTrackUser(trainId, userAccessToken);
+       // mWebSocketHelper.startTrackUser(trainId, userAccessToken);
     }
 
     @Override
     public void updateUser(LatLng location)
     {
-        mWebSocketHelper.updateUser(location);
+       // mWebSocketHelper.updateUser(location);
     }
 
     @Override
     public void stopTrackUser()
     {
-        mWebSocketHelper.stopTrackUser();
+       // mWebSocketHelper.stopTrackUser();
     }
 
     @Override
@@ -116,6 +117,12 @@ public class DataManager implements BaseDataManager
     @Override
     public void sendPushToken(String auth, String pntoken, JSONCallback callback) {
         mApiHelper.pntoken(auth,pntoken,callback);
+
+    }
+
+    @Override
+    public void userroute(String auth, String source, String destination, String currentLocation, String selectedLocation, String trainId, JSONCallback callback) {
+        mApiHelper.userroute(auth,source,destination,currentLocation,selectedLocation,trainId,callback);
 
     }
 

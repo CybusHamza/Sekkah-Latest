@@ -19,6 +19,7 @@ import in.radioactivegames.sekkah.data.network.request.Notifsetting;
 import in.radioactivegames.sekkah.data.network.request.PushToken;
 import in.radioactivegames.sekkah.data.network.request.RegisterRequest;
 import in.radioactivegames.sekkah.data.network.request.Reminder;
+import in.radioactivegames.sekkah.data.network.request.UserRoute;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -494,6 +495,61 @@ public class ApiHelper implements BaseApiHelper
     public void setreminders(String auth, Reminder Reminder, final JSONCallback callback) {
 
         Call<JsonElement> call = mProfileApi.setReminders(auth,Reminder);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = null;
+                try
+                {
+                    if(response.code() != 401){
+                        root = new JSONObject(response.body().getAsJsonObject().toString());
+                        success = root.getBoolean("success");
+
+                    }else {
+                        return;
+                    }
+
+                    if(root.has("error"))
+                        errorMessage = root.getString("error");
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+    }
+
+    @Override
+    public void userroute(String auth, String source, String destination, String currentLocation, String selectedLocation, String trainId, final JSONCallback callback) {
+
+        UserRoute userRoute = new UserRoute();
+        userRoute.source = source;
+        userRoute.destination = destination;
+        userRoute.currentLocation = currentLocation;
+        userRoute.selectedLocation = selectedLocation;
+        userRoute.trainId = trainId;
+
+        Call<JsonElement> call = mProfileApi.userRoute(auth,userRoute);
         call.enqueue(new Callback<JsonElement>()
         {
             @Override

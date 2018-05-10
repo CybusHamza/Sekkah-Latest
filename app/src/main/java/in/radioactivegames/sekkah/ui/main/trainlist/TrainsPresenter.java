@@ -3,6 +3,8 @@ package in.radioactivegames.sekkah.ui.main.trainlist;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,10 +15,14 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BasePresenter;
+import in.radioactivegames.sekkah.data.DataManager;
 import in.radioactivegames.sekkah.data.Realm.RealmDB;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
+import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 import in.radioactivegames.sekkah.data.model.Station;
 import in.radioactivegames.sekkah.data.model.Train;
 import in.radioactivegames.sekkah.data.model.TrainPOJO;
+import in.radioactivegames.sekkah.data.model.User;
 import in.radioactivegames.sekkah.data.other.MockData;
 import io.realm.Realm;
 import io.realm.RealmQuery;
@@ -33,16 +39,16 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
     private List<TrainPOJO> trainsPojo;
     private static final String TAG = TrainsPresenter.class.getSimpleName();
     RealmDB realmDB ;
+    private DataManager mDataManager;
 
     @Inject
-    public TrainsPresenter()
+    public TrainsPresenter(DataManager dataManager)
     {
         trains = new ArrayList<>();
         trainsPojo = new ArrayList<>();
         realmDB =  RealmDB.getinstance();
+        mDataManager = dataManager;
     }
-
-
 
 
     @Override
@@ -86,6 +92,16 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
         }
         finally {
             getMvpView().setTrainPojoData(trainsPojo);
+        }
+
+    }
+
+    @Override
+    public void setuserRoute(String source, String destination, String currentLocation, String selectedLocation, String trainId, JSONCallback callback) {
+
+        User user = mDataManager.getCurrentUser();
+        if(user != null){
+            mDataManager.userroute(user.mAccessToken,source,destination,currentLocation,selectedLocation,trainId,callback);
         }
 
     }

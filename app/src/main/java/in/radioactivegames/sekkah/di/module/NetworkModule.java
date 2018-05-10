@@ -25,7 +25,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule
 {
-    private static final String BASE_URL = "http://sekka-api-proto.herokuapp.com/api/v1/";
+
+    private static final String BASE_URL = "http://sekkah-api-proto.herokuapp.com/api/v1/";
     private static final String TAG = NetworkModule.class.getSimpleName();
 
     @Provides

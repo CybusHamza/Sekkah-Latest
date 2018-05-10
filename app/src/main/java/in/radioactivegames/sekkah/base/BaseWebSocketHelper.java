@@ -17,6 +17,6 @@ public interface BaseWebSocketHelper
     void startTrackUser(String trainId, String userAccessToken);
     void trainLocationReport(String stationId, String ts,String userAccessToken, final TrainLocationCallback callback);
     void updateUser(LatLng location);
-    void startScheduleTracking(String userAccessToken);
+    void startScheduleTracking(String userAccessToken,JSONCallback jsonCallback);
     void stopTrackUser();
 }

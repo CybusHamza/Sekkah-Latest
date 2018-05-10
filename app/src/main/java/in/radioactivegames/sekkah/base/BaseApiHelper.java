@@ -58,4 +58,12 @@ public interface BaseApiHelper {
                       final JSONCallback callback);
 
 
-}
+    void userroute(String auth,
+                   String source,
+                   String destination,
+                   String currentLocation,
+                   String selectedLocation,
+                   String trainId,
+                   JSONCallback callback);
+
+    }

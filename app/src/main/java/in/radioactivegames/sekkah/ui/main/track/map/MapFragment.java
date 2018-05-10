@@ -202,14 +202,14 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
                 public void run() {
 
                     mTrainMarker = mMap.addMarker(new MarkerOptions()
-                            .position(location).title("Current Location"));
+                            .position(location).title("Trains Location"));
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
                     Log.d(TAG, "Location: " + location.toString());
                 }
             });
         } catch (NullPointerException e) {
             mTrainMarker = mMap.addMarker(new MarkerOptions()
-                    .position(location).title("Current Location"));
+                    .position(location).title("Trains Location"));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
             Log.d(TAG, "Location: " + location.toString());
         }
