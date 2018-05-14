@@ -27,7 +27,6 @@ public class TrainsContract
 
     public interface Presenter extends BaseMvpPresenter<TrainsContract.View> {
         public void getTrainData(String fromStation,String toStaion,Realm realm,Context context);
-        public void setuserRoute(String source,String destination,String currentLocation, String selectedLocation,String trainId,JSONCallback callback);
 
     }
 }

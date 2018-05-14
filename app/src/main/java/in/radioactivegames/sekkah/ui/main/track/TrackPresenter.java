@@ -2,6 +2,9 @@ package in.radioactivegames.sekkah.ui.main.track;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.sql.Timestamp;
 
 import javax.inject.Inject;
@@ -9,6 +12,7 @@ import javax.inject.Inject;
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
 import in.radioactivegames.sekkah.base.BasePresenter;
 import in.radioactivegames.sekkah.data.DataManager;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 import in.radioactivegames.sekkah.data.model.User;
 
@@ -41,15 +45,30 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
     {
         //String accessToken = mDataManager.getCurrentUser().mAccessToken;
        String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
-        mDataManager.trackTrain("5a6475ec457d1b10b4bb38fa", accessToken, new TrainLocationCallback()
-        {
+        mDataManager.trackTrain("5a6475ec457d1b10b4bb38fa", accessToken, new JSONCallback() {
             @Override
-            public void onLocationReceive(LatLng location)
-            {
-                getMvpView().setTrainLocation(location);
+            public void onSuccess(JSONObject jsonObject) {
+                LatLng latLng;
+                try {
+                     latLng = new LatLng(jsonObject.getDouble("lat"),
+                            jsonObject.getDouble("lng"));
+                    String nextStation = jsonObject.getString("nextStation");
+                    getMvpView().setTrainLocation(latLng,nextStation);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
+
             }
         });
     }
+
+
 
     @Override
     public void trainLocationReport() {
@@ -59,7 +78,7 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
             @Override
             public void onLocationReceive(LatLng location)
             {
-                getMvpView().setTrainLocation(location);
+                getMvpView().setTrainLocation(location,"");
             }
         });
     }

@@ -64,7 +64,7 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     }
 
     @Override
-    public void trackTrain(String trainId, String userAccessToken, final TrainLocationCallback callback) {
+    public void trackTrain(String trainId, String userAccessToken, final JSONCallback callback) {
         Log.d(TAG, "Starting Socket!");
         stopTrackTrain(trainId);
         try {
@@ -95,9 +95,8 @@ public class WebSocketHelper implements BaseWebSocketHelper {
                 //Log.d(TAG, args[0].toString());
                 try {
                     JSONObject jsonObject = new JSONObject(args[0].toString());
-                    LatLng latLng = new LatLng(jsonObject.getDouble("lat"),
-                            jsonObject.getDouble("lng"));
-                    callback.onLocationReceive(latLng);
+
+                    callback.onSuccess(jsonObject);
                 } catch (JSONException e) {
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();

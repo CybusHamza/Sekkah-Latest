@@ -16,6 +16,10 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -29,12 +33,17 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +60,8 @@ import in.radioactivegames.sekkah.ui.loginregister.LoginRegisterActivity;
 import in.radioactivegames.sekkah.ui.loginregister.forgotpassword.ForgotPasswordActivity;
 import in.radioactivegames.sekkah.ui.main.MainActivity;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class LoginFragment extends BaseFragment implements LoginContract.View, Validator.ValidationListener
 {
     private View mFragmentView;
@@ -64,6 +75,8 @@ public class LoginFragment extends BaseFragment implements LoginContract.View, V
 
     @Inject LoginPresenter mPresenter;
     @Inject TwitterAuthClient mTwitterAuthClient;
+    // method create.
+    @BindView(R.id.login_button) @NotEmpty  LoginButton loginButton;;
 
     private static final int GOOGLE_SIGN_IN = 0;
     private static final String TAG = LoginFragment.class.getSimpleName();
@@ -82,7 +95,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View, V
         mValidator.setValidationListener(this);
         mPresenter.onAttach(this);
 
-        callbackManager = CallbackManager.Factory.create();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
+       /* callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>()
         {
             @Override
@@ -102,7 +117,9 @@ public class LoginFragment extends BaseFragment implements LoginContract.View, V
             {
                 loginFailed("Login Error!");
             }
-        });
+        });*/
+
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -164,8 +181,65 @@ public class LoginFragment extends BaseFragment implements LoginContract.View, V
     @OnClick(R.id.btnFacebook)
     public void attemptFBLogin()
     {
-        List<String> perms = Arrays.asList("email", "public_profile");
-        LoginManager.getInstance().logInWithReadPermissions(this, perms);
+        loginButton.performClick();
+
+        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+
+                                JSONObject obj = response.getJSONObject();
+                                try {
+
+
+                                    String name = obj.optString("name","");
+
+                                    String picture = obj.optString("picture","");
+                                    JSONObject image = new JSONObject(picture);
+                                    String data = image.optString("data","");
+                                    String fb_id = obj.optString("id","");
+
+
+
+                               } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        });
+
+                Bundle parameters = new Bundle();
+                parameters.putString("fields","id,name,email,gender,birthday,picture.type(large)");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+
+            }
+
+            @Override
+            public void onCancel() {
+
+                //
+                Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+       /* List<String> perms = Arrays.asList("email", "public_profile");
+        LoginManager.getInstance().logInWithReadPermissions(this, perms);*/
     }
 
     @OnClick(R.id.btnTwitter)

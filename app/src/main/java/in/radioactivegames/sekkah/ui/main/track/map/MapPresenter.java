@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import in.radioactivegames.sekkah.base.BasePresenter;
+import in.radioactivegames.sekkah.data.DataManager;
 import in.radioactivegames.sekkah.data.Realm.RealmDB;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
+import in.radioactivegames.sekkah.data.model.User;
 import io.realm.Realm;
 
 /**
@@ -18,11 +21,13 @@ import io.realm.Realm;
 
 public class MapPresenter extends BasePresenter<MapContract.View> implements MapContract.Presenter
 {
+
+    private DataManager mDataManager;
+
     @Inject
-    public MapPresenter()
+    public MapPresenter(DataManager dataManager)
     {
-
-
+        mDataManager = dataManager;
     }
 
     @Override
@@ -38,5 +43,14 @@ public class MapPresenter extends BasePresenter<MapContract.View> implements Map
             getMvpView().setTrainStaiton(stationPOJOS);
         }
 
+    }
+
+    @Override
+    public void setuserRoute(String source, String destination, String currentLocation, String selectedLocation, String trainId, JSONCallback callback) {
+
+        User user = mDataManager.getCurrentUser();
+        if(user != null){
+            mDataManager.userroute(user.mAccessToken,source,destination,currentLocation,selectedLocation,trainId,callback);
+        }
     }
 }

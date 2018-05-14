@@ -63,7 +63,7 @@ public class DataManager implements BaseDataManager
     }
 
     @Override
-    public void trackTrain(String trainId, String userAccessToken, TrainLocationCallback callback)
+    public void trackTrain(String trainId, String userAccessToken, JSONCallback callback)
     {
         mWebSocketHelper.trackTrain(trainId, userAccessToken, callback);
     }
@@ -86,19 +86,19 @@ public class DataManager implements BaseDataManager
     @Override
     public void startTrackUser(String trainId, String userAccessToken)
     {
-       // mWebSocketHelper.startTrackUser(trainId, userAccessToken);
+        mWebSocketHelper.startTrackUser(trainId, userAccessToken);
     }
 
     @Override
     public void updateUser(LatLng location)
     {
-       // mWebSocketHelper.updateUser(location);
+        mWebSocketHelper.updateUser(location);
     }
 
     @Override
     public void stopTrackUser()
     {
-       // mWebSocketHelper.stopTrackUser();
+        mWebSocketHelper.stopTrackUser();
     }
 
     @Override

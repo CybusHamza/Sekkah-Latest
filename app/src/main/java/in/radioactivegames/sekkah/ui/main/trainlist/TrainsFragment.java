@@ -193,8 +193,10 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
             Log.d(TAG, mCurrentLocation.getLongitude() + "");
             Log.d(TAG, mLastUpdateTime);
 
-            SharedPrefsUtils.setStringPreference(getActivity(), LATITUDE, mCurrentLocation.getLatitude() + "");
-            SharedPrefsUtils.setStringPreference(getActivity(), LONGITUDE, mCurrentLocation.getLongitude() + "");
+            if(getActivity() != null){
+                SharedPrefsUtils.setStringPreference(getActivity(), LATITUDE, mCurrentLocation.getLatitude() + "");
+                SharedPrefsUtils.setStringPreference(getActivity(), LONGITUDE, mCurrentLocation.getLongitude() + "");
+            }
 
         }
     }
@@ -289,34 +291,6 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
 
     private void startTracking(final String trainId) {
 
-        showProgressDialog("Please Wait...");
-
-        String source;
-        String destination;
-
-
-        final String location = SharedPrefsUtils.getStringPreference(getActivity(), LATITUDE) + "," + SharedPrefsUtils.getStringPreference(getActivity(), LONGITUDE);
-        String selectedLocation = SharedPrefsUtils.getStringPreference(getActivity(), LOCATION);
-
-        Locale current = getActivity().getResources().getConfiguration().locale;
-
-        if (current.getLanguage().equals("ar")) {
-            source = RealmDB.getinstance().getStationbyNameAr(from, Realm.getDefaultInstance());
-        } else {
-            source = RealmDB.getinstance().getStationbyName(from, Realm.getDefaultInstance());
-        }
-
-        if (current.getLanguage().equals("ar")) {
-            destination = RealmDB.getinstance().getStationbyNameAr(to, Realm.getDefaultInstance());
-        } else {
-            destination = RealmDB.getinstance().getStationbyName(to, Realm.getDefaultInstance());
-        }
-
-        mPresenter.setuserRoute(source, destination, location, selectedLocation, "5ae707158cecad66917674ad", new JSONCallback() {
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-
-                hideProgressBar();
 
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.KEY_TRAINID, trainId);
@@ -328,15 +302,6 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
                         .add(R.id.frameMain, trackFragment, "TrackFragment")
                         .addToBackStack("TrackFragment")
                         .commit();
-            }
-
-            @Override
-            public void onFail(String errorMessage) {
-
-                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-            }
-        });
-
 
     }
 

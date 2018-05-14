@@ -20,7 +20,7 @@ public interface BaseDataManager
     void forgotPassword(String email, String password, String confirmPassword, JSONCallback callback);
     void setCurrentUser(User user);
     User getCurrentUser();
-    void trackTrain(String trainId, String userAccessToken, TrainLocationCallback callback);
+    void trackTrain(String trainId, String userAccessToken,JSONCallback callback);
     void trainLocationReport(String stationId, String ts,String userAccessToken, final TrainLocationCallback callback);
     void stopTrackTrain(String trainId);
     void startTrackUser(String trainId, String userAccessToken);

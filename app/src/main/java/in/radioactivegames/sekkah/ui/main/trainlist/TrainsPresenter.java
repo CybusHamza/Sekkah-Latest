@@ -56,15 +56,15 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
 
         String data ="";
 
-        RealmResults<TrainPOJO> result1;
+        ArrayList<TrainPOJO> result1;
 
 
         Locale current = context.getResources().getConfiguration().locale;
 
         if (current.getLanguage().equals("ar")) {
-            result1= realmDB.getTrainsAr(fromStation,toStaion,realm);
+            result1= realmDB.getTrainListfromStationAr(fromStation,toStaion,realm);
         }else {
-            result1= realmDB.getTrains(fromStation,toStaion,realm);
+            result1= realmDB.getTrainListfromStation(fromStation,toStaion,realm);
         }
 
         try{
@@ -96,13 +96,5 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
 
     }
 
-    @Override
-    public void setuserRoute(String source, String destination, String currentLocation, String selectedLocation, String trainId, JSONCallback callback) {
 
-        User user = mDataManager.getCurrentUser();
-        if(user != null){
-            mDataManager.userroute(user.mAccessToken,source,destination,currentLocation,selectedLocation,trainId,callback);
-        }
-
-    }
 }

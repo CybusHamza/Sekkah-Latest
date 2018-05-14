@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
 import in.radioactivegames.sekkah.base.BaseMvpView;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
 import io.realm.Realm;
 
@@ -24,5 +25,7 @@ public class MapContract
     public interface Presenter extends BaseMvpPresenter<MapContract.View>
     {
         public void getTrainStaiton(String stationId, Realm realm);
+        public void setuserRoute(String source,String destination,String currentLocation, String selectedLocation,String trainId,JSONCallback callback);
+
     }
 }
