@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="in.radioactivegames.sekkah.ui.main.contact.ContactFragment"
+    tools:context="in.app.sekkah.ui.main.contact.ContactFragment"
     android:background="@color/colorDefaultBackground">
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.radioactivegames.sekkah">
+    package="in.app.sekkah">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".MyApplication"
+        android:name="in.app.sekkah.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_custom"
         android:label="@string/app_name"
@@ -33,13 +33,13 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name="in.app.sekkah.ui.main.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name="in.app.sekkah.ui.splash.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
@@ -51,18 +51,18 @@
         </activity>
 
         <activity
-            android:name=".ui.loginregister.LoginRegisterActivity"
+            android:name="in.app.sekkah.ui.loginregister.LoginRegisterActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.loginregister.forgotpassword.ForgotPasswordActivity" />
+        <activity android:name="in.app.sekkah.ui.loginregister.forgotpassword.ForgotPasswordActivity" />
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider239298566605435"
             android:exported="true" />
 
-        <service android:name=".LocationService" />
+        <service android:name="in.app.sekkah.LocationService" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -78,7 +78,7 @@
 
 
         <service
-            android:name=".fcm.MyFirebaseMessagingService"
+            android:name="in.app.sekkah.fcm.MyFirebaseMessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -86,14 +86,14 @@
             </intent-filter>
         </service>
 
-        <service android:name=".fcm.MyFirebaseInstanceIDService">
+        <service android:name="in.app.sekkah.fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
         <service
-            android:name=".fcm.RegistrationIntentService"
+            android:name="in.app.sekkah.fcm.RegistrationIntentService"
             android:exported="false" />
 
 

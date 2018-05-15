@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Sekkah.iml" filepath="$PROJECT_DIR$/Sekkah.iml" />
+      <module fileurl="file://D:\Hamza Data\Android Projects\Sekkah-Latest\Sekkah.iml" filepath="D:\Hamza Data\Android Projects\Sekkah-Latest\Sekkah.iml" />
       <module fileurl="file://$PROJECT_DIR$/Sekkah-Latest.iml" filepath="$PROJECT_DIR$/Sekkah-Latest.iml" />
+      <module fileurl="file://D:\Hamza Data\Android Projects\Sekkah-Latest\Sekkah-Latest.iml" filepath="D:\Hamza Data\Android Projects\Sekkah-Latest\Sekkah-Latest.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\Hamza Data\Android Projects\Sekkah-Latest\app\app.iml" filepath="D:\Hamza Data\Android Projects\Sekkah-Latest\app\app.iml" />
     </modules>
   </component>
 </project>
