@@ -280,7 +280,6 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
 
     private void startTracking(final String trainId) {
 
-
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.KEY_TRAINID, trainId);
 
@@ -288,7 +287,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
                 trackFragment.setArguments(bundle);
 
                 getFragmentManager().beginTransaction()
-                        .add(R.id.frameMain, trackFragment, "TrackFragment")
+                        .replace(R.id.frameMain, trackFragment, "TrackFragment")
                         .addToBackStack("TrackFragment")
                         .commit();
 

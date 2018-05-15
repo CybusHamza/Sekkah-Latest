@@ -1,5 +1,7 @@
 package in.app.sekkah.ui.main.track.map;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
@@ -69,7 +71,12 @@ public class MapPresenter extends BasePresenter<MapContract.View> implements Map
                     latLng = new LatLng(jsonObject.getDouble("lat"),
                             jsonObject.getDouble("lng"));
                     String nextStation = jsonObject.getString("nextStation");
-                    getMvpView().setTrainLocation(latLng,nextStation);
+                    try {
+                        getMvpView().setTrainLocation(latLng,nextStation);
+
+                    }catch (NullPointerException e){
+                        Log.e("NPE" , e.toString());
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -90,8 +90,6 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
     @Override
     public void setTrainLocation(LatLng location) {
 
-        hideProgressBar();
-
         latLngTrain = location;
 
         if(getActivity().getSupportFragmentManager().getBackStackEntryCount() > 1){
@@ -122,9 +120,6 @@ public class ReportFragment extends BaseFragment implements ReportContract.View
     @OnClick(R.id.btnReport)
     public void getReport()
     {
-
-        showProgressDialog("Please Wait...");
-
         String stationName = data.get(spnStation.getSelectedItemPosition());
 
         Locale current = getActivity().getResources().getConfiguration().locale;

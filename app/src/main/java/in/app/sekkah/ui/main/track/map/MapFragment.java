@@ -138,8 +138,8 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
             @Override
             public void onSuccess(JSONObject jsonObject) {
 
-                mPresenter.trackTrain(trainId);
 
+                mPresenter.trackTrain(trainId);
             }
 
             @Override
@@ -318,6 +318,7 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
 
             });
         } catch (NullPointerException e) {
+
             mTrainMarker = mMap.addMarker(new MarkerOptions()
                     .position(location).title("Trains Location"));
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 8f));
@@ -386,7 +387,9 @@ public class MapFragment extends BaseFragment implements MapContract.View, OnMap
     @Override
     public void onDestroy() {
         super.onDestroy();
+        mMap.clear();
         mMapView.onDestroy();
+
     }
 
     @Override

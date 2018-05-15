@@ -39,34 +39,6 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
         }
     }
 
-    @Override
-    public void trackTrain(String trainId)
-    {
-        //String accessToken = mDataManager.getCurrentUser().mAccessToken;
-       String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
-        mDataManager.trackTrain(trainId, accessToken, new JSONCallback() {
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-                LatLng latLng;
-                try {
-                     latLng = new LatLng(jsonObject.getDouble("lat"),
-                            jsonObject.getDouble("lng"));
-                    String nextStation = jsonObject.getString("nextStation");
-                    getMvpView().setTrainLocation(latLng,nextStation);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-
-            @Override
-            public void onFail(String errorMessage) {
-
-            }
-        });
-    }
-
 
 
     @Override
@@ -77,7 +49,7 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
             @Override
             public void onLocationReceive(LatLng location)
             {
-                getMvpView().setTrainLocation(location,"");
+
             }
         });
     }

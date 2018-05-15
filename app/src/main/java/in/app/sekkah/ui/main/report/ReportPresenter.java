@@ -87,6 +87,4 @@ public class ReportPresenter extends BasePresenter<ReportContract.View> implemen
 
     }
 
-
-
 }

@@ -100,11 +100,7 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    @Override
-    public void setTrainLocation(LatLng location,String nextStation) {
-        mMapFragmentListener.setTrainLocation(location,nextStation);
 
-    }
 
     @Override
     public void onResume()
@@ -143,6 +139,5 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
     {
         void setTrainLocation(LatLng location ,final LatLng nextlocation , String ts ,String stationName,int color);
 
-        void setTrainLocation(LatLng location,String nextStation);
     }
 }

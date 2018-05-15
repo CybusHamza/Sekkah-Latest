@@ -241,7 +241,8 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
             getSupportFragmentManager().popBackStack();
             latLngTrain = null;
         }
-        else {
+        else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
             finish();
         }
     }
