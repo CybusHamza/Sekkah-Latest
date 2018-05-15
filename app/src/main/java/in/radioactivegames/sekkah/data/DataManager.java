@@ -46,6 +46,11 @@ public class DataManager implements BaseDataManager
     }
 
     @Override
+    public void forgotPassword(String email, String password, String confirmPassword, JSONCallback callback) {
+        mApiHelper.forgotPassword(email, password,confirmPassword, callback);
+    }
+
+    @Override
     public void setCurrentUser(User user)
     {
         mSharedPrefsHelper.setCurrentUser(user);
@@ -58,13 +63,16 @@ public class DataManager implements BaseDataManager
     }
 
     @Override
-    public void trackTrain(String trainId, String userAccessToken, TrainLocationCallback callback)
+    public void trackTrain(String trainId, String userAccessToken, JSONCallback callback)
     {
         mWebSocketHelper.trackTrain(trainId, userAccessToken, callback);
     }
 
     @Override
     public void trainLocationReport(String stationId, String ts, String userAccessToken, TrainLocationCallback callback) {
+
+        //String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
+
         mWebSocketHelper.trainLocationReport(stationId,ts,userAccessToken, callback);
     }
 
@@ -92,4 +100,31 @@ public class DataManager implements BaseDataManager
     {
         mWebSocketHelper.stopTrackUser();
     }
+
+    @Override
+    public void getUserData(String auth, JSONCallback callback) {
+
+        mApiHelper.getProfile(auth,callback);
+
+    }
+
+    @Override
+    public void contactUs(String auth, String subject, String type, String message, JSONCallback callback) {
+
+        mApiHelper.contactUs(auth,subject,type,message,callback);
+    }
+
+    @Override
+    public void sendPushToken(String auth, String pntoken, JSONCallback callback) {
+        mApiHelper.pntoken(auth,pntoken,callback);
+
+    }
+
+    @Override
+    public void userroute(String auth, String source, String destination, String currentLocation, String selectedLocation, String trainId, JSONCallback callback) {
+        mApiHelper.userroute(auth,source,destination,currentLocation,selectedLocation,trainId,callback);
+
+    }
+
+
 }

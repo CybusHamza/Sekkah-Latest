@@ -1,11 +1,14 @@
 package in.radioactivegames.sekkah.ui.main.trainlist;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
 import java.util.List;
 
 import in.radioactivegames.sekkah.base.BaseMvpPresenter;
 import in.radioactivegames.sekkah.base.BaseMvpView;
+import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.model.Train;
 import in.radioactivegames.sekkah.data.model.TrainPOJO;
 import io.realm.Realm;
@@ -23,6 +26,7 @@ public class TrainsContract
     }
 
     public interface Presenter extends BaseMvpPresenter<TrainsContract.View> {
-        public void getTrainData(String fromStation,String toStaion,Realm realm);
+        public void getTrainData(String fromStation,String toStaion,Realm realm,Context context);
+
     }
 }

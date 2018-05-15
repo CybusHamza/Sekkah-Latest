@@ -12,11 +12,11 @@ import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
 
 public interface BaseWebSocketHelper
 {
-    void trackTrain(String trainId, String userAccessToken, TrainLocationCallback callback);
+    void trackTrain(String trainId, String userAccessToken, JSONCallback callbac);
     void stopTrackTrain(String trainId);
     void startTrackUser(String trainId, String userAccessToken);
     void trainLocationReport(String stationId, String ts,String userAccessToken, final TrainLocationCallback callback);
     void updateUser(LatLng location);
-    void startScheduleTracking(String userAccessToken, final JSONCallback jsonCallback);
+    void startScheduleTracking(String userAccessToken,JSONCallback jsonCallback);
     void stopTrackUser();
 }

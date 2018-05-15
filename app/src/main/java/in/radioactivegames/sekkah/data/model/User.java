@@ -16,4 +16,18 @@ public class User
 
     @SerializedName("access_token")
     public String mAccessToken;
+
+    @SerializedName("userName")
+    @Expose
+    public String userName;
+
+    @SerializedName("email")
+    public String email;
+
+    @SerializedName("firstName")
+    @Expose
+    public String firstName;
+
+    @SerializedName("lastName")
+    public String lastName;
 }

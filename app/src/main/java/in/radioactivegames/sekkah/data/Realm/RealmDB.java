@@ -55,6 +55,58 @@ public class RealmDB {
         return stationname;
     }
 
+    public String getStationbyName(String stationName,Realm realm) {
+
+        String stationId;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("nameen", stationName)
+                .findAll();
+
+        if(result.size() >0){
+            stationId=  result.get(0).getId();
+        }
+        else {
+            stationId =  "" ;
+        }
+
+        return stationId;
+    }
+
+    public String getStationbyNameAr(String stationName,Realm realm) {
+
+        String stationId;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("namear", stationName)
+                .findAll();
+
+        if(result.size() >0){
+            stationId=  result.get(0).getId();
+        }
+        else {
+            stationId =  "" ;
+        }
+
+        return stationId;
+    }
+
+
+    public String getStationAr(String stationId,Realm realm) {
+
+        String stationname;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("id", stationId)
+                .findAll();
+
+        if(result.size() >0){
+            stationname=  result.get(0).getNamear();
+        }
+        else {
+            stationname =  "" ;
+        }
+
+        return stationname;
+    }
+
     public LatLng getStationLatLng(String stationId, Realm realm) {
 
         LatLng latlng;
@@ -101,6 +153,17 @@ public class RealmDB {
         return result1;
     }
 
+    public RealmResults<TrainPOJO> getTrainsAr(String fromStation,String toStaion,Realm realm){
+
+        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
+                .equalTo("depStationAr", fromStation)
+                .equalTo("finalStationAr", toStaion);
+
+        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        return result1;
+    }
+
     public RealmResults<TrainPOJO> getTrains(Realm realm){
 
         RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class);
@@ -110,30 +173,73 @@ public class RealmDB {
         return result1;
     }
 
-    public ArrayList<LatLng> getTrainStationsLatLng(Realm realm, String trainId){
+    public RealmResults<StationPOJO> getStationInfobyId(String stationName, Realm realm){
 
-        ArrayList<LatLng> latLngArrayList =new ArrayList<>();
+        RealmResults<StationPOJO> result = realm.where(StationPOJO.class)
+                .equalTo("id", stationName)
+                .findAll();;
+
+        return result;
+    }
+
+    public ArrayList<TrainPOJO> getTrainListfromStation(String fromStation,String toStaion,Realm realm){
+
+        ArrayList<TrainPOJO> resultToSend = new ArrayList<>() ;
 
         RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
-                .equalTo("id", trainId);
+                .equalTo("depStation", fromStation);
+
+        fromStation = getStationbyName(fromStation,realm);
+        toStaion = getStationbyName(toStaion,realm);
 
         RealmResults<TrainPOJO> result1 = query.findAll();
 
-        TrainPOJO trainPOJO = result1.get(0);
+        for(int i = 0 ; i < result1.size() ; i++) {
 
-        RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
+            TrainPOJO trainPOJO = result1.get(i);
 
-           for(int i = 0 ; i < stringRealmList.size() ; i++) {
+            RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
 
-               LatLng latLng = getStationLatLng(stringRealmList.get(i), realm);
+            for(int j=0;j<stringRealmList.size();j++){
+                if(stringRealmList.get(j).equals(toStaion)){
+                    resultToSend.add(trainPOJO);
+                    break;
+                }
+            }
+        }
 
-               latLngArrayList.add(latLng);
+        return resultToSend;
 
-           }
-
-        return latLngArrayList;
     }
 
+
+    public ArrayList<TrainPOJO> getTrainListfromStationAr(String fromStation,String toStaion,Realm realm){
+
+        ArrayList<TrainPOJO> resultToSend = new ArrayList<>() ;
+
+        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
+                .equalTo("depStationAr", fromStation);
+
+        fromStation = getStationbyName(fromStation,realm);
+        toStaion = getStationbyName(toStaion,realm);
+
+        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        for(int i = 0 ; i < result1.size() ; i++) {
+
+            TrainPOJO trainPOJO = result1.get(i);
+
+            RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
+
+            if(stringRealmList.get(i).equals(toStaion) ||stringRealmList.get(i).equals(fromStation) ){
+                resultToSend.add(trainPOJO);
+            }
+
+        }
+
+        return resultToSend;
+
+    }
 
     public ArrayList<StationPOJO> getTrainStations(Realm realm, String trainId){
 
@@ -148,6 +254,8 @@ public class RealmDB {
 
         RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
 
+        int count =0;
+
         for(int i = 0 ; i < stringRealmList.size() ; i++) {
 
             RealmResults<StationPOJO> Station = getStations(stringRealmList.get(i), realm);
@@ -159,14 +267,27 @@ public class RealmDB {
                 stationPOJO.setDistance(user.getDistance());
                 stationPOJO.setLat(user.getLat());
                 stationPOJO.setLng(user.getLng());
-                stationPOJO.setTs(user.getTs());
-
+                stationPOJO.setTs(trainPOJO.getTsList().get(count));
+                count++;
                 StationList.add(stationPOJO);
             }
 
         }
 
         return StationList;
+    }
+
+    public TrainPOJO getTrainbyId(Realm realm, String trainId){
+        ArrayList<StationPOJO> StationList =new ArrayList<>();
+
+        RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
+                .equalTo("id", trainId);
+
+        RealmResults<TrainPOJO> result1 = query.findAll();
+
+        TrainPOJO trainPOJO = result1.get(0);
+
+        return trainPOJO;
     }
 
 }

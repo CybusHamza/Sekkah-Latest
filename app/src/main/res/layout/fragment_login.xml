@@ -98,15 +98,31 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnFacebook"
+
+    <FrameLayout
+        android:id="@+id/FrameLayout1"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/buttonfacebook"
+        android:layout_weight="1"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:layout_marginLeft="10dp">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/login_button"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnFacebook"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/buttonfacebook"
+            android:onClick="facebookLogin"
+            android:textStyle="bold" />
+    </FrameLayout>
 
     <Button
         android:id="@+id/btnTwitter"

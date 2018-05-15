@@ -22,6 +22,7 @@
             <TextView
                 android:id="@+id/tvDepartureStation"
                 android:layout_width="wrap_content"
+                android:layout_marginRight="20dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="Aswan"
@@ -32,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
                 android:text="Cairo"
                 android:textSize="14sp"
                 android:layout_below="@+id/tvDepartureStation"
@@ -72,14 +74,25 @@
             <ImageView
                 android:id="@+id/ivRouteIcon"
                 android:layout_width="10dp"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="13dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
                 android:contentDescription="Route"
                 android:src="@drawable/routeicon"
                 android:layout_alignTop="@+id/tvDepartureStation"/>
 
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/tvLateTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/tvDepartureStation"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="66dp"
+            android:text="@string/text_late_time"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
 
     <RelativeLayout
             android:layout_width="300dp"
@@ -96,6 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="2007"
+                android:layout_marginRight="10dp"
                 android:textSize="14sp"
                 android:textColor="@android:color/white" />
 
@@ -117,6 +131,7 @@
                 android:layout_marginLeft="30dp"
                 android:text="@string/text_next_station"
                 android:textSize="12sp"
+                android:layout_marginRight="10dp"
                 android:textColor="@android:color/white"
                 android:layout_below="@+id/tvTrainNumber"
                 android:layout_marginTop="5dp" />
@@ -133,24 +148,14 @@
                 android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/tvNextStationLabel" />
 
-            <TextView
-                android:id="@+id/tvLateTimeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="@string/text_late_time"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"
-                android:layout_below="@+id/tvNextStationLabel"
-                android:layout_marginTop="5dp" />
-
-            <TextView
+        <TextView
                 android:id="@+id/tvLateTimeWorded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="1.5 hours"
                 android:textSize="12sp"
+            android:layout_marginRight="10dp"
                 android:textColor="@android:color/white"
                 android:layout_below="@+id/tvNextStation"
                 android:layout_marginTop="5dp"

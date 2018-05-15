@@ -17,12 +17,17 @@ public interface BaseDataManager
 {
     void registerUser(String username, String firstName, String lastName, String email, long dateOfBirth, String password, String confirmPassword, JSONCallback callback);
     void login(String username, String password, JSONCallback callback);
+    void forgotPassword(String email, String password, String confirmPassword, JSONCallback callback);
     void setCurrentUser(User user);
     User getCurrentUser();
-    void trackTrain(String trainId, String userAccessToken, TrainLocationCallback callback);
+    void trackTrain(String trainId, String userAccessToken,JSONCallback callback);
     void trainLocationReport(String stationId, String ts,String userAccessToken, final TrainLocationCallback callback);
     void stopTrackTrain(String trainId);
     void startTrackUser(String trainId, String userAccessToken);
     void updateUser(LatLng location);
     void stopTrackUser();
+    void getUserData(String auth,JSONCallback callback);
+    void contactUs(String auth,String subject, String type, String message,JSONCallback callback);
+    void sendPushToken(String auth,String pntoken ,JSONCallback callback);
+    void userroute(String auth,String source ,String destination,String currentLocation,String selectedLocation, String trainId, JSONCallback callback);
 }

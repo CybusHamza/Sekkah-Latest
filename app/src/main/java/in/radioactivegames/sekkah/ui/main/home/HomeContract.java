@@ -1,5 +1,7 @@
 package in.radioactivegames.sekkah.ui.main.home;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public class HomeContract
 
     public interface Presenter extends BaseMvpPresenter<HomeContract.View>
     {
-        void getStationsData();
+        void getStationsData(Context context);
         void parsonJson(JSONObject jsonObject);
 
 

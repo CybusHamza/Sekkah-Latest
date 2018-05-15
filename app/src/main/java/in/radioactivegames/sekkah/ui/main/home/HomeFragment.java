@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
@@ -26,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.base.BaseFragment;
+import in.radioactivegames.sekkah.data.LocationSelect;
 import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.model.StationPOJO;
@@ -39,6 +43,8 @@ import io.realm.RealmResults;
 
 import static in.radioactivegames.sekkah.utility.Constants.KEY_FROM;
 import static in.radioactivegames.sekkah.utility.Constants.KEY_TO;
+import static in.radioactivegames.sekkah.utility.Constants.LOCATION;
+import static in.radioactivegames.sekkah.utility.Constants.RELOAD_DATASOURCE;
 
 public class HomeFragment extends BaseFragment implements HomeContract.View {
     private View mFragment;
@@ -48,7 +54,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     Spinner spnDeparture;
     @BindView(R.id.spnDestination)
     Spinner spnDestination;
-
+    @BindView (R.id.rgLocation)
+    RadioGroup rgType;
     RealmDB realmDB;
 
     public static HomeFragment newInstance() {
@@ -78,29 +85,32 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPresenter.getStationsData();
+        mPresenter.getStationsData(getActivity());
     }
 
     @Override
     public void onResume() {
         String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
         WebSocketHelper webSocketHelper = new WebSocketHelper();
-       // webSocketHelper.startScheduleTracking(accessToken, jsonCallback);
+       /* if(!SharedPrefsUtils.getBooleanPreference(getActivity(),RELOAD_DATASOURCE,false)){
+            webSocketHelper.startScheduleTracking(accessToken, new JSONCallback() {
+                @Override
+                public void onSuccess(JSONObject jsonObject) {
+                    mPresenter.parsonJson(jsonObject);
+                    //SharedPrefsUtils.setBooleanPreference(getActivity(),RELOAD_DATASOURCE,true);
+                }
+
+                @Override
+                public void onFail(String errorMessage) {
+
+                }
+            });
+        }*/
         super.onResume();
 
     }
 
-    JSONCallback jsonCallback = new JSONCallback() {
-        @Override
-        public void onSuccess(final JSONObject jsonObject) {
-            mPresenter.parsonJson(jsonObject);
-        }
 
-        @Override
-        public void onFail(String errorMessage) {
-
-        }
-    };
 
     @Override
     public void setStationsData(List<String> data) {
@@ -124,8 +134,28 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
         bundle.putString(KEY_FROM, spnDeparture.getSelectedItem().toString());
         bundle.putString(KEY_TO, spnDestination.getSelectedItem().toString());
 
-        SharedPrefsUtils.setStringPreference(getContext(),KEY_FROM,spnDeparture.getSelectedItem().toString());
+        int radioButtonID = rgType.getCheckedRadioButtonId();
+        View radioButton = rgType.findViewById(radioButtonID);
+        int idx = rgType.indexOfChild(radioButton);
 
+        RadioButton r = (RadioButton)  rgType.getChildAt(idx);
+        if(r == null){
+            Toast.makeText(getActivity(), "Pease Select Location", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String strType = r.getText().toString();
+
+        int location ;
+        if (strType.equals(getString(R.string.text_atstation))){
+            location = LocationSelect.ATSTATION.ordinal();
+        }else if(strType.equals(getString(R.string.text_ontrain))){
+            location = LocationSelect.ONTRAIN.ordinal();
+        }else {
+            location = LocationSelect.JUSTTRACKING.ordinal();
+        }
+
+        SharedPrefsUtils.setStringPreference(getContext(),KEY_FROM,spnDeparture.getSelectedItem().toString());
+        SharedPrefsUtils.setStringPreference(getContext(),LOCATION,location+"");
         SharedPrefsUtils.setStringPreference(getContext(),KEY_TO,spnDestination.getSelectedItem().toString());
 
         TrainsFragment trainsFragment = TrainsFragment.newInstance();

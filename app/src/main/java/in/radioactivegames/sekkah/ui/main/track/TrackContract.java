@@ -14,12 +14,12 @@ public class TrackContract
 {
     public interface View extends BaseMvpView
     {
-        void setTrainLocation(LatLng location);
+        void setTrainLocation(LatLng location,String nextStation);
     }
 
     public interface Presenter extends BaseMvpPresenter<TrackContract.View>
     {
-        void trackTrain();
+        void trackTrain(String tainId);
         void trainLocationReport();
         void scheduleTracking();
         void stopTrackTrain();

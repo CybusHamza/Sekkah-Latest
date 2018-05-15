@@ -18,7 +18,10 @@ import in.radioactivegames.sekkah.base.BaseWebSocketHelper;
 import in.radioactivegames.sekkah.data.Realm.RealmDB;
 import in.radioactivegames.sekkah.data.callbacks.JSONCallback;
 import in.radioactivegames.sekkah.data.callbacks.TrainLocationCallback;
+import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
 import io.realm.Realm;
+
+import static in.radioactivegames.sekkah.utility.Constants.RELOAD_DATASOURCE;
 
 /**
  * Created by AntiSaby on 1/16/2018.
@@ -30,9 +33,9 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     private Socket mSocketTrackTrain, mSocketTrackUser, mSocketScheduleTracking;
     private Emitter.Listener mListenerTrackTrain, mListnerSchdule;
 
-    private static final String URL_TRACK_TRAIN = "http://sekka-ws-proto.herokuapp.com/traintracking?token=";
-    private static final String URL_TRACK_USER = "http://sekka-ws-proto.herokuapp.com/usertracking?token=";
-    private static final String URL_SHECDULE_TRACKKING = "http://sekka-ws-proto.herokuapp.com/updates?token=";
+    private static final String URL_TRACK_TRAIN = "http://sekkah-ws-tut-proto.herokuapp.com/traintracking?token=";
+    private static final String URL_TRACK_USER = "http://sekkah-ws-tut-proto.herokuapp.com/usertracking?token=";
+    private static final String URL_SHECDULE_TRACKKING = "http://sekkah-ws-uc-proto.herokuapp.com/updates?token=";
 
     private static final String EVENT_TRACK_TRAIN = "track-train";
     private static final String EVENT_TRAIN_LOCATION_UPDATE = "train-location-update";
@@ -61,11 +64,15 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     }
 
     @Override
-    public void trackTrain(String trainId, String userAccessToken, final TrainLocationCallback callback) {
+    public void trackTrain(String trainId, String userAccessToken, final JSONCallback callback) {
         Log.d(TAG, "Starting Socket!");
         stopTrackTrain(trainId);
         try {
-            mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + userAccessToken);
+            IO.Options options = new IO.Options();
+            options.transports = new String[] {"websocket"};
+            options.upgrade =false;
+
+            mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOiIxLjAiLCJ1c2VySWQiOiJoYW16aWkiLCJndWlkIjoiNWFlZGIzOWFmYjNjYWUwMDE0Mjk0YThmIiwiaWF0IjoxNTI1NTI4MjA0LCJleHAiOjIxNTY2ODAyMDR9.4aA5k8l4p7xbwpcJAjmYijIrmE8j1-NQoqSMJYA7fRA",options);
         } catch (URISyntaxException e) {
             Log.d(TAG, "Error URIException Track Train");
             e.printStackTrace();
@@ -74,7 +81,7 @@ public class WebSocketHelper implements BaseWebSocketHelper {
         JSONObject data = null;
         try {
             data = new JSONObject();
-            data.put(KEY_TRAIN_ID, trainId);
+            data.put(KEY_TRAIN_ID, "5ae707158cecad66917674ad");
         } catch (JSONException e) {
             Log.d(TAG, "JSON Exception");
             e.printStackTrace();
@@ -88,9 +95,8 @@ public class WebSocketHelper implements BaseWebSocketHelper {
                 //Log.d(TAG, args[0].toString());
                 try {
                     JSONObject jsonObject = new JSONObject(args[0].toString());
-                    LatLng latLng = new LatLng(jsonObject.getDouble("lat"),
-                            jsonObject.getDouble("lng"));
-                    callback.onLocationReceive(latLng);
+
+                    callback.onSuccess(jsonObject);
                 } catch (JSONException e) {
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
@@ -154,7 +160,12 @@ public class WebSocketHelper implements BaseWebSocketHelper {
         Log.d(TAG, "Train Location Report!");
 
         try {
-            mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + userAccessToken);
+
+            IO.Options options = new IO.Options();
+            options.transports = new String[] {"websocket"};
+            options.upgrade =false;
+            mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOiIxLjAiLCJ1c2VySWQiOiJoYW16aWkiLCJndWlkIjoiNWFlZGIzOWFmYjNjYWUwMDE0Mjk0YThmIiwiaWF0IjoxNTI1NTI4MjA0LCJleHAiOjIxNTY2ODAyMDR9.4aA5k8l4p7xbwpcJAjmYijIrmE8j1-NQoqSMJYA7fRA",options);
+
         } catch (URISyntaxException e) {
             Log.d(TAG, "Error URIException Track Train");
             e.printStackTrace();
@@ -188,8 +199,10 @@ public class WebSocketHelper implements BaseWebSocketHelper {
             }
         };
 
-        mSocketTrackTrain.on(EVENT_TRAIN_LOCATION_UPDATE, mListenerTrackTrain);
-        mSocketTrackTrain.connect();
+            mSocketTrackTrain.on(EVENT_TRAIN_LOCATION_UPDATE, mListenerTrackTrain);
+        if(!mSocketTrackTrain.connected()){
+            mSocketTrackTrain.connect();
+        }
         mSocketTrackTrain.emit(EVENT_TRAIN_REPORRT, data);
     }
 
@@ -217,7 +230,6 @@ public class WebSocketHelper implements BaseWebSocketHelper {
 
     @Override
     public void startScheduleTracking(String userAccessToken, final JSONCallback jsonCallback) {
-
         Log.d(TAG, "Stariting Scheduling");
         try {
             mSocketScheduleTracking = IO.socket(URL_SHECDULE_TRACKKING + userAccessToken);
@@ -237,15 +249,14 @@ public class WebSocketHelper implements BaseWebSocketHelper {
                     Realm realm = Realm.getDefaultInstance();
                     RealmDB realmDB = RealmDB.getinstance();
                     realmDB.clearAll(realm);
-
                     JSONObject jsonObject = new JSONObject(args[0].toString());
-                    Log.d(TAG, jsonObject.toString());
                     jsonCallback.onSuccess(jsonObject);
+                    Log.d(TAG, jsonObject.toString());
 
                 } catch (JSONException e) {
-                    jsonCallback.onFail(e.toString());
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
+                    jsonCallback.onFail(e.getMessage());
                 }
             }
 
@@ -254,8 +265,6 @@ public class WebSocketHelper implements BaseWebSocketHelper {
         mSocketScheduleTracking.on(EVENT_SCHEDULE_UPDATE, mListnerSchdule);
         mSocketScheduleTracking.connect();
         mSocketScheduleTracking.emit(EVENT_GET_CURRENT_SCHEDULE);
-
-
     }
 
 

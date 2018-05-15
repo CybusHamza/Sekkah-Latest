@@ -67,6 +67,8 @@ public abstract class BaseActivity extends AppCompatActivity
         if(getSupportFragmentManager().getBackStackEntryCount() > 1)
         {
             getSupportFragmentManager().popBackStack();
+        }else {
+            finish();
         }
     }
 }

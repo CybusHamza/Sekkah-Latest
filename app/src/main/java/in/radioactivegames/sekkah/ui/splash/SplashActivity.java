@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import in.radioactivegames.sekkah.R;
 import in.radioactivegames.sekkah.data.network.WebSocketHelper;
+import in.radioactivegames.sekkah.data.sharedpref.SharedPrefsUtils;
+import in.radioactivegames.sekkah.ui.loginregister.LoginRegisterActivity;
 import in.radioactivegames.sekkah.ui.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity
@@ -24,9 +26,19 @@ public class SplashActivity extends AppCompatActivity
             @Override
             public void run()
             {
-                Intent toLoginRegister = new Intent(SplashActivity.this, MainActivity.class);
-                startActivity(toLoginRegister);
-                finish();
+                if(SharedPrefsUtils.getBooleanPreference(SplashActivity.this,"isUserLoggedin",false)){
+                    Intent toLoginRegister = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(toLoginRegister);
+                    finish();
+
+                }else {
+
+                    Intent toLoginRegister = new Intent(SplashActivity.this, LoginRegisterActivity.class);
+                    startActivity(toLoginRegister);
+                    SharedPrefsUtils.setBooleanPreference(SplashActivity.this,"isUserLoggedin",true);
+                    finish();
+                }
+
             }
         }, SPLASH_DISPLAY_LENGTH);
     }

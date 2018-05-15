@@ -3,6 +3,7 @@ package in.radioactivegames.sekkah.di.component;
 import dagger.Component;
 import in.radioactivegames.sekkah.di.module.FragmentModule;
 import in.radioactivegames.sekkah.di.scope.PerFragment;
+import in.radioactivegames.sekkah.ui.loginregister.forgotpassword.ForgotPasswordActivity;
 import in.radioactivegames.sekkah.ui.loginregister.login.LoginFragment;
 import in.radioactivegames.sekkah.ui.loginregister.register.RegisterFragment;
 import in.radioactivegames.sekkah.ui.main.contact.ContactFragment;

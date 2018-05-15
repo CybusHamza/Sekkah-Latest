@@ -28,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvStation"
+        android:visibility="invisible"
         android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
         android:text="@string/text_arrival"
@@ -38,6 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
+        android:visibility="invisible"
         android:layout_toEndOf="@+id/tvArrivalTimeLabel"
         android:layout_alignTop="@+id/tvArrivalTimeLabel"
         android:text="12:30 AM"
@@ -49,7 +51,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvArrivalTimeLabel"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
         android:text="@string/text_departure"
         android:textSize="12sp" />
 
