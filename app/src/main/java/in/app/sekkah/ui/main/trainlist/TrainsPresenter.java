@@ -33,7 +33,6 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
     public TrainsPresenter(DataManager dataManager)
     {
         trains = new ArrayList<>();
-        trainsPojo = new ArrayList<>();
         realmDB =  RealmDB.getinstance();
         mDataManager = dataManager;
     }
@@ -45,7 +44,8 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
         String data ="";
 
         ArrayList<TrainPOJO> result1;
-
+        
+        trainsPojo = new ArrayList<>();
 
         Locale current = context.getResources().getConfiguration().locale;
 
