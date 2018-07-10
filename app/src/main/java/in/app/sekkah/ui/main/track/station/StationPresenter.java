@@ -18,13 +18,12 @@ import io.realm.Realm;
 
 public class StationPresenter extends BasePresenter<StationContract.View> implements StationContract.Presenter
 {
-    private List<Station> stations;
     private static final String TAG = StationPresenter.class.getSimpleName();
 
     @Inject
     public StationPresenter()
     {
-        stations = new ArrayList<>();
+        List<Station> stations = new ArrayList<>();
     }
 
 

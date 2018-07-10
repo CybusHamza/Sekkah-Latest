@@ -3,7 +3,7 @@ package in.app.sekkah.di.component;
 import dagger.Component;
 import in.app.sekkah.di.module.FragmentModule;
 import in.app.sekkah.di.scope.PerFragment;
-import in.app.sekkah.ui.loginregister.login.LoginFragment;
+import in.app.sekkah.ui.loginregister.login.LoginActivity;
 import in.app.sekkah.ui.loginregister.register.RegisterFragment;
 import in.app.sekkah.ui.main.contact.ContactFragment;
 import in.app.sekkah.ui.main.home.HomeFragment;
@@ -23,7 +23,7 @@ import in.app.sekkah.ui.main.trainlist.TrainsFragment;
 @Component(modules = FragmentModule.class, dependencies = ApplicationComponent.class)
 public interface FragmentComponent
 {
-    void inject(LoginFragment fragment);
+    void inject(LoginActivity fragment);
     void inject(RegisterFragment fragment);
     void inject(HomeFragment fragment);
     void inject(TrainsFragment fragment);

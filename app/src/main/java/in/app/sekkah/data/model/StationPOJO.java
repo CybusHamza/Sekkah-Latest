@@ -10,6 +10,8 @@ public class StationPOJO extends RealmObject  {
 
     private String nameen;
 
+    private int stationNum;
+
     private Double lat;
 
     private Double lng;
@@ -67,6 +69,14 @@ public class StationPOJO extends RealmObject  {
 
     public void setDistance(Integer distance) {
         this.distance = distance;
+    }
+
+    public int getStationNum() {
+        return stationNum;
+    }
+
+    public void setStationNum(int stationNum) {
+        this.stationNum = stationNum;
     }
 
     public String getTs() {

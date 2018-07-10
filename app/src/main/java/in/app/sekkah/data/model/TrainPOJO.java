@@ -14,6 +14,8 @@ public class TrainPOJO extends RealmObject implements Serializable {
 
     private String namear;
 
+    private String direction;
+
     private String number;
 
     private String depStation;
@@ -64,6 +66,14 @@ public class TrainPOJO extends RealmObject implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public String getDepStation() {

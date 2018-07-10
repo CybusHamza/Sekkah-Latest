@@ -2,6 +2,7 @@ package in.app.sekkah.ui.loginregister;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -13,7 +14,6 @@ import in.app.sekkah.R;
 import in.app.sekkah.base.BaseActivity;
 import in.app.sekkah.di.component.ActivityComponent;
 import in.app.sekkah.ui.adapter.ViewPagerAdapter;
-import in.app.sekkah.ui.loginregister.login.LoginFragment;
 import in.app.sekkah.ui.loginregister.register.RegisterFragment;
 
 public class LoginRegisterActivity extends BaseActivity implements LoginRegisterContract.View, RegisterFragment.OnFragmentInteractionListener
@@ -32,11 +32,11 @@ public class LoginRegisterActivity extends BaseActivity implements LoginRegister
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPagerAdapter.addFragment(LoginFragment.newInstance(), "Login");
+     /*   mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPagerAdapter.addFragment(LoginActivity.newInstance(), "Login");
         mViewPagerAdapter.addFragment(RegisterFragment.newInstance(), "Register");
         mViewPager.setAdapter(mViewPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);*/
     }
 
     @Override
@@ -58,5 +58,10 @@ public class LoginRegisterActivity extends BaseActivity implements LoginRegister
     public void changeViewPagerFragment(int index)
     {
         mViewPager.setCurrentItem(index, true);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

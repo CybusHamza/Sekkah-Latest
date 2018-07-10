@@ -6,7 +6,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="text_login">Login</string>
+    <string name="text_login">Login with Phone Number</string>
     <string name="text_register">Register</string>
     <string name="text_forgotpassword">Forgot Password?</string>
     <string name="text_or">Or</string>
@@ -36,9 +36,12 @@
 
     <string name="facebook_app_id" translatable="false">1795469100760241</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb239298566605435</string>
+    <string name="account_kit_token_id" translatable="false">811352cc334e0d64fafb4cd5a2f4c987</string>
+    <string name="ak_login_protocol_scheme" translatable="false">ak1795469100760241</string>
 
-    <string name="com.twitter.sdk.android.CONSUMER_KEY" translatable="false">nch4gMZFjeMdVBXKR4Kb1dC4E</string>
-    <string name="com.twitter.sdk.android.CONSUMER_SECRET" translatable="false">U93JNxf8VleCRkHiIq7nHsXloLxEmyiNa9yxJMY8HsWJMlW2u5</string>
+
+    <string name="com.twitter.sdk.android.CONSUMER_KEY" translatable="false">hcuAzTJZXSsrCWrHy524cmBSd</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET" translatable="false">U1y67JmHWLSADBO0eTrZYK8qlfqi9KWmbeCZOAqHOMhuMri6EY</string>
     <string name="title_activity_maps">Map</string>
     <string name="text_share">Share</string>
     <string name="text_station">Station</string>
@@ -58,4 +61,6 @@
     <string name="Suggestion">Suggestion</string>
     <string name="Enquiry">Enquiry</string>
     <string name="cancel">cancel</string>
+    <string name="loading">Loading . .</string>
+    <string name="lbl_leavingtime">The Default leaving time after :</string>
 </resources>

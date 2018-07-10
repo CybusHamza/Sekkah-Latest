@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import in.app.sekkah.R;
 import in.app.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.app.sekkah.ui.loginregister.LoginRegisterActivity;
+import in.app.sekkah.ui.loginregister.login.LoginActivity;
 import in.app.sekkah.ui.main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity
@@ -31,10 +32,8 @@ public class SplashActivity extends AppCompatActivity
                     finish();
 
                 }else {
-
-                    Intent toLoginRegister = new Intent(SplashActivity.this, LoginRegisterActivity.class);
+                    Intent toLoginRegister = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(toLoginRegister);
-                    SharedPrefsUtils.setBooleanPreference(SplashActivity.this,"isUserLoggedin",true);
                     finish();
                 }
 

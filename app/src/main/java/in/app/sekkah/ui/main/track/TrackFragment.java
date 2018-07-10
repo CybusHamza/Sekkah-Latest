@@ -24,9 +24,6 @@ import in.app.sekkah.ui.main.track.station.StationFragment;
 import static in.app.sekkah.utility.Constants.KEY_TRAINID;
 
 public class TrackFragment extends BaseFragment implements TrackContract.View {
-    private View mFragment;
-    private ViewPagerAdapter viewPagerAdapter;
-    private OnFragmentInteractionListener mMapFragmentListener;
 
 
     @Inject
@@ -53,7 +50,7 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mFragment = inflater.inflate(R.layout.fragment_track, container, false);
+        View mFragment = inflater.inflate(R.layout.fragment_track, container, false);
         setUnbinder(ButterKnife.bind(this, mFragment));
         setupViewPager();
 
@@ -88,12 +85,12 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
 
         Bundle bundle = getArguments();
 
-        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         MapFragment mapFragment = MapFragment.newInstance();
         mapFragment.setArguments(bundle);
         StationFragment stationFragment = StationFragment.newInstance();
         stationFragment.setArguments(bundle);
-        mMapFragmentListener = mapFragment;
+        OnFragmentInteractionListener mMapFragmentListener = mapFragment;
         viewPagerAdapter.addFragment(mapFragment, getString(R.string.map));
         viewPagerAdapter.addFragment(stationFragment, getString(R.string.station));
         viewPager.setAdapter(viewPagerAdapter);
@@ -132,7 +129,6 @@ public class TrackFragment extends BaseFragment implements TrackContract.View {
     public void onStop()
     {
         super.onStop();
-        mPresenter.stopTrackTrain();
     }
 
     public interface OnFragmentInteractionListener

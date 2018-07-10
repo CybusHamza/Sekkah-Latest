@@ -12,12 +12,12 @@
 
     <RelativeLayout
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:background="@android:color/white"
             android:layout_gravity="top|center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/tvDepartureStation"
@@ -26,24 +26,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:text="Aswan"
+                android:textColor="@color/tw__composer_black"
                 android:textSize="14sp"/>
 
             <TextView
                 android:id="@+id/tvDestinationStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/tw__composer_black"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="20dp"
                 android:text="Cairo"
                 android:textSize="14sp"
                 android:layout_below="@+id/tvDepartureStation"
-                android:layout_marginTop="20dp"/>
+                android:layout_marginTop="15dp"/>
 
             <TextView
                 android:id="@+id/tvDepartureTime"
                 android:layout_width="wrap_content"
+                android:textColor="@color/tw__composer_black"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="40dp"
                 android:text="07:00 PM"
                 android:textSize="14sp"
                 android:layout_toRightOf="@+id/tvDepartureStation"/>
@@ -52,23 +55,22 @@
                 android:id="@+id/tvDestinationTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_marginLeft="40dp"
+                android:textColor="@color/tw__composer_black"
                 android:text="10:30 PM"
                 android:textSize="14sp"
                 android:layout_below="@+id/tvDepartureTime"
                 android:layout_toRightOf="@+id/tvDepartureStation"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="15dp" />
 
             <TextView
                 android:id="@+id/tvLateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:text="(7:00 AM)"
+                android:text="@string/loading"
                 android:textSize="14sp"
-                android:layout_below="@+id/tvDepartureTime"
                 android:layout_toRightOf="@+id/tvDestinationTime"
-                android:layout_marginTop="20dp"
                 android:textColor="@android:color/holo_red_light"/>
 
             <ImageView
@@ -81,16 +83,6 @@
                 android:src="@drawable/routeicon"
                 android:layout_alignTop="@+id/tvDepartureStation"/>
 
-        <TextView
-            android:id="@+id/tvLateTimeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/tvDepartureStation"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="66dp"
-            android:text="@string/text_late_time"
-            android:textColor="@android:color/white"
-            android:textSize="12sp" />
 
     </RelativeLayout>
 
@@ -101,13 +93,27 @@
             android:layout_gravity="top|center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:layout_marginTop="100dp">
+            android:layout_marginTop="90dp">
+
+
+
+        <TextView
+            android:id="@+id/tvLateTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_late_time"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/tvTrainClass"
+            android:layout_below="@+id/tvNextStationLabel"
+            android:textColor="@android:color/white"
+            android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tvTrainNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
                 android:text="2007"
                 android:layout_marginRight="10dp"
                 android:textSize="14sp"
@@ -117,11 +123,11 @@
                 android:id="@+id/tvTrainClass"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
                 android:text="VIP"
                 android:textSize="14sp"
-                android:layout_toRightOf="@+id/tvTrainNumber"
-                android:layout_marginRight="10dp"
+                android:layout_below="@+id/tvTrainNumber"
+                android:layout_marginTop="2dp"
                 android:textColor="@android:color/white" />
 
             <TextView
@@ -133,33 +139,33 @@
                 android:textSize="12sp"
                 android:layout_marginRight="10dp"
                 android:textColor="@android:color/white"
-                android:layout_below="@+id/tvTrainNumber"
-                android:layout_marginTop="5dp" />
+                android:layout_toRightOf="@+id/tvTrainClass" />
 
-            <TextView
+
+
+        <TextView
                 android:id="@+id/tvNextStation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="Luxor"
+                android:layout_marginLeft="10dp"
+                android:text="@string/loading"
                 android:textSize="12sp"
                 android:textColor="@android:color/white"
-                android:layout_below="@+id/tvTrainClass"
-                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/tvNextStationLabel" />
 
         <TextView
                 android:id="@+id/tvLateTimeWorded"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="1.5 hours"
+                android:layout_marginLeft="10dp"
+                android:text="@string/loading"
                 android:textSize="12sp"
-            android:layout_marginRight="10dp"
+                android:layout_marginRight="10dp"
                 android:textColor="@android:color/white"
+                android:layout_toRightOf="@+id/tvNextStationLabel"
                 android:layout_below="@+id/tvNextStation"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/tvLateTimeLabel" />
+                />
 
 
         </RelativeLayout>

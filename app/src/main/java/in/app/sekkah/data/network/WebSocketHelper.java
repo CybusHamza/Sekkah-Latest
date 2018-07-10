@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import in.app.sekkah.base.BaseWebSocketHelper;
 import in.app.sekkah.data.Realm.RealmDB;
 import in.app.sekkah.data.callbacks.JSONCallback;
-import in.app.sekkah.data.callbacks.TrainLocationCallback;
 import io.realm.Realm;
 
 /**
@@ -28,7 +27,7 @@ import io.realm.Realm;
 public class WebSocketHelper implements BaseWebSocketHelper {
 
     private Socket mSocketTrackTrain, mSocketTrackUser, mSocketScheduleTracking;
-    private Emitter.Listener mListenerTrackTrain, mListnerSchdule;
+    private Emitter.Listener mListenerTrackTrain;
 
     private static final String URL_TRACK_TRAIN = "http://sekkah-ws-tut-proto.herokuapp.com/traintracking?token=";
     private static final String URL_TRACK_USER = "http://sekkah-ws-tut-proto.herokuapp.com/usertracking?token=";
@@ -53,6 +52,8 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     private static final String KEY_STATION_ID = "stationId";
     private static final String KEY_TS = "ts";
 
+
+    public static String USER_SESSION_ID = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOiIxLjAiLCJ1c2VySWQiOiJoYW16aWkiLCJndWlkIjoiNWFlZGIzOWFmYjNjYWUwMDE0Mjk0YThmIiwiaWF0IjoxNTI1NTI4MjA0LCJleHAiOjIxNTY2ODAyMDR9.4aA5k8l4p7xbwpcJAjmYijIrmE8j1-NQoqSMJYA7fRA";
     private static final String TAG = WebSocketHelper.class.getSimpleName();
 
     @Inject
@@ -63,13 +64,12 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     @Override
     public void trackTrain(String trainId, String userAccessToken, final JSONCallback callback) {
         Log.d(TAG, "Starting Socket!");
-        stopTrackTrain(trainId);
         try {
             IO.Options options = new IO.Options();
             options.transports = new String[] {"websocket"};
             options.upgrade =false;
 
-            mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXIiOiIxLjAiLCJ1c2VySWQiOiJoYW16aWkiLCJndWlkIjoiNWFlZGIzOWFmYjNjYWUwMDE0Mjk0YThmIiwiaWF0IjoxNTI1NTI4MjA0LCJleHAiOjIxNTY2ODAyMDR9.4aA5k8l4p7xbwpcJAjmYijIrmE8j1-NQoqSMJYA7fRA",options);
+            mSocketTrackTrain = IO.socket(URL_TRACK_TRAIN + "",options);
         } catch (URISyntaxException e) {
             Log.d(TAG, "Error URIException Track Train");
             e.printStackTrace();
@@ -152,7 +152,7 @@ public class WebSocketHelper implements BaseWebSocketHelper {
     }
 
     @Override
-    public void trainLocationReport(String stationId, String ts, String userAccessToken, final TrainLocationCallback callback) {
+    public void trainLocationReport(String stationId, String ts, String userAccessToken, final JSONCallback callback) {
 
         Log.d(TAG, "Train Location Report!");
 
@@ -186,9 +186,7 @@ public class WebSocketHelper implements BaseWebSocketHelper {
                 //Log.d(TAG, args[0].toString());
                 try {
                     JSONObject jsonObject = new JSONObject(args[0].toString());
-                    LatLng latLng = new LatLng(jsonObject.getDouble("lat"),
-                            jsonObject.getDouble("lng"));
-                    callback.onLocationReceive(latLng);
+                    callback.onSuccess(jsonObject);
                 } catch (JSONException e) {
                     Log.d(TAG, "JSON Exception");
                     e.printStackTrace();
@@ -236,7 +234,7 @@ public class WebSocketHelper implements BaseWebSocketHelper {
         }
 
 
-        mListnerSchdule = new Emitter.Listener() {
+        Emitter.Listener mListnerSchdule = new Emitter.Listener() {
             @Override
             public void call(Object... args) {
                 if (args[0] == null)

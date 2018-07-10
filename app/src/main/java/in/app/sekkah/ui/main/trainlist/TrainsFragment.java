@@ -37,7 +37,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.SimpleTimeZone;
 
 import javax.inject.Inject;
 
@@ -55,21 +54,17 @@ import io.realm.Realm;
 
 import static in.app.sekkah.utility.Constants.KEY_FROM;
 import static in.app.sekkah.utility.Constants.KEY_TO;
+import static in.app.sekkah.utility.Constants.KEY_TRAIN;
 import static in.app.sekkah.utility.Constants.LATITUDE;
 import static in.app.sekkah.utility.Constants.LONGITUDE;
 
 public class TrainsFragment extends BaseFragment implements TrainsContract.View {
-    private View mFragment;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private LocationRequest mLocationRequest;
-    private LocationSettingsRequest mLocationSettingsRequest;
 
     private LocationCallback mLocationCallback;
     private Location mCurrentLocation;
     private Boolean mRequestingLocationUpdates;
     private String mLastUpdateTime;
-    private SettingsClient mSettingsClient;
     private FusedLocationProviderClient mFusedLocationClient;
     String from, to;
     @BindView(R.id.rvTrns)
@@ -103,7 +98,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mFragment = inflater.inflate(R.layout.fragment_trains, container, false);
+        View mFragment = inflater.inflate(R.layout.fragment_trains, container, false);
 
         mRequestingLocationUpdates = true;
         mLastUpdateTime = "";
@@ -111,7 +106,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
         setUnbinder(ButterKnife.bind(this, mFragment));
         mPresenter.onAttach(this);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         //mPresenter.getTrainData();
@@ -120,7 +115,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
         getTrainData(bundle);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        mSettingsClient = LocationServices.getSettingsClient(getActivity());
+        SettingsClient mSettingsClient = LocationServices.getSettingsClient(getActivity());
 
         createLocationRequest();
         buildLocationSettingsRequest();
@@ -139,7 +134,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
     private void buildLocationSettingsRequest() {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(mLocationRequest);
-        mLocationSettingsRequest = builder.build();
+        LocationSettingsRequest mLocationSettingsRequest = builder.build();
     }
 
 
@@ -170,6 +165,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
         to = bundle.getString(KEY_TO);
 
         Realm realm = Realm.getDefaultInstance();
+
         mPresenter.getTrainData(from, to, realm, getActivity());
 
     }
@@ -253,7 +249,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
     @Override
     public void setTrainPojoData(List<TrainPOJO> data) {
         if (data.size() > 0) {
-            mAdapter = new TrainAdapter(data);
+            RecyclerView.Adapter mAdapter = new TrainAdapter(data);
             mRecyclerView.setAdapter(mAdapter);
         } else {
             Toast.makeText(getActivity(), "No Data Found !", Toast.LENGTH_SHORT).show();
@@ -282,6 +278,7 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
 
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.KEY_TRAINID, trainId);
+
 
                 TrackFragment trackFragment = TrackFragment.newInstance();
                 trackFragment.setArguments(bundle);
@@ -327,18 +324,18 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, final int position) {
+        public void onBindViewHolder(final ViewHolder holder, final int position) {
             Locale current = getResources().getConfiguration().locale;
             String lan = current.getLanguage();
             final TrainPOJO trainPOJO = mDataset.get(position);
             if (lan.equals("ar")) {
                 holder.mTvTrainClass.setText(trainPOJO.getNamear());
-                holder.mTvDepartureStation.setText(trainPOJO.getDepStationAr());
-                holder.mTvDestinationStation.setText(trainPOJO.getFinalStationAr());
+                holder.mTvDepartureStation.setText(from);
+                holder.mTvDestinationStation.setText(to);
             } else {
                 holder.mTvTrainClass.setText(trainPOJO.getNameen());
-                holder.mTvDepartureStation.setText(trainPOJO.getDepStation());
-                holder.mTvDestinationStation.setText(trainPOJO.getFinalStation());
+                holder.mTvDepartureStation.setText(from);
+                holder.mTvDestinationStation.setText(to);
             }
 
             holder.mTvTrainNumber.setText(trainPOJO.getNumber());
@@ -347,6 +344,9 @@ public class TrainsFragment extends BaseFragment implements TrainsContract.View 
             holder.mBtnTrack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    SharedPrefsUtils.setStringPreference(getContext(),KEY_TRAIN,holder.mTvTrainClass.getText().toString());
+
                     startTracking(trainPOJO.getId());
                 }
             });

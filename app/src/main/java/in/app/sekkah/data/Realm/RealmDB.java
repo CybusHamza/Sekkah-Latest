@@ -31,7 +31,8 @@ public class RealmDB {
 
     public  void clearAll(Realm  realm){
         realm.beginTransaction();
-        realm.deleteAll();
+        RealmResults<TrainPOJO> result = realm.where(TrainPOJO.class).findAll();
+        result.deleteAllFromRealm();
         realm.commitTransaction();
     }
 
@@ -104,21 +105,39 @@ public class RealmDB {
         return stationname;
     }
 
-    public LatLng getStationLatLng(String stationId, Realm realm) {
+    public int getSationNumber(String stationName , Realm realm) {
 
-        LatLng latlng;
+        int  stationNum;
         RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
-                .equalTo("id", stationId)
+                .equalTo("nameen", stationName)
                 .findAll();
 
         if(result.size() >0){
-            latlng=  new LatLng(result.get(0).getLat(),result.get(0).getLng());
+            stationNum=  result.get(0).getStationNum();
         }
         else {
-            latlng=  new LatLng(0,0 );
+            stationNum= 0;
         }
 
-        return latlng;
+        return stationNum;
+    }
+
+    public int getSationNumberAr(String stationName, Realm realm) {
+
+        int  stationNum;
+        RealmResults<StationPOJO> result= realm.where(StationPOJO.class)
+                .equalTo("namear", stationName)
+                .findAll();
+
+
+        if(result.size() >0){
+            stationNum=  result.get(0).getStationNum();
+        }
+        else {
+            stationNum= 0;
+        }
+
+        return stationNum;
     }
 
     public RealmResults<StationPOJO> getStations(String stationId, Realm realm) {
@@ -181,28 +200,54 @@ public class RealmDB {
 
     public ArrayList<TrainPOJO> getTrainListfromStation(String fromStation,String toStaion,Realm realm){
 
+        String direction;
         ArrayList<TrainPOJO> resultToSend = new ArrayList<>() ;
 
+       int from = getSationNumber(fromStation,realm);
+       int to =  getSationNumber(toStaion,realm);
+       int dif = from - to;
+
+       if(dif>0){
+           direction = "n2s";
+       }else {
+           direction = "s2n";
+       }
+
         RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
-                .equalTo("depStation", fromStation);
+            .equalTo("direction",direction);
 
         fromStation = getStationbyName(fromStation,realm);
         toStaion = getStationbyName(toStaion,realm);
 
-        RealmResults<TrainPOJO> result1 = query.findAll();
+        RealmResults<TrainPOJO> trains = query.findAll();
 
-        for(int i = 0 ; i < result1.size() ; i++) {
+        TrainPOJO pojo =  null;
 
-            TrainPOJO trainPOJO = result1.get(i);
+        for(int i = 0 ; i < trains.size() ; i++) {
 
-            RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
+            TrainPOJO trainPOJO = trains.get(i);
 
-            for(int j=0;j<stringRealmList.size();j++){
-                if(stringRealmList.get(j).equals(toStaion)){
-                    resultToSend.add(trainPOJO);
-                    break;
+            RealmList<String> stations = trainPOJO.getStationPOJOS();
+
+            int found = 0;
+
+            for(int j=0;j<stations.size();j++){
+                if(stations.get(j).equals(toStaion)/* || stations.get(j).equals(fromStation)*/){
+                    found++;
+                    pojo=trainPOJO;
+                }else if(stations.get(j).equals(fromStation)){
+                    found++;
+                    pojo=trainPOJO;
                 }
             }
+
+            if(found>=2){
+                resultToSend.add(pojo);
+            }
+
+            found =0;
+            pojo = null;
+
         }
 
         return resultToSend;
@@ -211,11 +256,24 @@ public class RealmDB {
 
 
     public ArrayList<TrainPOJO> getTrainListfromStationAr(String fromStation,String toStaion,Realm realm){
+        String direction;
 
         ArrayList<TrainPOJO> resultToSend = new ArrayList<>() ;
 
+
+        int from = getSationNumberAr(fromStation,realm);
+        int to =  getSationNumberAr(toStaion,realm);
+        int dif = from - to;
+
+        if(dif>0){
+
+            direction = "s2n";
+        }else {
+            direction = "n2s";
+        }
+
         RealmQuery<TrainPOJO> query = realm.where(TrainPOJO.class)
-                .equalTo("depStationAr", fromStation);
+                .equalTo("direction",direction);
 
         fromStation = getStationbyName(fromStation,realm);
         toStaion = getStationbyName(toStaion,realm);
@@ -228,7 +286,7 @@ public class RealmDB {
 
             RealmList<String> stringRealmList = trainPOJO.getStationPOJOS();
 
-            if(stringRealmList.get(i).equals(toStaion) ||stringRealmList.get(i).equals(fromStation) ){
+            if(stringRealmList.get(i).equals(toStaion) && stringRealmList.get(i).equals(fromStation) ){
                 resultToSend.add(trainPOJO);
             }
 

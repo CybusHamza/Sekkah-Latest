@@ -30,9 +30,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void login(String username, String password)
+    public void login(String fbID, String phoneNum,String attestation)
     {
-        mDataManager.login(username, password, new JSONCallback()
+        mDataManager.login(fbID, phoneNum, attestation,new JSONCallback()
         {
 
             @Override
@@ -60,5 +60,39 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                 getMvpView().loginFailed(errorMessage);
             }
         });
+    }
+
+    @Override
+    public void loginSocialMedia(String socialId, String socialType, String firstName, String lastName, String password, String email, String attestation) {
+
+        mDataManager.loginSocialMedia(socialId, socialType,firstName,lastName,password,email, attestation,new JSONCallback()
+        {
+
+            @Override
+            public void onSuccess(JSONObject jsonObject)
+            {
+                getMvpView().loginSuccessful();
+                User user = new User();
+                try
+                {
+                    user.mAccessToken = jsonObject.getString("token");
+                }
+                catch (JSONException e)
+                {
+                    Log.e(TAG, "Error");
+                    e.printStackTrace();
+                    return;
+                }
+
+                mDataManager.setCurrentUser(user);
+            }
+
+            @Override
+            public void onFail(String errorMessage)
+            {
+                getMvpView().loginFailed(errorMessage);
+            }
+        });
+
     }
 }

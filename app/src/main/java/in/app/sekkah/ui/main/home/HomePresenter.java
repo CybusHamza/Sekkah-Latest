@@ -29,23 +29,24 @@ import io.realm.RealmResults;
  */
 
 public class HomePresenter extends BasePresenter<HomeContract.View> implements HomeContract.Presenter {
-    private int mUserLocation, mIDDepartureStation, mIDDestinationStation;
-    private List<Station> stations;
-    private List<String> stationNames;
+    private int mIDDepartureStation;
+    private int mIDDestinationStation;
 
     private static final String TAG = HomePresenter.class.getSimpleName();
 
     @Inject
     public HomePresenter() {
-        mUserLocation = Constants.LOCATION_TRAIN; //Default location set to be in Train
-        stations = new ArrayList<>();
-        stationNames = new ArrayList<>();
+        int mUserLocation = Constants.LOCATION_TRAIN;
+        List<Station> stations = new ArrayList<>();
+
     }
 
     @Override
     public void getStationsData(Context context) {
         Realm  realm = Realm.getDefaultInstance();
         RealmResults<StationPOJO> stationPOJOS = RealmDB.getinstance().getAllStation(realm);
+
+        List<String> stationNames = new ArrayList<>();
 
         try{
             for (StationPOJO user : stationPOJOS) {
@@ -85,6 +86,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
             for (int j = 0; j < stationsArray.length(); j++) {
                 final JSONObject staitionObj = stationsArray.getJSONObject(j);
 
+                final int finalJ = j;
                 realm.executeTransaction(new Realm.Transaction() {
                     @Override
                     public void execute(Realm realm) {
@@ -97,6 +99,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                         stationPOJO.setLat(staitionObj.optDouble("lat", 0));
                         stationPOJO.setLng(staitionObj.optDouble("lng", 0));
                         stationPOJO.setDistance(staitionObj.optInt("distance", 0));
+                        stationPOJO.setStationNum(finalJ);
                     }
                 });
             }
@@ -104,61 +107,88 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
             JSONArray trainsArray = jsonObject.getJSONArray("trains");
 
 
-            for (int i = 0; i < trainsArray.length(); i++) {
+            saveTraintoLocal(trainsArray);
 
-                final JSONObject jObject = trainsArray.getJSONObject(i);
-
-                realm.executeTransaction(new Realm.Transaction() {
-                    @Override
-                    public void execute(Realm realm) {
-
-                        TrainPOJO trainPOJO = realm.createObject(TrainPOJO.class);
-
-                        trainPOJO.setId(jObject.optString("id", ""));
-                        trainPOJO.setNumber(jObject.optString("number", ""));
-                        trainPOJO.setNamear(jObject.optString("namear", ""));
-                        trainPOJO.setNameen(jObject.optString("nameen", ""));
-
-                        try {
-                            JSONArray array = jObject.getJSONArray("stations");
-                            JSONObject jsonObject1 = array.getJSONObject(0);
-                            String stationId = jsonObject1.getString("stationId");
-                            trainPOJO.setDepStation(RealmDB.getinstance().getStation(stationId, realm));
-                            trainPOJO.setDepStationAr(RealmDB.getinstance().getStationAr(stationId, realm));
-
-                            trainPOJO.setGetDepStationtime(jsonObject1.optString("ts"));
-
-                            JSONObject jsonObject2 = array.getJSONObject(array.length() - 1);
-                            String stationIds = jsonObject2.getString("stationId");
-                            trainPOJO.setFinalStation(RealmDB.getinstance().getStation(stationIds, realm));
-                            trainPOJO.setFinalStationAr(RealmDB.getinstance().getStationAr(stationIds, realm));
-                            trainPOJO.setFinalStationDepStationtime(jsonObject2.optString("ts"));
-
-                            RealmList<String> stationRealmList = new RealmList<>();
-                            RealmList<String> tsRealmList = new RealmList<>();
-
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject jsonObject3 = array.getJSONObject(i);
-
-                                stationRealmList.add(jsonObject3.getString("stationId"));
-                                tsRealmList.add(jsonObject3.optString("ts"));
-
-                            }
-
-                            trainPOJO.setStationPOJOS(stationRealmList);
-                            trainPOJO.setTsList(tsRealmList);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });
-
-            }
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void parsonTrainJson(JSONObject jsonObject) {
+
+        try {
+            JSONObject schedule = jsonObject.getJSONObject("schedule");
+
+            JSONArray trainsArray =  schedule.getJSONArray("trains");
+
+            saveTraintoLocal(trainsArray);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public void saveTraintoLocal(JSONArray trainsArray) throws JSONException {
+
+        Realm realm = Realm.getDefaultInstance();
+
+        for (int i = 0; i < trainsArray.length(); i++) {
+
+            final JSONObject jObject = trainsArray.getJSONObject(i);
+
+
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+
+                    TrainPOJO trainPOJO = realm.createObject(TrainPOJO.class);
+
+                    trainPOJO.setId(jObject.optString("id", ""));
+                    trainPOJO.setNumber(jObject.optString("number", ""));
+                    trainPOJO.setNamear(jObject.optString("namear", ""));
+                    trainPOJO.setNameen(jObject.optString("nameen", ""));
+                    trainPOJO.setDirection(jObject.optString("direction",""));
+
+                    try {
+                        JSONArray array = jObject.getJSONArray("stations");
+                        JSONObject jsonObject1 = array.getJSONObject(0);
+                        String stationId = jsonObject1.getString("stationId");
+                        trainPOJO.setDepStation(RealmDB.getinstance().getStation(stationId, realm));
+                        trainPOJO.setDepStationAr(RealmDB.getinstance().getStationAr(stationId, realm));
+
+                        trainPOJO.setGetDepStationtime(jsonObject1.optString("ts"));
+
+                        JSONObject jsonObject2 = array.getJSONObject(array.length() - 1);
+                        String stationIds = jsonObject2.getString("stationId");
+                        trainPOJO.setFinalStation(RealmDB.getinstance().getStation(stationIds, realm));
+                        trainPOJO.setFinalStationAr(RealmDB.getinstance().getStationAr(stationIds, realm));
+                        trainPOJO.setFinalStationDepStationtime(jsonObject2.optString("ts"));
+
+                        RealmList<String> stationRealmList = new RealmList<>();
+                        RealmList<String> tsRealmList = new RealmList<>();
+
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject jsonObject3 = array.getJSONObject(i);
+
+                            stationRealmList.add(jsonObject3.getString("stationId"));
+                            tsRealmList.add(jsonObject3.optString("ts"));
+
+                        }
+
+                        trainPOJO.setStationPOJOS(stationRealmList);
+                        trainPOJO.setTsList(tsRealmList);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+
         }
     }
 }

@@ -63,6 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
+                    android:textColor="@color/tw__composer_black"
                     android:text="Aswan"
                     android:textSize="12sp" />
 
@@ -70,6 +71,7 @@
                     android:id="@+id/tvDestinationStation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/tw__composer_black"
                     android:layout_below="@+id/tvDepartureStation"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="20dp"
@@ -81,6 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
+                    android:textColor="@color/tw__composer_black"
                     android:layout_toRightOf="@+id/tvDepartureStation"
                     android:text="07:00 PM"
                     android:textSize="12sp" />
@@ -91,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvDepartureTime"
                     android:layout_marginStart="50dp"
+                    android:textColor="@color/tw__composer_black"
                     android:layout_marginTop="20dp"
                     android:layout_toRightOf="@+id/tvDepartureStation"
                     android:text="10:30 PM"
@@ -126,10 +130,11 @@
     <Spinner
         android:id="@+id/spnStation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblStation" />
@@ -145,15 +150,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spnStation"
         android:gravity="center"
-        android:background="@drawable/bg_round_rectangle">
+       >
 
         <TextView
             android:layout_marginStart="20dp"
             android:id="@+id/tvHour"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:background="@drawable/bg_round_rectangle_teal"
+            android:textColor="@color/tw__composer_white"
             android:gravity="center_vertical"
             android:text="09"
+            android:padding="5dp"
             android:textSize="30sp" />
 
         <TextView
@@ -162,6 +170,8 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             android:text=":"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -170,7 +180,10 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:gravity="center_vertical"
+            android:textColor="@color/tw__composer_white"
             android:text="15"
+            android:background="@drawable/bg_round_rectangle_teal"
+            android:padding="5dp"
             android:textSize="30sp"
             android:layout_marginEnd="20dp"/>
 
@@ -180,8 +193,8 @@
         android:id="@+id/rlDetails"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="24dp"
         android:background="@android:color/white"
         android:paddingBottom="20dp"
@@ -191,12 +204,33 @@
         app:layout_constraintTop_toBottomOf="@+id/llTime">
 
         <TextView
-            android:id="@+id/lblStation2"
+            android:id="@+id/lbltrain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:textColor="@color/tw__composer_black"
             android:layout_marginStart="16dp"
+            android:text="@string/text_train_number" />
+
+        <TextView
+            android:id="@+id/tvTrain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/tw__composer_black"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:text="Assiut" />
+
+        <TextView
+            android:id="@+id/lblStation2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/lbltrain"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/tw__composer_black"
             android:text="@string/text_station" />
 
         <TextView
@@ -204,8 +238,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/lbltrain"
             android:layout_marginEnd="16dp"
+            android:textColor="@color/tw__composer_black"
             android:text="Assiut" />
 
         <TextView
@@ -213,18 +249,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblStation2"
+            android:textColor="@color/tw__composer_black"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:text="@string/text_arrival_time" />
 
         <TextView
             android:id="@+id/tvArrivalTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/tw__composer_black"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tvStation"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:text="09:15 AM" />
 
     </RelativeLayout>
@@ -233,12 +271,14 @@
         android:id="@+id/btnReport"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/colorAccent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:background="@drawable/bg_round_rectangle_teal"
         android:text="@string/text_report"
+        android:textAllCaps="false"
         android:textColor="@android:color/white"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rlDetails" />

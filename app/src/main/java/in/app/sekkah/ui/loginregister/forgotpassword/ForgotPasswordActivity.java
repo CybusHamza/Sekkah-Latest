@@ -28,7 +28,6 @@ import in.app.sekkah.ui.loginregister.LoginRegisterActivity;
 
 public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswordContract.View,Validator.ValidationListener {
 
-    private String mEmail, mPassword, mConfirmPassword;
     @BindView(R.id.etEmail) @Email
     @NotEmpty
     EditText mEtEmail;
@@ -82,11 +81,11 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
     public void onValidationSucceeded() {
 
         showProgressDialog("Please wait...");
-        mEmail = mEtEmail.getText().toString().trim();
-        mPassword = mEtPassword.getText().toString().trim();
-        mConfirmPassword = mEtConfirmPassword.getText().toString().trim();
+        String mEmail = mEtEmail.getText().toString().trim();
+        String mPassword = mEtPassword.getText().toString().trim();
+        String mConfirmPassword = mEtConfirmPassword.getText().toString().trim();
 
-        forgotPasswordPresenter.changePassword(mEmail,mPassword,mConfirmPassword);
+        forgotPasswordPresenter.changePassword(mEmail, mPassword, mConfirmPassword);
 
     }
 

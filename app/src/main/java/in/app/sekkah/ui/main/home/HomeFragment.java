@@ -1,6 +1,8 @@
 package in.app.sekkah.ui.main.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -27,6 +30,7 @@ import in.app.sekkah.R;
 import in.app.sekkah.base.BaseFragment;
 import in.app.sekkah.data.LocationSelect;
 import in.app.sekkah.data.Realm.RealmDB;
+import in.app.sekkah.data.callbacks.JSONCallback;
 import in.app.sekkah.data.network.WebSocketHelper;
 import in.app.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.app.sekkah.di.component.FragmentComponent;
@@ -35,9 +39,9 @@ import in.app.sekkah.ui.main.trainlist.TrainsFragment;
 import static in.app.sekkah.utility.Constants.KEY_FROM;
 import static in.app.sekkah.utility.Constants.KEY_TO;
 import static in.app.sekkah.utility.Constants.LOCATION;
+import static in.app.sekkah.utility.Constants.RELOAD_DATASOURCE;
 
 public class HomeFragment extends BaseFragment implements HomeContract.View {
-    private View mFragment;
     @Inject
     HomePresenter mPresenter;
     @BindView(R.id.spnDeparture)
@@ -64,7 +68,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mFragment = inflater.inflate(R.layout.fragment_home, container, false);
+        View mFragment = inflater.inflate(R.layout.fragment_home, container, false);
         setUnbinder(ButterKnife.bind(this, mFragment));
         mPresenter.onAttach(this);
         realmDB = RealmDB.getinstance();
@@ -82,12 +86,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
     public void onResume() {
         String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
         WebSocketHelper webSocketHelper = new WebSocketHelper();
-       /* if(!SharedPrefsUtils.getBooleanPreference(getActivity(),RELOAD_DATASOURCE,false)){
+        if(!SharedPrefsUtils.getBooleanPreference(getActivity(),RELOAD_DATASOURCE,false)){
             webSocketHelper.startScheduleTracking(accessToken, new JSONCallback() {
                 @Override
                 public void onSuccess(JSONObject jsonObject) {
-                    mPresenter.parsonJson(jsonObject);
-                    //SharedPrefsUtils.setBooleanPreference(getActivity(),RELOAD_DATASOURCE,true);
+                    mPresenter.parsonTrainJson(jsonObject);
+                    SharedPrefsUtils.setBooleanPreference(getActivity(),RELOAD_DATASOURCE,true);
                 }
 
                 @Override
@@ -95,18 +99,48 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
 
                 }
             });
-        }*/
+        }
         super.onResume();
 
     }
 
 
 
+
     @Override
     public void setStationsData(List<String> data) {
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),  android.R.layout.simple_dropdown_item_1line, data){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
+                TextView tv = (TextView) super.getView(position, convertView, parent);
+
+                // Set the text color of spinner item
+                tv.setTextColor(Color.WHITE);
+
+
+                return tv;
+            }
+        };
+
         spnDeparture.setAdapter(arrayAdapter);
-        ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, data);
+        ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<String>(getContext(),  android.R.layout.simple_dropdown_item_1line, data){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
+                TextView tv = (TextView) super.getView(position, convertView, parent);
+
+                // Set the text color of spinner item
+                tv.setTextColor(Color.WHITE);
+
+
+                return tv;
+            }
+        };
         spnDestination.setAdapter(arrayAdapter1);
 
         int spinnerPosition = arrayAdapter.getPosition(SharedPrefsUtils.getStringPreference(getContext(),KEY_FROM));
@@ -144,9 +178,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View {
             location = LocationSelect.JUSTTRACKING.ordinal();
         }
 
+        if(spnDeparture.getSelectedItem().toString().equals(spnDestination.getSelectedItem().toString())) {
+            Toast.makeText(getActivity(),"Please Enter Valid Source and Destination", Toast.LENGTH_SHORT).show();
+            return;
+          }
+
         SharedPrefsUtils.setStringPreference(getContext(),KEY_FROM,spnDeparture.getSelectedItem().toString());
         SharedPrefsUtils.setStringPreference(getContext(),LOCATION,location+"");
         SharedPrefsUtils.setStringPreference(getContext(),KEY_TO,spnDestination.getSelectedItem().toString());
+
 
         TrainsFragment trainsFragment = TrainsFragment.newInstance();
         trainsFragment.setArguments(bundle);

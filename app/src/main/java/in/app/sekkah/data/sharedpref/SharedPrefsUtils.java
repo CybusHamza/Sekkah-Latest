@@ -180,4 +180,14 @@ final public class SharedPrefsUtils {
         }
         return false;
     }
+
+    public static void clearSharedPref(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (preferences != null) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("isUserLoggedin");
+            editor.apply();
+
+        }
+    }
 }

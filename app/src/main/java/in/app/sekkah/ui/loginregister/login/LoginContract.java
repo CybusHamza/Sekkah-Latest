@@ -18,6 +18,9 @@ public class LoginContract
 
     public interface Presenter extends BaseMvpPresenter<LoginContract.View>
     {
-        public void login(String username, String password);
+        public void login(String fbID, String phoneNum,String attestation);
+
+        public void loginSocialMedia(String socialId, String socialType,String firstName, String lastName,
+                                     String password, String email,String attestation);
     }
 }

@@ -21,7 +21,6 @@ public abstract class BaseFragment extends Fragment
 {
     private Unbinder unbinder;
     private BaseActivity baseActivity;
-    private FragmentComponent fragmentComponent;
     protected ProgressDialog progressDialog;
 
     @Override
@@ -30,7 +29,7 @@ public abstract class BaseFragment extends Fragment
         super.onCreate(savedInstanceState);
         progressDialog = new ProgressDialog(getContext());
         progressDialog.setCancelable(false);
-        fragmentComponent = DaggerFragmentComponent.builder()
+        FragmentComponent fragmentComponent = DaggerFragmentComponent.builder()
                 .fragmentModule(new FragmentModule())
                 .applicationComponent(((MyApplication) baseActivity.getApplication()).getApplicationComponent())
                 .build();

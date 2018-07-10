@@ -11,10 +11,14 @@ import com.google.gson.annotations.SerializedName;
 public class LoginRequest
 {
     @Expose
-    @SerializedName("userId")
-    public String username;
+    @SerializedName("fbId")
+    public String fbId;
 
     @Expose
-    @SerializedName("password")
-    public String password;
+    @SerializedName("phoneNum")
+    public String phoneNum;
+
+    @Expose
+    @SerializedName("attestation")
+    public String attestation;
 }

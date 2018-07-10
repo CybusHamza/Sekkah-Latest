@@ -24,7 +24,6 @@ import in.app.sekkah.di.component.FragmentComponent;
 
 public class ContactFragment extends BaseFragment implements ContactContract.View
 {
-    private View mFragment;
     @Inject ContactPresenter mPresenter;
 
     @BindView (R.id.tvSubject)
@@ -56,7 +55,7 @@ public class ContactFragment extends BaseFragment implements ContactContract.Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mFragment = inflater.inflate(R.layout.fragment_contact, container, false);
+        View mFragment = inflater.inflate(R.layout.fragment_contact, container, false);
         setUnbinder(ButterKnife.bind(this, mFragment));
         mPresenter.onAttach(this);
         return mFragment;

@@ -1,6 +1,7 @@
 package in.app.sekkah.ui.main;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -30,13 +31,17 @@ import in.app.sekkah.data.model.User;
 import in.app.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.app.sekkah.di.component.ActivityComponent;
 import in.app.sekkah.fcm.RegistrationIntentService;
+import in.app.sekkah.reciever.LocalChangeReciever;
 import in.app.sekkah.ui.loginregister.LoginRegisterActivity;
+import in.app.sekkah.ui.loginregister.login.LoginActivity;
 import in.app.sekkah.ui.main.contact.ContactFragment;
 import in.app.sekkah.ui.main.home.HomeFragment;
 import in.app.sekkah.ui.main.report.ReportFragment;
 import in.app.sekkah.ui.main.track.map.MapFragment;
 
 import static in.app.sekkah.ui.main.report.ReportFragment.latLngTrain;
+import static in.app.sekkah.ui.main.track.map.MapFragment.nextStationName;
+import static in.app.sekkah.ui.main.track.map.MapFragment.nextStationdelay;
 import static in.app.sekkah.utility.Constants.FCM_TOEKN_ID;
 
 public class MainActivity extends BaseActivity implements MainContract.View,MapFragment.OnFragmentInteractionListener
@@ -48,11 +53,14 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
 
     private ImageView mIvProfile;
     private TextView mTvName;
-    private View mNavHeader;
 
     @Inject MainPresenter mainPresenter;
 
     private static int mNavItemIndex = 0;
+
+
+    LocalChangeReciever localChangeReciever;
+    IntentFilter intentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
         setContentView(R.layout.activity_main);
         setUnbinder(ButterKnife.bind(this));
 
-        mNavHeader = mNavigationView.getHeaderView(0);
+        View mNavHeader = mNavigationView.getHeaderView(0);
         mIvProfile = mNavHeader.findViewById(R.id.ivProfile);
         mTvName = mNavHeader.findViewById(R.id.tvName);
 
@@ -78,6 +86,10 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
                 .add(R.id.frameMain, HomeFragment.newInstance(), "HomeFragment")
                 .addToBackStack("HomeFragment")
                 .commit();
+
+        localChangeReciever = new LocalChangeReciever();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(getPackageName() + "android.intent.action.LOCALE_CHANGED");
 
         Intent intent = new Intent(MainActivity.this,RegistrationIntentService.class);
         startService(intent);
@@ -98,6 +110,18 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        registerReceiver(localChangeReciever,intentFilter);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(localChangeReciever);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -127,7 +151,7 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
     {
 
 
-        mTvName.setText("Sekkah");
+        mTvName.setText(getString(R.string.app_name));
 
         Glide.with(this).load(R.drawable.generic_profile_picture)
                 .thumbnail(0.5f)
@@ -190,7 +214,9 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
                         break;
                     case R.id.nav_main_logout:
                         mNavItemIndex = 5;
-                        startActivity(new Intent(MainActivity.this, LoginRegisterActivity.class));
+                        LoginManager.getInstance().logOut();
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        SharedPrefsUtils.clearSharedPref(MainActivity.this);
                         finish();
                         break;
                     default:
@@ -240,6 +266,8 @@ public class MainActivity extends BaseActivity implements MainContract.View,MapF
         if(getSupportFragmentManager().getBackStackEntryCount() > 1){
             getSupportFragmentManager().popBackStack();
             latLngTrain = null;
+            nextStationName= null;
+            nextStationdelay=null;
         }
         else if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
             getSupportFragmentManager().popBackStack();

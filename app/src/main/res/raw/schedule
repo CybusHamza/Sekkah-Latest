@@ -5,6 +5,7 @@
             "number": "989",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -73,6 +74,7 @@
             "number": "89",
             "namear": "اسبانى",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -217,6 +219,7 @@
             "number": "997",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -281,6 +284,7 @@
             "number": "871",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767494",
@@ -349,6 +353,7 @@
             "number": "1087",
             "namear": "نوم",
             "nameen": "sleep",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -369,6 +374,7 @@
             "number": "2009",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -421,6 +427,7 @@
             "number": "87",
             "namear": "نوم",
             "nameen": "Sleep",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -485,6 +492,7 @@
             "number": "1903",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -561,6 +569,7 @@
             "number": "85",
             "namear": "نوم",
             "nameen": "sleep",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -585,6 +594,7 @@
             "number": "83",
             "namear": "نوم",
             "nameen": "Sleep",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -645,6 +655,7 @@
             "number": "977",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767482",
@@ -709,6 +720,7 @@
             "number": "2015",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -765,6 +777,7 @@
             "number": "2007",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -829,6 +842,7 @@
             "number": "2013",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -901,6 +915,7 @@
             "number": "935",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767482",
@@ -957,6 +972,7 @@
             "number": "983",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -1089,6 +1105,7 @@
             "number": "979",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767494",
@@ -1165,6 +1182,7 @@
             "number": "981",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767479",
@@ -1293,6 +1311,7 @@
             "number": "891",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad669176748e",
@@ -1341,6 +1360,7 @@
             "number": "987",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad6691767485",
@@ -1437,6 +1457,7 @@
             "number": "991",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "s2n",
             "stations": [
                 {
                     "stationId": "5ae707138cecad669176748e",
@@ -1521,94 +1542,11 @@
             ]
         },
         {
-            "id": "5ae707158cecad66917674bd",
-            "number": "971",
-            "namear": "اسباني",
-            "nameen": "1st and 2nd",
-            "stations": [
-                {
-                    "stationId": "5ae707138cecad669176748e",
-                    "ts": "5:10"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767490",
-                    "ts": "5:39"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767491",
-                    "ts": "6:0"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767493",
-                    "ts": "6:17"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767494",
-                    "ts": "6:54"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767495",
-                    "ts": "7:25"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767496",
-                    "ts": "7:54"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767497",
-                    "ts": "8:1"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767498",
-                    "ts": "8:12"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767499",
-                    "ts": "8:26"
-                },
-                {
-                    "stationId": "5ae707138cecad669176749b",
-                    "ts": "9:15"
-                },
-                {
-                    "stationId": "5ae707138cecad669176749f",
-                    "ts": "10:0"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a0",
-                    "ts": "10:18"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a1",
-                    "ts": "10:36"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a2",
-                    "ts": "10:56"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a3",
-                    "ts": "11:26"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a4",
-                    "ts": "11:55"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a5",
-                    "ts": "12:40"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a6",
-                    "ts": "13:4"
-                }
-            ]
-        },
-        {
             "id": "5ae707158cecad66917674be",
             "number": "934",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a7",
@@ -1669,6 +1607,7 @@
             "number": "1086",
             "namear": "نوم",
             "nameen": "sleep",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a7",
@@ -1689,6 +1628,7 @@
             "number": "1902",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -1765,6 +1705,7 @@
             "number": "2008",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a7",
@@ -1821,6 +1762,7 @@
             "number": "890",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -1869,6 +1811,7 @@
             "number": "996",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -1933,6 +1876,7 @@
             "number": "976",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -1997,6 +1941,7 @@
             "number": "2014",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2053,6 +1998,7 @@
             "number": "88",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a7",
@@ -2197,6 +2143,7 @@
             "number": "86",
             "namear": "نوم",
             "nameen": "Sleep",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2261,6 +2208,7 @@
             "number": "84",
             "namear": "نوم",
             "nameen": "Sleep",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a5",
@@ -2293,6 +2241,7 @@
             "number": "988",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2361,6 +2310,7 @@
             "number": "872",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2433,6 +2383,7 @@
             "number": "82",
             "namear": "نوم",
             "nameen": "Sleep",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a5",
@@ -2489,6 +2440,7 @@
             "number": "2006",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2537,94 +2489,11 @@
             ]
         },
         {
-            "id": "5ae707158cecad66917674cd",
-            "number": "990",
-            "namear": "اسباني",
-            "nameen": "1st and 2nd",
-            "stations": [
-                {
-                    "stationId": "5ae707138cecad66917674a6",
-                    "ts": "16:4"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a5",
-                    "ts": "16:30"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a3",
-                    "ts": "17:30"
-                },
-                {
-                    "stationId": "5ae707138cecad66917674a2",
-                    "ts": "17:55"
-                },
-                {
-                    "stationId": "5ae707138cecad669176749f",
-                    "ts": "18:38"
-                },
-                {
-                    "stationId": "5ae707138cecad669176749e",
-                    "ts": "18:53"
-                },
-                {
-                    "stationId": "5ae707138cecad669176749d",
-                    "ts": "19:5"
-                },
-                {
-                    "stationId": "5ae707138cecad669176749c",
-                    "ts": "19:18"
-                },
-                {
-                    "stationId": "5ae707138cecad669176749b",
-                    "ts": "19:50"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767499",
-                    "ts": "20:28"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767497",
-                    "ts": "20:51"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767496",
-                    "ts": "21:4"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767495",
-                    "ts": "21:22"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767494",
-                    "ts": "22:4"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767493",
-                    "ts": "22:21"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767492",
-                    "ts": "22:32"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767491",
-                    "ts": "22:45"
-                },
-                {
-                    "stationId": "5ae707138cecad6691767490",
-                    "ts": "23:24"
-                },
-                {
-                    "stationId": "5ae707138cecad669176748f",
-                    "ts": "23:39"
-                }
-            ]
-        },
-        {
             "id": "5ae707158cecad66917674ce",
             "number": "970",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2705,6 +2574,7 @@
             "number": "986",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2801,6 +2671,7 @@
             "number": "982",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -2933,6 +2804,7 @@
             "number": "2012",
             "namear": "VIP",
             "nameen": "VIP",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -3005,6 +2877,7 @@
             "number": "980",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -3133,6 +3006,7 @@
             "number": "978",
             "namear": "اسباني",
             "nameen": "1st and 2nd",
+            "direction": "n2s",
             "stations": [
                 {
                     "stationId": "5ae707138cecad66917674a6",
@@ -3201,6 +3075,176 @@
                 {
                     "stationId": "5ae707138cecad6691767494",
                     "ts": "12:35"
+                }
+            ]
+        },
+        {
+            "id": "5ae707158cecad66917674bd",
+            "number": "971",
+            "namear": "اسباني",
+            "nameen": "1st and 2nd",
+            "direction": "n2s",
+            "stations": [
+                {
+                    "stationId": "5ae707138cecad669176748e",
+                    "ts": "5:10"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767490",
+                    "ts": "5:39"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767491",
+                    "ts": "6:0"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767493",
+                    "ts": "6:17"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767494",
+                    "ts": "6:54"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767495",
+                    "ts": "7:25"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767496",
+                    "ts": "7:54"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767497",
+                    "ts": "8:1"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767498",
+                    "ts": "8:12"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767499",
+                    "ts": "8:26"
+                },
+                {
+                    "stationId": "5ae707138cecad669176749b",
+                    "ts": "9:15"
+                },
+                {
+                    "stationId": "5ae707138cecad669176749f",
+                    "ts": "10:0"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a0",
+                    "ts": "10:18"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a1",
+                    "ts": "10:36"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a2",
+                    "ts": "10:56"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a3",
+                    "ts": "11:26"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a4",
+                    "ts": "11:55"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a5",
+                    "ts": "12:40"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a6",
+                    "ts": "13:4"
+                }
+            ]
+        },
+        {
+            "id": "5ae707158cecad66917674cd",
+            "number": "990",
+            "namear": "اسباني",
+            "nameen": "1st and 2nd",
+            "direction": "n2s",
+            "stations": [
+                {
+                    "stationId": "5ae707138cecad66917674a6",
+                    "ts": "16:4"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a5",
+                    "ts": "16:30"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a3",
+                    "ts": "17:30"
+                },
+                {
+                    "stationId": "5ae707138cecad66917674a2",
+                    "ts": "17:55"
+                },
+                {
+                    "stationId": "5ae707138cecad669176749f",
+                    "ts": "18:38"
+                },
+                {
+                    "stationId": "5ae707138cecad669176749e",
+                    "ts": "18:53"
+                },
+                {
+                    "stationId": "5ae707138cecad669176749d",
+                    "ts": "19:5"
+                },
+                {
+                    "stationId": "5ae707138cecad669176749c",
+                    "ts": "19:18"
+                },
+                {
+                    "stationId": "5ae707138cecad669176749b",
+                    "ts": "19:50"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767499",
+                    "ts": "20:28"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767497",
+                    "ts": "20:51"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767496",
+                    "ts": "21:4"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767495",
+                    "ts": "21:22"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767494",
+                    "ts": "22:4"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767493",
+                    "ts": "22:21"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767492",
+                    "ts": "22:32"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767491",
+                    "ts": "22:45"
+                },
+                {
+                    "stationId": "5ae707138cecad6691767490",
+                    "ts": "23:24"
+                },
+                {
+                    "stationId": "5ae707138cecad669176748f",
+                    "ts": "23:39"
                 }
             ]
         }

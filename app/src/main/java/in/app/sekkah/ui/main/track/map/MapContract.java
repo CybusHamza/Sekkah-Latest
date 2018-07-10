@@ -20,7 +20,7 @@ public class MapContract
     public interface View extends BaseMvpView
     {
         public void setTrainStaiton( ArrayList<StationPOJO> stationPOJOS);
-        public void setTrainLocation(LatLng location, String nextStation);
+        public void setTrainLocation(LatLng location, String nextStation,String delay);
     }
 
     public interface Presenter extends BaseMvpPresenter<MapContract.View>

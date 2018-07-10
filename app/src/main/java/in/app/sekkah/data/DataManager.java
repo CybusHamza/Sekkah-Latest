@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import in.app.sekkah.base.BaseDataManager;
 import in.app.sekkah.data.callbacks.JSONCallback;
-import in.app.sekkah.data.callbacks.TrainLocationCallback;
 import in.app.sekkah.data.model.User;
 import in.app.sekkah.data.network.ApiHelper;
 import in.app.sekkah.data.network.WebSocketHelper;
@@ -38,14 +37,20 @@ public class DataManager implements BaseDataManager
     }
 
     @Override
-    public void login(String username, String password, JSONCallback callback)
+    public void login(String fbID, String phoneNum, String attestation, JSONCallback callback)
     {
-        mApiHelper.loginUser(username, password, callback);
+        mApiHelper.loginUser(fbID, phoneNum,attestation ,callback);
     }
 
     @Override
     public void forgotPassword(String email, String password, String confirmPassword, JSONCallback callback) {
         mApiHelper.forgotPassword(email, password,confirmPassword, callback);
+    }
+
+    @Override
+    public void loginSocialMedia(String socialId, String socialType, String firstName, String lastName, String password, String email, String attestation, JSONCallback callback) {
+
+        mApiHelper.loginSocialMedia(socialId,socialType,firstName,lastName,password,email,attestation,callback);
     }
 
     @Override
@@ -67,7 +72,7 @@ public class DataManager implements BaseDataManager
     }
 
     @Override
-    public void trainLocationReport(String stationId, String ts, String userAccessToken, TrainLocationCallback callback) {
+    public void trainLocationReport(String stationId, String ts, String userAccessToken, JSONCallback callback) {
 
         //String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
 

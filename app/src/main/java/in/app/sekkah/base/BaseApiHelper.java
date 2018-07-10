@@ -19,8 +19,12 @@ public interface BaseApiHelper {
                       final JSONCallback callback);
 
     void loginUser(String username,
-                   String password,
+                   String password, String attestation,
                    final JSONCallback callback);
+
+    void loginSocialMedia(String socialId, String socialType,String firstName, String lastName,
+                          String password, String email,String attestation, JSONCallback callback);
+
 
     void forgotPassword(String email,
                         String password,

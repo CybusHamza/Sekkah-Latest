@@ -1,6 +1,7 @@
 package in.app.sekkah.data.network;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.JsonElement;
 
@@ -15,6 +16,7 @@ import in.app.sekkah.data.network.api.ApiInterface;
 import in.app.sekkah.data.network.request.ContactUs;
 import in.app.sekkah.data.network.request.ForgotPasswordRequest;
 import in.app.sekkah.data.network.request.LoginRequest;
+import in.app.sekkah.data.network.request.LoginSocailRequest;
 import in.app.sekkah.data.network.request.Notifsetting;
 import in.app.sekkah.data.network.request.PushToken;
 import in.app.sekkah.data.network.request.RegisterRequest;
@@ -93,13 +95,71 @@ public class ApiHelper implements BaseApiHelper
     }
 
     @Override
-    public void loginUser(String username, String password, final JSONCallback callback)
+    public void loginUser(String fbID, String phoneNum, String attestation ,final JSONCallback callback)
     {
         LoginRequest request = new LoginRequest();
-        request.username = username;
-        request.password = password;
+        request.fbId = fbID;
+        request.phoneNum = phoneNum;
+        request.attestation = attestation;
 
         Call<JsonElement> call = mProfileApi.login(request);
+        call.enqueue(new Callback<JsonElement>()
+        {
+            @Override
+            public void onResponse(Call<JsonElement> call, Response<JsonElement> response)
+            {
+                Log.d(TAG, response.body() + "");
+                Log.d(TAG, response + "");
+
+                boolean success = false;
+                JSONObject root = null;
+                String errorMessage = "Something went wrong !";
+                try
+                {
+
+                 if(response.code() == 200) {
+                     root = new JSONObject(response.body().getAsJsonObject().toString());
+                     success = root.getBoolean("success");
+                     if(root.has("error"))
+                         errorMessage = root.getString("error");
+                 }else {
+                     callback.onFail(errorMessage);
+                 }
+
+                }
+                catch(JSONException ex)
+                {
+                    Log.e(TAG, ex.getMessage());
+                }
+
+                if(success)
+                    callback.onSuccess(root);
+                else
+                    callback.onFail(errorMessage);
+            }
+
+            @Override
+            public void onFailure(Call<JsonElement> call, Throwable t)
+            {
+                Log.e(TAG, t.toString());
+                callback.onFail("Error contacting the service! Please try again later.");
+            }
+        });
+    }
+
+    @Override
+    public void loginSocialMedia(String socialId, String socialType, String firstName, String lastName, String password, String email, String attestation, final JSONCallback callback) {
+
+        LoginSocailRequest request = new LoginSocailRequest();
+        request.socialId = socialId;
+        request.socialType = socialType;
+        request.firstName = firstName;
+        request.lastName = lastName;
+        request.password = password;
+        request.email = email;
+        request.attestation = attestation;
+
+        Call<JsonElement> call = mProfileApi.loginSocialMedia(request);
         call.enqueue(new Callback<JsonElement>()
         {
             @Override
@@ -136,6 +196,7 @@ public class ApiHelper implements BaseApiHelper
                 callback.onFail("Error contacting the service! Please try again later.");
             }
         });
+
     }
 
     @Override
@@ -203,7 +264,7 @@ public class ApiHelper implements BaseApiHelper
                 String errorMessage = null;
                 try
                 {
-                    if(response.code() != 401){
+                    if(response.code() == 200){
                         root = new JSONObject(response.body().getAsJsonObject().toString());
                         success = root.getBoolean("success");
 

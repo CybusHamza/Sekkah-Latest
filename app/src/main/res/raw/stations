@@ -1,0 +1,380 @@
+{
+    "stations": [
+        {
+            "id": "5ae707138cecad6691767479",
+            "namear": "أسوان",
+            "nameen": "Aswan",
+            "lat": 24.099919,
+            "lng": 32.902229,
+            "distance": 879
+        },
+        {
+            "id": "5ae707138cecad669176747a",
+            "namear": "دراو",
+            "nameen": "Drau",
+            "lat": 24.404907,
+            "lng": 32.927317,
+            "distance": 842
+        },
+        {
+            "id": "5ae707138cecad669176747b",
+            "namear": "كوم أمبو",
+            "nameen": "Kom Ombo",
+            "lat": 24.482454,
+            "lng": 32.947481,
+            "distance": 834
+        },
+        {
+            "id": "5ae707138cecad669176747c",
+            "namear": "كلابشة",
+            "nameen": "Kalabsha",
+            "lat": 24.66975,
+            "lng": 32.947023,
+            "distance": 818
+        },
+        {
+            "id": "5ae707138cecad669176747d",
+            "namear": "سلوا",
+            "nameen": "Salwa",
+            "lat": 24.734748,
+            "lng": 32.938297,
+            "distance": 804
+        },
+        {
+            "id": "5ae707138cecad669176747e",
+            "namear": "إدفو",
+            "nameen": "Edfu",
+            "lat": 24.990419,
+            "lng": 32.88945,
+            "distance": 776
+        },
+        {
+            "id": "5ae707138cecad669176747f",
+            "namear": "السباعية",
+            "nameen": "el sebaia",
+            "lat": 25.198867,
+            "lng": 32.701087,
+            "distance": 744
+        },
+        {
+            "id": "5ae707138cecad6691767480",
+            "namear": "إسنا",
+            "nameen": "Esna",
+            "lat": 25.309922,
+            "lng": 32.570642,
+            "distance": 724
+        },
+        {
+            "id": "5ae707138cecad6691767481",
+            "namear": "أرمنت",
+            "nameen": "Armant",
+            "lat": 25.598464,
+            "lng": 32.555707,
+            "distance": 791
+        },
+        {
+            "id": "5ae707138cecad6691767482",
+            "namear": "الأقصر",
+            "nameen": "Luxor",
+            "lat": 25.696562,
+            "lng": 32.644777,
+            "distance": 671
+        },
+        {
+            "id": "5ae707138cecad6691767483",
+            "namear": "قوص",
+            "nameen": "Qus",
+            "lat": 25.915393,
+            "lng": 32.758543,
+            "distance": 640
+        },
+        {
+            "id": "5ae707138cecad6691767484",
+            "namear": "قفط",
+            "nameen": "Qeft",
+            "lat": 25.994011,
+            "lng": 32.80088,
+            "distance": 629
+        },
+        {
+            "id": "5ae707138cecad6691767485",
+            "namear": "قنا",
+            "nameen": "Qena",
+            "lat": 26.162318,
+            "lng": 32.727301,
+            "distance": 609
+        },
+        {
+            "id": "5ae707138cecad6691767486",
+            "namear": "دشنا",
+            "nameen": "Deshna",
+            "lat": 26.123264,
+            "lng": 32.461783,
+            "distance": 578
+        },
+        {
+            "id": "5ae707138cecad6691767487",
+            "namear": "نجع حمادى",
+            "nameen": "Nag Hammadi",
+            "lat": 26.043465,
+            "lng": 32.24095,
+            "distance": 553
+        },
+        {
+            "id": "5ae707138cecad6691767488",
+            "namear": "فرشوط",
+            "nameen": "Farshout",
+            "lat": 26.058288,
+            "lng": 32.165612,
+            "distance": 545
+        },
+        {
+            "id": "5ae707138cecad6691767489",
+            "namear": "أبوتشت",
+            "nameen": "Abu Tesht",
+            "lat": 26.116541,
+            "lng": 32.095499,
+            "distance": 535
+        },
+        {
+            "id": "5ae707138cecad669176748a",
+            "namear": "البلينا",
+            "nameen": "Albina",
+            "lat": 26.23469,
+            "lng": 31.997273,
+            "distance": 518
+        },
+        {
+            "id": "5ae707138cecad669176748b",
+            "namear": "جرجا",
+            "nameen": "Gerga",
+            "lat": 26.336376,
+            "lng": 31.889381,
+            "distance": 502
+        },
+        {
+            "id": "5ae707138cecad669176748c",
+            "namear": "العسيرات",
+            "nameen": "El-Usayrat",
+            "lat": 26.366752,
+            "lng": 31.844571,
+            "distance": 492
+        },
+        {
+            "id": "5ae707138cecad669176748d",
+            "namear": "المنشاة",
+            "nameen": "El monsha",
+            "lat": 26.476151,
+            "lng": 31.79673,
+            "distance": 482
+        },
+        {
+            "id": "5ae707138cecad669176748e",
+            "namear": "سوهاج",
+            "nameen": "Sohag",
+            "lat": 26.551366,
+            "lng": 31.69896,
+            "distance": 467
+        },
+        {
+            "id": "5ae707138cecad669176748f",
+            "namear": "المراغة",
+            "nameen": "El Maragha",
+            "lat": 26.696317,
+            "lng": 31.602356,
+            "distance": 448
+        },
+        {
+            "id": "5ae707138cecad6691767490",
+            "namear": "طهطا",
+            "nameen": "Tahta",
+            "lat": 26.768187,
+            "lng": 31.505753,
+            "distance": 435
+        },
+        {
+            "id": "5ae707138cecad6691767491",
+            "namear": "طما",
+            "nameen": "Tama",
+            "lat": 26.905433,
+            "lng": 31.431685,
+            "distance": 418
+        },
+        {
+            "id": "5ae707138cecad6691767492",
+            "namear": "صدفا",
+            "nameen": "Sidfa",
+            "lat": 26.964467,
+            "lng": 31.375931,
+            "distance": 409
+        },
+        {
+            "id": "5ae707138cecad6691767493",
+            "namear": "أبوتيج",
+            "nameen": "Abu Tig",
+            "lat": 27.045379,
+            "lng": 31.314074,
+            "distance": 399
+        },
+        {
+            "id": "5ae707138cecad6691767494",
+            "namear": "أسيوط",
+            "nameen": "Asyut",
+            "lat": 27.180137,
+            "lng": 31.188346,
+            "distance": 375
+        },
+        {
+            "id": "5ae707138cecad6691767495",
+            "namear": "منفلوط",
+            "nameen": "Manfalut",
+            "lat": 27.307681,
+            "lng": 30.965258,
+            "distance": 347
+        },
+        {
+            "id": "5ae707138cecad6691767496",
+            "namear": "القوصية",
+            "nameen": "Qusiya",
+            "lat": 27.43825,
+            "lng": 30.833022,
+            "distance": 327
+        },
+        {
+            "id": "5ae707138cecad6691767497",
+            "namear": "ديروط",
+            "nameen": "Dayrout",
+            "lat": 27.559707,
+            "lng": 30.812715,
+            "distance": 313
+        },
+        {
+            "id": "5ae707138cecad6691767498",
+            "namear": "دير مواس",
+            "nameen": "Deir Mawas",
+            "lat": 27.641329,
+            "lng": 30.857904,
+            "distance": 303
+        },
+        {
+            "id": "5ae707138cecad6691767499",
+            "namear": "ملوى",
+            "nameen": "Mallawi",
+            "lat": 27.732724,
+            "lng": 30.850042,
+            "distance": 292
+        },
+        {
+            "id": "5ae707138cecad669176749a",
+            "namear": "ابو قرقاص",
+            "nameen": "Abu Qurqas",
+            "lat": 27.930025,
+            "lng": 30.821815,
+            "distance": 267
+        },
+        {
+            "id": "5ae707138cecad669176749b",
+            "namear": "المنيا",
+            "nameen": "Menia",
+            "lat": 28.09347,
+            "lng": 30.755756,
+            "distance": 247
+        },
+        {
+            "id": "5ae707138cecad669176749c",
+            "namear": "سمالوط",
+            "nameen": "Samalut",
+            "lat": 28.311102,
+            "lng": 30.713729,
+            "distance": 222
+        },
+        {
+            "id": "5ae707138cecad669176749d",
+            "namear": "مطاى",
+            "nameen": "Mattay",
+            "lat": 28.414289,
+            "lng": 30.787249,
+            "distance": 208
+        },
+        {
+            "id": "5ae707138cecad669176749e",
+            "namear": "بنى مزار",
+            "nameen": "Bani Mazar",
+            "lat": 28.495215,
+            "lng": 30.806255,
+            "distance": 198
+        },
+        {
+            "id": "5ae707138cecad669176749f",
+            "namear": "مغاغه",
+            "nameen": "Maghagha",
+            "lat": 28.649241,
+            "lng": 30.838452,
+            "distance": 180
+        },
+        {
+            "id": "5ae707138cecad66917674a0",
+            "namear": "الفشن",
+            "nameen": "Fashn",
+            "lat": 28.823165,
+            "lng": 30.903608,
+            "distance": 159
+        },
+        {
+            "id": "5ae707138cecad66917674a1",
+            "namear": "ببا",
+            "nameen": "BBA",
+            "lat": 28.919498,
+            "lng": 30.977796,
+            "distance": 146
+        },
+        {
+            "id": "5ae707138cecad66917674a2",
+            "namear": "بنى سويف",
+            "nameen": "Bani Sweif",
+            "lat": 29.076113,
+            "lng": 31.094746,
+            "distance": 124
+        },
+        {
+            "id": "5ae707138cecad66917674a3",
+            "namear": "الواسطى",
+            "nameen": "Al Wasta",
+            "lat": 29.337011,
+            "lng": 31.20433,
+            "distance": 92
+        },
+        {
+            "id": "5ae707138cecad66917674a4",
+            "namear": "العياط",
+            "nameen": "Al Ayat",
+            "lat": 29.620184,
+            "lng": 31.255616,
+            "distance": 59
+        },
+        {
+            "id": "5ae707138cecad66917674a5",
+            "namear": "الجيزة",
+            "nameen": "Giza",
+            "lat": 30.005994,
+            "lng": 31.20802,
+            "distance": 13
+        },
+        {
+            "id": "5ae707138cecad66917674a6",
+            "namear": "القاهرة",
+            "nameen": "Cairo",
+            "lat": 30.06312,
+            "lng": 31.246905,
+            "distance": 0
+        },
+        {
+            "id": "5ae707138cecad66917674a7",
+            "namear": "اسكندريه",
+            "nameen": "Alex",
+            "lat": 31.193487,
+            "lng": 29.906548,
+            "distance": 0
+        }
+    ]
+}

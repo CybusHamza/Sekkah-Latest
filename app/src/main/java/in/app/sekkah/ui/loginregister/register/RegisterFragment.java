@@ -38,7 +38,6 @@ import in.app.sekkah.di.component.FragmentComponent;
 
 public class RegisterFragment extends BaseFragment implements RegisterContract.View, Validator.ValidationListener
 {
-    private View mFragment;
     private String mFirstName, mLastName, mEmail, mPassword, mConfirmPassword, mUsername;
     private long mDateOfBirth;
     private Context mContext;
@@ -81,7 +80,7 @@ public class RegisterFragment extends BaseFragment implements RegisterContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mFragment = inflater.inflate(R.layout.fragment_register, container, false);
+        View mFragment = inflater.inflate(R.layout.fragment_register, container, false);
         setUnbinder(ButterKnife.bind(this, mFragment));
         return mFragment;
     }

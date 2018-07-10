@@ -25,6 +25,11 @@ import in.app.sekkah.data.sharedpref.SharedPrefsUtils;
 import in.app.sekkah.di.component.FragmentComponent;
 import io.realm.Realm;
 
+import static in.app.sekkah.ui.main.track.map.MapFragment.delayofTrain;
+import static in.app.sekkah.ui.main.track.map.MapFragment.nextStationName;
+import static in.app.sekkah.ui.main.track.map.MapFragment.nextStationdelay;
+import static in.app.sekkah.ui.main.track.map.MapFragment.traindepartureTime;
+import static in.app.sekkah.ui.main.track.map.MapFragment.traindestinationTime;
 import static in.app.sekkah.utility.Constants.KEY_FROM;
 import static in.app.sekkah.utility.Constants.KEY_TO;
 import static in.app.sekkah.utility.Constants.KEY_TRAINID;
@@ -34,20 +39,47 @@ import static in.app.sekkah.utility.Constants.KEY_TRAINID;
  */
 public class StationFragment extends BaseFragment implements StationContract.View
 {
-    private View mFragment;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     TextView tvDepartureStation,tvDestinationStation;
-
+    @BindView(R.id.tvNextStation)
+    TextView tvNextStation;
+    @BindView(R.id.tvLateTimeWorded)
+    TextView tvLateTimeWorded;
+    @BindView(R.id.tvDepartureTime)
+    TextView tvDepartureTime;
+    @BindView(R.id.tvLateTime)
+    TextView tvLateTime;
+    @BindView(R.id.tvDestinationTime)
+    TextView tvDestinationTime;
     @BindView(R.id.rvStations) RecyclerView mRecyclerView;
 
     @Inject StationPresenter mPresenter;
+
+    public static String trainId = "";
 
     private static final String TAG = StationFragment.class.getSimpleName();
 
     public static StationFragment newInstance()
     {
         return new StationFragment();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+
+        if (this.isVisible()) {
+            // If we are becoming invisible, then...
+            if (isVisibleToUser) {
+
+                if(nextStationdelay!= null && nextStationName != null)
+                {
+                    tvNextStation.setText(nextStationName);
+                    tvLateTimeWorded.setText(nextStationdelay);
+                    tvDepartureTime.setText(traindepartureTime);
+                    tvDestinationTime.setText(traindestinationTime);
+                    tvLateTime.setText(delayofTrain);
+                }
+            }
+        }
     }
 
     @Override
@@ -65,15 +97,15 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        mFragment = inflater.inflate(R.layout.fragment_station, container, false);
+        View mFragment = inflater.inflate(R.layout.fragment_station, container, false);
         setUnbinder(ButterKnife.bind(this, mFragment));
         mPresenter.onAttach(this);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         Bundle bundle = getArguments();
-        String trainId = "";
+
         if(bundle != null){
             if(bundle.containsKey(KEY_TRAINID)){
                 trainId = bundle.getString(KEY_TRAINID);
@@ -94,9 +126,10 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
         return mFragment;
     }
 
+
     @Override
     public void setStationData(ArrayList<StationPOJO> stationData) {
-        mAdapter = new StationFragment.StationAdapter(stationData);
+        RecyclerView.Adapter mAdapter = new StationAdapter(stationData);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -154,4 +187,7 @@ public class StationFragment extends BaseFragment implements StationContract.Vie
             return mDataset.size();
         }
     }
+
+
+
 }

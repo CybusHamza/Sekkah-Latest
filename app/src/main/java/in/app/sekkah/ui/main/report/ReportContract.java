@@ -25,6 +25,6 @@ public class ReportContract
     public interface Presenter extends BaseMvpPresenter<ReportContract.View>
     {
         void getStationsData(Context context);
-        void trainLocationReport(String stationId,String ts);
+        void trainLocationReport(Context contex,String stationId,String ts);
     }
 }

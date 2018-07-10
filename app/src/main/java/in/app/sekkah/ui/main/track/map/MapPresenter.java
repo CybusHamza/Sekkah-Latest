@@ -71,8 +71,9 @@ public class MapPresenter extends BasePresenter<MapContract.View> implements Map
                     latLng = new LatLng(jsonObject.getDouble("lat"),
                             jsonObject.getDouble("lng"));
                     String nextStation = jsonObject.getString("nextStation");
+                    String delay = jsonObject.getString("delay");
                     try {
-                        getMvpView().setTrainLocation(latLng,nextStation);
+                        getMvpView().setTrainLocation(latLng,nextStation,delay);
 
                     }catch (NullPointerException e){
                         Log.e("NPE" , e.toString());

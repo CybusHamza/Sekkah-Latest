@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import in.app.sekkah.data.network.request.ContactUs;
 import in.app.sekkah.data.network.request.ForgotPasswordRequest;
 import in.app.sekkah.data.network.request.LoginRequest;
+import in.app.sekkah.data.network.request.LoginSocailRequest;
 import in.app.sekkah.data.network.request.Notifsetting;
 import in.app.sekkah.data.network.request.PushToken;
 import in.app.sekkah.data.network.request.RegisterRequest;
@@ -29,8 +30,12 @@ public interface ApiInterface
     Call<JsonElement> register(@Body RegisterRequest body);
 
     @Headers("Content-type: application/json")
-    @POST("auth/login")
+    @POST("auth/loginphone")
     Call<JsonElement> login(@Body LoginRequest body);
+
+    @Headers("Content-type: application/json")
+    @POST("auth/loginsocial")
+    Call<JsonElement> loginSocialMedia(@Body LoginSocailRequest body);
 
     @Headers("Content-type: application/json")
     @POST("auth/restore")

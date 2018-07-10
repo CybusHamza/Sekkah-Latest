@@ -23,18 +23,15 @@ import io.realm.Realm;
 
 public class TrainsPresenter extends BasePresenter<TrainsContract.View> implements TrainsContract.Presenter
 {
-    private List<Train> trains;
-    private List<TrainPOJO> trainsPojo;
     private static final String TAG = TrainsPresenter.class.getSimpleName();
     RealmDB realmDB ;
-    private DataManager mDataManager;
 
     @Inject
     public TrainsPresenter(DataManager dataManager)
     {
-        trains = new ArrayList<>();
+        List<Train> trains = new ArrayList<>();
         realmDB =  RealmDB.getinstance();
-        mDataManager = dataManager;
+        DataManager mDataManager = dataManager;
     }
 
 
@@ -44,8 +41,8 @@ public class TrainsPresenter extends BasePresenter<TrainsContract.View> implemen
         String data ="";
 
         ArrayList<TrainPOJO> result1;
-        
-        trainsPojo = new ArrayList<>();
+
+        List<TrainPOJO> trainsPojo = new ArrayList<>();
 
         Locale current = context.getResources().getConfiguration().locale;
 

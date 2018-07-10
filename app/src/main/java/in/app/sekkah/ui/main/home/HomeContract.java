@@ -25,6 +25,7 @@ public class HomeContract
     {
         void getStationsData(Context context);
         void parsonJson(JSONObject jsonObject);
+        void parsonTrainJson(JSONObject jsonObject);
 
 
     }

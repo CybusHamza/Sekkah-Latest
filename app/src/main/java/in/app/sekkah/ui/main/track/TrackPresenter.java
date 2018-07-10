@@ -2,7 +2,6 @@ package in.app.sekkah.ui.main.track;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
@@ -12,7 +11,6 @@ import javax.inject.Inject;
 import in.app.sekkah.base.BasePresenter;
 import in.app.sekkah.data.DataManager;
 import in.app.sekkah.data.callbacks.JSONCallback;
-import in.app.sekkah.data.callbacks.TrainLocationCallback;
 import in.app.sekkah.data.model.User;
 
 /**
@@ -44,14 +42,18 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
     @Override
     public void trainLocationReport() {
        // String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSMTUxNTQzMzkxMjkyMiIsImd1aWQiOiI1YTUzYWZiOTBmODQyZjAwMTRiOTczMTYiLCJpYXQiOjE1MTU0OTc3NjR9.E1MRwZS3oDHTm0rm5XVD6Sq3Z9y_S1xSWotCOudm10s";
-        mDataManager.trainLocationReport("5a6475ec457d1b10b4bb38fa",new Timestamp(System.currentTimeMillis()).toString(), accessToken, new TrainLocationCallback()
-        {
+        mDataManager.trainLocationReport("5a6475ec457d1b10b4bb38fa",new Timestamp(System.currentTimeMillis()).toString(), accessToken, new JSONCallback() {
             @Override
-            public void onLocationReceive(LatLng location)
-            {
+            public void onSuccess(JSONObject jsonObject) {
 
             }
-        });
+
+            @Override
+            public void onFail(String errorMessage) {
+
+            }
+        }
+       );
     }
 
     @Override
@@ -62,7 +64,7 @@ public class TrackPresenter extends BasePresenter<TrackContract.View> implements
     @Override
     public void stopTrackTrain()
     {
-        mDataManager.stopTrackTrain("5a6475ec457d1b10b4bb3928");
+       // mDataManager.stopTrackTrain("5a6475ec457d1b10b4bb3928");
     }
 
     //TODO: Take a look at Presenter's and View's responsibilities.
